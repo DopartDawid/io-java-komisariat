@@ -15,7 +15,7 @@
         <!-- Assume test is the database name -->
 
         <property name = "hibernate.connection.url">
-            jdbc:mysql://13.93.73.149/Police_stations
+            jdbc:mysql://13.93.73.149/police_stations
         </property>
 
         <property name = "hibernate.connection.username">
@@ -27,7 +27,8 @@
         </property>
 
         <!-- List of XML mapping files -->
-        <mapping resource="com/komisariat/BusinessObjects/User.hbm.xml"/>
+        <mapping resource="User.hbm.xml"/>
+        <mapping resource="Vehicle.hbm.xml"/>
 
     </session-factory>
 </hibernate-configuration>

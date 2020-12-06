@@ -10,13 +10,18 @@
             This class contains the employee detail.
         </meta>
 
-        <id name = "id" type = "int" column = "id">
+        <id name = "id" type = "int" column = "ID">
             <generator class="native"/>
         </id>
 
-        <property name = "firstName" column = "first_name" type = "string"/>
-        <property name = "lastName" column = "last_name" type = "string"/>
-        <property name = "salary" column = "salary" type = "int"/>
+        <property name = "login" column = "Login" type = "string"/>
+        <property name = "passHash" column = "Pass_Hash" type = "string"/>
+        <property name="accessLevel" column="Access_level">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.komisariat.BusinessObjects.AccessLevel</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
 
     </class>
 </hibernate-mapping>

@@ -4,7 +4,7 @@ import com.komisariat.BusinessObjects.*;
 
 public class AdminManager {
 
-	public Kits[] getKits() {
+	public Kit[] getKits() {
 		// TODO - implement AdminManager.getKits
 		throw new UnsupportedOperationException();
 	}
@@ -92,7 +92,7 @@ public class AdminManager {
 		throw new UnsupportedOperationException();
 	}
 
-	public Headquartes[] getHeadquarters() {
+	public Headquarter[] getHeadquarters() {
 		// TODO - implement AdminManager.getHeadquarters
 		throw new UnsupportedOperationException();
 	}

@@ -4,7 +4,7 @@ import com.komisariat.BusinessObjects.*;
 
 public interface IDBLoginAccessController {
 
-	DBLoginAccessController2 getInstance();
+	DBLoginAccessController getInstance();
 
 	/**
 	 * 

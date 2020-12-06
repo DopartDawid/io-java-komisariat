@@ -1,7 +1,12 @@
 package com.komisariat.BusinessObjects;
 
 public enum AccessLevel {
-	ADMIN,
-	OFFICER,
-	COMMISSIONER
+	Admin,
+	Officer,
+	Commissioner;
+
+	@Override
+	public String toString() {
+		return super.toString();
+	}
 }

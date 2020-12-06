@@ -5,6 +5,13 @@ import com.komisariat.BusinessObjects.*;
 public class CommissionerManager extends OfficerManager {
 
 	/**
+	 * @param user
+	 */
+	public CommissionerManager(User user) {
+		super(user);
+	}
+
+	/**
 	 * 
 	 * @param begintDate
 	 * @param lastDate
