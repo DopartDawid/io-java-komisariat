@@ -30,7 +30,7 @@ public class OfficerManager {
 		throw new UnsupportedOperationException();
 	}
 
-	public Region[] getShiftRegions() {
+	public PatrolRegion[] getShiftRegions() {
 		// TODO - implement OfficerManager.getShiftRegions
 		throw new UnsupportedOperationException();
 	}
@@ -41,7 +41,7 @@ public class OfficerManager {
 	 * @param vehicle
 	 * @param region
 	 */
-	public Shift createShift(Kit kit, Vehicle vehicle, Region region) {
+	public Shift createShift(Kit kit, Vehicle vehicle, PatrolRegion region) {
 		// TODO - implement OfficerManager.createShift
 		throw new UnsupportedOperationException();
 	}
@@ -51,7 +51,7 @@ public class OfficerManager {
 	 * @param report
 	 * @param endMileage
 	 */
-	public bool finishActiveShift(Report report, int endMileage) {
+	public boolean finishActiveShift(Report report, int endMileage) {
 		// TODO - implement OfficerManager.finishActiveShift
 		throw new UnsupportedOperationException();
 	}

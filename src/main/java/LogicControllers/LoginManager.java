@@ -11,7 +11,7 @@ public class LoginManager {
 	 * @param login
 	 * @param password
 	 */
-	public void signInNewUser(string login, string password) {
+	public void signInNewUser(String login, String password) {
 		// TODO - implement LoginManager.signInNewUser
 		throw new UnsupportedOperationException();
 	}

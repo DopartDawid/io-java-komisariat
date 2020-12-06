@@ -2,8 +2,8 @@ package BusinessObjects;
 
 public class Report {
 
-	private string title;
+	private String title;
 	private int date;
-	private string content;
+	private String content;
 
 }

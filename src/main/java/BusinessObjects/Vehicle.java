@@ -2,9 +2,9 @@ package BusinessObjects;
 
 public class Vehicle {
 
-	private string VIN;
-	private string manufacturer;
-	private string model;
+	private String VIN;
+	private String manufacturer;
+	private String model;
 	private int productionYear;
 	private int mileage;
 

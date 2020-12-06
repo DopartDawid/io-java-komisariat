@@ -16,7 +16,7 @@ public class AdminManager {
 	 * @param hq
 	 * @param tools
 	 */
-	public void addKit(string name, string cat, Headquarter hq, Tool[] tools) {
+	public void addKit(String name, String cat, Headquarter hq, Tool[] tools) {
 		// TODO - implement AdminManager.addKit
 		throw new UnsupportedOperationException();
 	}
@@ -27,7 +27,7 @@ public class AdminManager {
 	 * @param manufacturer
 	 * @param category
 	 */
-	public Tool addTool(string model, string manufacturer, string category) {
+	public Tool addTool(String model, String manufacturer, String category) {
 		// TODO - implement AdminManager.addTool
 		throw new UnsupportedOperationException();
 	}
@@ -58,12 +58,12 @@ public class AdminManager {
 	 * @param hq
 	 * @param rank
 	 */
-	public void addOfficer(string firstName, string lastName, Headquarter hq, string rank) {
+	public void addOfficer(String firstName, String lastName, Headquarter hq, String rank) {
 		// TODO - implement AdminManager.addOfficer
 		throw new UnsupportedOperationException();
 	}
 
-	public string[] getRanks() {
+	public String[] getRanks() {
 		// TODO - implement AdminManager.getRanks
 		throw new UnsupportedOperationException();
 	}

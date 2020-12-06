@@ -11,6 +11,6 @@ public interface IDBLoginAccessController {
 	 * @param login
 	 * @param passHash
 	 */
-	User getUserFromCredentials(string login, string passHash);
+	User getUserFromCredentials(String login, String passHash);
 
 }

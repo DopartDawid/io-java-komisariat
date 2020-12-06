@@ -44,7 +44,7 @@ public interface IDBAccessController {
 	 */
 	Officer[] getOfficers(Headquarter hq);
 
-	string[] getRanks();
+	String[] getRanks();
 
 	Headquarter[] getHeaquarters();
 
@@ -52,50 +52,50 @@ public interface IDBAccessController {
 	 * 
 	 * @param shift
 	 */
-	bool saveShift(Shift shift);
+	boolean saveShift(Shift shift);
 
 	/**
 	 * 
 	 * @param kit
 	 */
-	bool saveKit(Kit kit);
+	boolean saveKit(Kit kit);
 
 	/**
 	 * 
 	 * @param officer
 	 */
-	bool saveOfficer(Officer officer);
+	boolean saveOfficer(Officer officer);
 
 	/**
 	 * 
 	 * @param shift
 	 */
-	bool updateShiftInfo(Shift shift);
+	boolean updateShiftInfo(Shift shift);
 
 	/**
 	 * 
 	 * @param oldKit
 	 * @param newKit
 	 */
-	bool updateKit(Kit oldKit, Kit newKit);
+	boolean updateKit(Kit oldKit, Kit newKit);
 
 	/**
 	 * 
 	 * @param oldOfficer
 	 * @param newOfficer
 	 */
-	bool updateOfficer(Officer oldOfficer, Officer newOfficer);
+	boolean updateOfficer(Officer oldOfficer, Officer newOfficer);
 
 	/**
 	 * 
 	 * @param kit
 	 */
-	bool removeKit(Kit kit);
+	boolean removeKit(Kit kit);
 
 	/**
 	 * 
 	 * @param officer
 	 */
-	bool removeOfficer(Officer officer);
+	boolean removeOfficer(Officer officer);
 
 }

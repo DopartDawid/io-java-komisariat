@@ -2,8 +2,8 @@ package BusinessObjects;
 
 public class User {
 
-	private string login;
-	private string passHash;
+	private String login;
+	private String passHash;
 	private AccessLevel accessLevel;
 
 }

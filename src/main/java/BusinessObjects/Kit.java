@@ -2,8 +2,8 @@ package BusinessObjects;
 
 public class Kit {
 
-	private string name;
-	private string category;
+	private String name;
+	private String category;
 	private Tool[] tools;
 
 }

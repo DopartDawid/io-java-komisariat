@@ -20,7 +20,7 @@ public class DBLoginAccessController implements IDBLoginAccessController {
 	 * @param login
 	 * @param passHash
 	 */
-	public User getUserFromCredentials(string login, string passHash) {
+	public User getUserFromCredentials(String login, String passHash) {
 		// TODO - implement DBLoginAccessController.getUserFromCredentials
 		throw new UnsupportedOperationException();
 	}

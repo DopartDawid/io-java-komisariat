@@ -2,8 +2,8 @@ package BusinessObjects;
 
 public class Tool {
 
-	private string model;
-	private string manufacturer;
-	private string category;
+	private String model;
+	private String manufacturer;
+	private String category;
 
 }

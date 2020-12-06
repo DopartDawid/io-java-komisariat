@@ -2,7 +2,7 @@ package BusinessObjects;
 
 public class Headquarter {
 
-	private string steetName;
+	private String steetName;
 	private int number;
 
 }

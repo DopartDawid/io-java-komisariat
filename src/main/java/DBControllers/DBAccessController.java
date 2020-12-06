@@ -71,7 +71,7 @@ public class DBAccessController implements IDBAccessController {
 		throw new UnsupportedOperationException();
 	}
 
-	public string[] getRanks() {
+	public String[] getRanks() {
 		// TODO - implement DBAccessController.getRanks
 		throw new UnsupportedOperationException();
 	}
@@ -85,7 +85,7 @@ public class DBAccessController implements IDBAccessController {
 	 * 
 	 * @param shift
 	 */
-	public bool saveShift(Shift shift) {
+	public boolean saveShift(Shift shift) {
 		// TODO - implement DBAccessController.saveShift
 		throw new UnsupportedOperationException();
 	}
@@ -94,7 +94,7 @@ public class DBAccessController implements IDBAccessController {
 	 * 
 	 * @param kit
 	 */
-	public bool saveKit(Kit kit) {
+	public boolean saveKit(Kit kit) {
 		// TODO - implement DBAccessController.saveKit
 		throw new UnsupportedOperationException();
 	}
@@ -103,7 +103,7 @@ public class DBAccessController implements IDBAccessController {
 	 * 
 	 * @param officer
 	 */
-	public bool saveOfficer(Officer officer) {
+	public boolean saveOfficer(Officer officer) {
 		// TODO - implement DBAccessController.saveOfficer
 		throw new UnsupportedOperationException();
 	}
@@ -112,7 +112,7 @@ public class DBAccessController implements IDBAccessController {
 	 * 
 	 * @param shift
 	 */
-	public bool updateShiftInfo(Shift shift) {
+	public boolean updateShiftInfo(Shift shift) {
 		// TODO - implement DBAccessController.updateShiftInfo
 		throw new UnsupportedOperationException();
 	}
@@ -122,7 +122,7 @@ public class DBAccessController implements IDBAccessController {
 	 * @param oldOfficer
 	 * @param newOfficer
 	 */
-	public bool updateOfficer(Officer oldOfficer, Officer newOfficer) {
+	public boolean updateOfficer(Officer oldOfficer, Officer newOfficer) {
 		// TODO - implement DBAccessController.updateOfficer
 		throw new UnsupportedOperationException();
 	}
@@ -132,7 +132,7 @@ public class DBAccessController implements IDBAccessController {
 	 * @param oldKit
 	 * @param newKit
 	 */
-	public bool updateKit(Kit oldKit, Kit newKit) {
+	public boolean updateKit(Kit oldKit, Kit newKit) {
 		// TODO - implement DBAccessController.updateKit
 		throw new UnsupportedOperationException();
 	}
@@ -141,7 +141,7 @@ public class DBAccessController implements IDBAccessController {
 	 * 
 	 * @param kit
 	 */
-	public bool removeKit(Kit kit) {
+	public boolean removeKit(Kit kit) {
 		// TODO - implement DBAccessController.removeKit
 		throw new UnsupportedOperationException();
 	}
@@ -150,7 +150,7 @@ public class DBAccessController implements IDBAccessController {
 	 * 
 	 * @param officer
 	 */
-	public bool removeOfficer(Officer officer) {
+	public boolean removeOfficer(Officer officer) {
 		// TODO - implement DBAccessController.removeOfficer
 		throw new UnsupportedOperationException();
 	}
