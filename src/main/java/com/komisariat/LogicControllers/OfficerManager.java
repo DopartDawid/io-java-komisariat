@@ -1,6 +1,6 @@
-package LogicControllers;
+package com.komisariat.LogicControllers;
 
-import BusinessObjects.*;
+import com.komisariat.BusinessObjects.*;
 
 public class OfficerManager {
 

@@ -1,6 +1,6 @@
-package MainControllers;
+package com.komisariat.MainControllers;
 
-import LogicControllers.*;
+import com.komisariat.LogicControllers.*;
 
 public class Facade {
 

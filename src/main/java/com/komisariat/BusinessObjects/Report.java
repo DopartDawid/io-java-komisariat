@@ -1,4 +1,4 @@
-package BusinessObjects;
+package com.komisariat.BusinessObjects;
 
 public class Report {
 

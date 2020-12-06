@@ -1,6 +1,6 @@
-package DBControllers;
+package com.komisariat.DBControllers;
 
-import BusinessObjects.*;
+import com.komisariat.BusinessObjects.*;
 
 public class DBLoginAccessController implements IDBLoginAccessController {
 
