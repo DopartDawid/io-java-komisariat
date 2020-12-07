@@ -27,8 +27,20 @@
         </property>
 
         <!-- List of XML mapping files -->
+        <mapping resource="Headquarter.hbm.xml"/>
+        <mapping resource="Kit.hbm.xml"/>
+        <mapping resource="Officer.hbm.xml"/>
+        <mapping resource="PatrolRegion.hbm.xml"/>
+        <mapping resource="Report.hbm.xml"/>
+        <mapping resource="Shift.hbm.xml"/>
+        <mapping resource="Street.hbm.xml"/>
+        <mapping resource="Tool.hbm.xml"/>
         <mapping resource="User.hbm.xml"/>
         <mapping resource="Vehicle.hbm.xml"/>
+
+
+
+
 
     </session-factory>
 </hibernate-configuration>

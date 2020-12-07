@@ -17,7 +17,6 @@
         <property name = "startDate" column = "Shift_Start_Date" type = "string"/>
         <property name = "endDate" column = "Shift_End_Date" type = "int"/>
         <property name = "patrolRegion" column = "Region_ID" type = "int"/>
-        <property name = "patrolRegion" column = "Region_ID" type = "int"/>
         <property name = "report" column = "Report_ID" type = "int"/>
         <property name = "kit" column = "Kit_ID" type = "int"/>
         <property name = "vehicle" column = "Vehicle_ID" type = "string"/>

@@ -1,9 +1,9 @@
 package com.komisariat.BusinessObjects;
 
-import javax.persistence.Convert;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
+import javax.persistence.*;
+
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
 	private String login;

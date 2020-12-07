@@ -29,7 +29,7 @@ public class Main {
             User user = (User) iterator.next();
             System.out.println("Login: " + user.getLogin());
             System.out.println("PassHash: " + user.getPassHash());
-            System.out.println("Access level: " + user.getAccessLevel());
+            System.out.println("Access level: " + user.getAccessLevel()+"\n");
         }
         t.commit();
     }
