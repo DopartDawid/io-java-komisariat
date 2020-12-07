@@ -48,7 +48,7 @@ public interface IDBAccessController {
 
 	String[] getRanks();
 
-	Headquarter[] getHeaquarters();
+	Headquarter[] getHeadquarters();
 
 	/**
 	 * 
@@ -76,17 +76,15 @@ public interface IDBAccessController {
 
 	/**
 	 * 
-	 * @param oldKit
-	 * @param newKit
+	 * @param kit
 	 */
-	boolean updateKit(Kit oldKit, Kit newKit);
+	boolean updateKit(Kit kit);
 
 	/**
 	 * 
-	 * @param oldOfficer
-	 * @param newOfficer
+	 * @param officer
 	 */
-	boolean updateOfficer(Officer oldOfficer, Officer newOfficer);
+	boolean updateOfficer(Officer officer);
 
 	/**
 	 * 

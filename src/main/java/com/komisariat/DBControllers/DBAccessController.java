@@ -1,11 +1,21 @@
 package com.komisariat.DBControllers;
 
 import com.komisariat.BusinessObjects.*;
+import jdk.javadoc.internal.doclets.formats.html.markup.Head;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.List;
 
 public class DBAccessController implements IDBAccessController {
 
@@ -103,9 +113,22 @@ public class DBAccessController implements IDBAccessController {
 		throw new UnsupportedOperationException();
 	}
 
-	public Headquarter[] getHeaquarters() {
-		// TODO - implement DBAccessController.getHeaquarters
-		throw new UnsupportedOperationException();
+	public Headquarter[] getHeadquarters() {
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		CriteriaBuilder cb = session.getCriteriaBuilder();
+		CriteriaQuery<Headquarter> cr = cb.createQuery(Headquarter.class);
+		Root<Headquarter> root = cr.from(Headquarter.class);
+
+		cr.select(root);
+
+		List<Headquarter> results = session.createQuery(cr).getResultList();
+
+		tx.commit();
+		session.close();
+
+		return (Headquarter[])results.toArray();
 	}
 
 	/**
@@ -113,8 +136,8 @@ public class DBAccessController implements IDBAccessController {
 	 * @param shift
 	 */
 	public boolean saveShift(Shift shift) {
-		// TODO - implement DBAccessController.saveShift
-		throw new UnsupportedOperationException();
+		save(shift);
+		return true;
 	}
 
 	/**
@@ -122,8 +145,8 @@ public class DBAccessController implements IDBAccessController {
 	 * @param kit
 	 */
 	public boolean saveKit(Kit kit) {
-		// TODO - implement DBAccessController.saveKit
-		throw new UnsupportedOperationException();
+		save(kit);
+		return true;
 	}
 
 	/**
@@ -131,8 +154,26 @@ public class DBAccessController implements IDBAccessController {
 	 * @param officer
 	 */
 	public boolean saveOfficer(Officer officer) {
-		// TODO - implement DBAccessController.saveOfficer
-		throw new UnsupportedOperationException();
+		save(officer);
+		return true;
+	}
+
+	private Integer save(Object object) {
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+		Integer ID = null;
+		try {
+			tx = session.beginTransaction();
+			ID = (Integer) session.save(object);
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return ID;
 	}
 
 	/**
@@ -140,28 +181,41 @@ public class DBAccessController implements IDBAccessController {
 	 * @param shift
 	 */
 	public boolean updateShiftInfo(Shift shift) {
-		// TODO - implement DBAccessController.updateShiftInfo
-		throw new UnsupportedOperationException();
+		update(shift);
+		return true;
 	}
 
 	/**
 	 * 
-	 * @param oldOfficer
-	 * @param newOfficer
+	 * @param officer
 	 */
-	public boolean updateOfficer(Officer oldOfficer, Officer newOfficer) {
-		// TODO - implement DBAccessController.updateOfficer
-		throw new UnsupportedOperationException();
+	public boolean updateOfficer(Officer officer) {
+		update(officer);
+		return true;
 	}
 
 	/**
 	 * 
-	 * @param oldKit
-	 * @param newKit
+	 * @param kit
 	 */
-	public boolean updateKit(Kit oldKit, Kit newKit) {
-		// TODO - implement DBAccessController.updateKit
-		throw new UnsupportedOperationException();
+	public boolean updateKit(Kit kit) {
+		update(kit);
+		return true;
+	}
+
+	private void update(Object object) {
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			tx = session.beginTransaction();
+			session.update(object);
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
 	}
 
 	/**
@@ -169,8 +223,8 @@ public class DBAccessController implements IDBAccessController {
 	 * @param kit
 	 */
 	public boolean removeKit(Kit kit) {
-		// TODO - implement DBAccessController.removeKit
-		throw new UnsupportedOperationException();
+		delete(kit);
+		return true;
 	}
 
 	/**
@@ -178,8 +232,24 @@ public class DBAccessController implements IDBAccessController {
 	 * @param officer
 	 */
 	public boolean removeOfficer(Officer officer) {
-		// TODO - implement DBAccessController.removeOfficer
-		throw new UnsupportedOperationException();
+		delete(officer);
+		return true;
+	}
+
+	private void delete(Object object) {
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+		Integer officerID = null;
+		try {
+			tx = session.beginTransaction();
+			session.delete(object);
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx!=null) tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
 	}
 
 }

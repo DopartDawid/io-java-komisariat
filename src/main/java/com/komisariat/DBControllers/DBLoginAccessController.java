@@ -61,6 +61,7 @@ public class DBLoginAccessController implements IDBLoginAccessController {
 		List<User> results = session.createQuery(cr).getResultList();
 
 		tx.commit();
+		session.close();
 		if(results.size() != 1)
 			return null; //TODO - Change to exception ???
 
