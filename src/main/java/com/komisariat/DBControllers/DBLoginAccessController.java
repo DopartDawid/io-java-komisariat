@@ -22,8 +22,8 @@ public class DBLoginAccessController implements IDBLoginAccessController {
 
 	private DBLoginAccessController() {
 		StandardServiceRegistry ssr = new StandardServiceRegistryBuilder()
-				.configure().applySetting("hibernate.connection.username", "user")
-				.applySetting("hibernate.connection.password", "user")
+				.configure().applySetting("hibernate.connection.username", "log_user")
+				.applySetting("hibernate.connection.password", "login")
 				.build();
 
 		Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();

@@ -1,7 +1,5 @@
 package com.komisariat.BusinessObjects;
 
-import com.komisariat.utils.AccessLevelConverter;
-
 import javax.persistence.Convert;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
