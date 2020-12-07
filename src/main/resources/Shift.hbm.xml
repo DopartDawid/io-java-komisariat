@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.komisariat.BusinessObjects">
+    <class name = "Shift" table = "Shifts">
+
+        <meta attribute = "class-description">
+            This class contains the employee detail.
+        </meta>
+
+        <id name = "id" type = "int" column = "ID">
+            <generator class="native"/>
+        </id>
+
+        <property name = "startDate" column = "Shift_Start_Date" type = "string"/>
+        <property name = "endDate" column = "Shift_End_Date" type = "int"/>
+        <property name = "patrolRegion" column = "Region_ID" type = "int"/>
+        <property name = "patrolRegion" column = "Region_ID" type = "int"/>
+        <property name = "report" column = "Report_ID" type = "int"/>
+        <property name = "kit" column = "Kit_ID" type = "int"/>
+        <property name = "vehicle" column = "Vehicle_ID" type = "string"/>
+        <property name = "officer" column = "Officer_ID" type = "int"/>
+
+    </class>
+</hibernate-mapping>
