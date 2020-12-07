@@ -1,18 +1,46 @@
 package com.komisariat.DBControllers;
 
 import com.komisariat.BusinessObjects.*;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class DBAccessController implements IDBAccessController {
 
-	private DBAccessController instance;
+	private static DBAccessController instance;
+	private final SessionFactory factory;
+	private final AccessLevel accessLevel;
 
-	private DBAccessController() {
-		// TODO - implement DBAccessController.DBAccessController
-		throw new UnsupportedOperationException();
+	private DBAccessController(AccessLevel accessLevel) {
+		this.accessLevel = accessLevel;
+
+		String login = "";
+		String password = "";
+
+		switch(accessLevel) {
+			case Admin: login = "admin"; password = "admin"; break;
+			case Officer: login = "officer"; password = "officer";
+			case Commissioner: login = "komendant"; password = "commissioner";
+
+			default: //TODO - THROW EXCEPTION
+		}
+		StandardServiceRegistry ssr = new StandardServiceRegistryBuilder()
+				.configure().applySetting("hibernate.connection.username", login)
+				.applySetting("hibernate.connection.password", password)
+				.build();
+
+		Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
+
+		factory = meta.getSessionFactoryBuilder().build();
 	}
 
-	public DBAccessController getInstance() {
-		return this.instance;
+	public static DBAccessController getInstance(AccessLevel accessLevel) {
+		if(instance == null || instance.accessLevel != accessLevel)
+			instance = new DBAccessController(accessLevel);
+
+		return instance;
 	}
 
 	/**
@@ -29,7 +57,6 @@ public class DBAccessController implements IDBAccessController {
 	 * @param hq
 	 */
 	public Vehicle[] getAvailableVehicles(Headquarter hq) {
-		// TODO - implement DBAccessController.getAvailableVehicles
 		throw new UnsupportedOperationException();
 	}
 

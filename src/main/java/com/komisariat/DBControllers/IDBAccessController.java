@@ -4,7 +4,9 @@ import com.komisariat.BusinessObjects.*;
 
 public interface IDBAccessController {
 
-	DBAccessController getInstance();
+	static DBAccessController getInstance(AccessLevel accessLevel) {
+		return null;
+	}
 
 	/**
 	 * 
