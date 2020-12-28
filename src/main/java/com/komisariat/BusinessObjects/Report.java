@@ -1,9 +1,13 @@
 package com.komisariat.BusinessObjects;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "Reports")
 public class Report {
 
+	@Id
 	private int id;
 	private String title;
 	private Date date;
@@ -12,7 +16,6 @@ public class Report {
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -20,7 +23,6 @@ public class Report {
 	public String getTitle() {
 		return title;
 	}
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -28,7 +30,6 @@ public class Report {
 	public Date getDate() {
 		return date;
 	}
-
 	public void setDate(Date date) {
 		this.date = date;
 	}
@@ -36,7 +37,6 @@ public class Report {
 	public String getContent() {
 		return content;
 	}
-
 	public void setContent(String content) {
 		this.content = content;
 	}

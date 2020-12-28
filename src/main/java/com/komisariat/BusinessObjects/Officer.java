@@ -1,12 +1,23 @@
 package com.komisariat.BusinessObjects;
 
-import javax.persistence.PrimaryKeyJoinColumn;
-@PrimaryKeyJoinColumn(name = "User_id")
-public class Officer extends User {
+import javax.persistence.*;
+import java.io.Serializable;
 
+@Entity
+@Table(name = "Police_officers")
+@PrimaryKeyJoinColumn(name = "User_id")
+public class Officer extends User implements Serializable {
+
+	@Column(name = "Badge_Number")
 	private int badgeNumber;
+
+	@Column(name = "First_Name")
 	private String firstName;
+
+	@Column(name = "Second_Name")
 	private String lastName;
+
+	@Column(name = "Rank_title")
 	private String rank;
 
 	public int getBadgeNumber() {

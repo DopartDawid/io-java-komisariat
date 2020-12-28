@@ -3,16 +3,22 @@ package com.komisariat.BusinessObjects;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name = "Users")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
+    @Id
+    private int id;
+
 	private String login;
+
+    @Column(name = "Pass_Hash")
     private String passHash;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "Access_level")
 	private AccessLevel accessLevel;
-
-    private int id;
 
     public int getId() {
         return id;
@@ -24,7 +30,6 @@ public class User {
     public String getLogin() {
         return login;
     }
-
     public void setLogin(String login) {
         this.login = login;
     }
@@ -32,7 +37,6 @@ public class User {
     public String getPassHash() {
         return passHash;
     }
-
     public void setPassHash(String passHash) {
         this.passHash = passHash;
     }
@@ -40,7 +44,6 @@ public class User {
     public AccessLevel getAccessLevel() {
         return accessLevel;
     }
-
     public void setAccessLevel(AccessLevel accessLevel) {
         this.accessLevel = accessLevel;
     }

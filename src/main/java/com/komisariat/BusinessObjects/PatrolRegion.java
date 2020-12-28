@@ -1,24 +1,32 @@
 package com.komisariat.BusinessObjects;
 
+import javax.persistence.*;
+import java.util.Collection;
+
+@Entity
+@Table(name = "Patrol_Regions")
 public class PatrolRegion {
 
-	private int regionID;
+	@Id
+	private int id;
 	private int capacity;
+
+	@Column(name = "Danger_level")
 	private int dangerLevel;
-	private Street[] streets;
 
-	public int getRegionID() {
-		return regionID;
+	@OneToMany(mappedBy = "patrolRegion")
+	private Collection<Street> streets;
+
+	public int getId() {
+		return id;
 	}
-
-	public void setRegionID(int regionID) {
-		this.regionID = regionID;
+	public void setId(int regionID) {
+		this.id = regionID;
 	}
 
 	public int getCapacity() {
 		return capacity;
 	}
-
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
@@ -26,16 +34,10 @@ public class PatrolRegion {
 	public int getDangerLevel() {
 		return dangerLevel;
 	}
-
 	public void setDangerLevel(int dangerLevel) {
 		this.dangerLevel = dangerLevel;
 	}
 
-	public Street[] getStreets() {
-		return streets;
-	}
-
-	public void setStreets(Street[] streets) {
-		this.streets = streets;
-	}
+	public Collection<Street> getStreets() { return streets; }
+	public void setStreets(Collection<Street> streets) { this.streets = streets; }
 }

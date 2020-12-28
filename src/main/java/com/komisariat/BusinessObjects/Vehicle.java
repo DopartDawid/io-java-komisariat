@@ -1,12 +1,24 @@
 package com.komisariat.BusinessObjects;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="Vehicles")
 public class Vehicle {
 
+	@Id
 	private String VIN;
+
 	private String manufacturer;
 	private String model;
+
+	@Column(name = "Production_Year")
 	private int productionYear;
 	private int mileage;
+
+	@ManyToOne
+	@JoinColumn(name = "Headquarter_ID")
+	private Headquarter headquarter;
 
 	public String getVIN() {
 		return VIN;

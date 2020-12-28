@@ -13,7 +13,6 @@ import java.util.List;
 
 
 public class Main {
-    private static SessionFactory factory;
 
     public static void main(String[] args) {
         StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure().build();
@@ -24,12 +23,17 @@ public class Main {
         Session session = factory.openSession();
         Transaction t = session.beginTransaction();
 
-        List users = session.createQuery("FROM User").list();
-        for(Iterator iterator = users.iterator(); iterator.hasNext();) {
-            User user = (User) iterator.next();
-            System.out.println("Login: " + user.getLogin());
-            System.out.println("PassHash: " + user.getPassHash());
-            System.out.println("Access level: " + user.getAccessLevel()+"\n");
+        List shifts = session.createQuery("FROM Shift").list();
+        for(Iterator iterator = shifts.iterator(); iterator.hasNext();) {
+            Shift shift = (Shift) iterator.next();
+            System.out.println("\n\nID: " + shift.getId());
+            System.out.println("Start: " + shift.getStartDate());
+            System.out.println("End: " + shift.getEndDate());
+            System.out.println("Region_ID: " + shift.getPatrolRegion().getId());
+            System.out.println("Report content: " + shift.getReport().getContent());
+            System.out.println("Kit name: " + shift.getKit().getName());
+            System.out.println("Officer name: " + shift.getOfficer().getFirstName() + " " + shift.getOfficer().getLastName());
+            System.out.println("Vehicle name: " + shift.getVehicle().getManufacturer() + " " + shift.getVehicle().getModel());
         }
         t.commit();
     }
