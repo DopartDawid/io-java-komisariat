@@ -91,8 +91,21 @@ public class DBAccessController implements IDBAccessController {
 	 * @param officer
 	 */
 	public Shift getActiveShift(Officer officer) {
-		// TODO - implement DBAccessController.getActiveShift
-		throw new UnsupportedOperationException();
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		CriteriaBuilder cb = session.getCriteriaBuilder();
+		CriteriaQuery<Shift> cr = cb.createQuery(Shift.class);
+		Root<Shift> root = cr.from(Shift.class);
+
+		cr.select(root).where(cb.equal(root.get("officer").get("badgeNumber"), officer.getBadgeNumber()));
+
+		List<Shift> results = session.createQuery(cr).getResultList();
+
+		tx.commit();
+		session.close();
+
+		return results.isEmpty() ? null : results.get(0);
 	}
 
 	/**
