@@ -1,7 +1,6 @@
 package com.komisariat.DBControllers;
 
 import com.komisariat.BusinessObjects.*;
-import jdk.javadoc.internal.doclets.formats.html.markup.Head;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,8 +13,8 @@ import org.hibernate.query.Query;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.Date;
 import java.util.List;
 
 public class DBAccessController implements IDBAccessController {
@@ -155,7 +154,7 @@ public class DBAccessController implements IDBAccessController {
 		tx.commit();
 		session.close();
 
-		return (Shift[])results.toArray(new Shift[results.size()]);
+		return results.toArray(new Shift[results.size()]);
 	}
 
 	/**
@@ -164,9 +163,18 @@ public class DBAccessController implements IDBAccessController {
 	 * @param endDate
 	 * @param hq
 	 */
-	public Report[] getReports(int startDate, int endDate, Headquarter hq) {
-		// TODO - implement DBAccessController.getReports
-		throw new UnsupportedOperationException();
+	public Report[] getReports(Date startDate, Date endDate, Headquarter hq) {
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+		String select = "FROM Report r WHERE (SELECT s.officer.headquarter.id FROM Shift s WHERE s.report.id = r.id) = :hq AND r.date BETWEEN :startD AND :endD";
+		Query query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("startD", startDate).setParameter(("endD"), endDate);
+
+		List<Report> results = query.getResultList();
+
+		tx.commit();
+		session.close();
+
+		return results.toArray(new Report[results.size()]);
 	}
 
 	/**
