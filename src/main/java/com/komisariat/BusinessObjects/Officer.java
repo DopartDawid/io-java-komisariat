@@ -20,6 +20,10 @@ public class Officer extends User implements Serializable {
 	@Column(name = "Rank_title")
 	private String rank;
 
+	@ManyToOne
+	@JoinColumn(name = "Headquarter_ID")
+	private Headquarter headquarter;
+
 	public int getBadgeNumber() {
 		return badgeNumber;
 	}
@@ -52,5 +56,7 @@ public class Officer extends User implements Serializable {
 		this.rank = rank;
 	}
 
+	public Headquarter getHeadquarter() { return headquarter; }
 
+	public void setHeadquarter(Headquarter headquarter) { this.headquarter = headquarter; }
 }

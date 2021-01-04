@@ -2,6 +2,8 @@ package com.komisariat.DBControllers;
 
 import com.komisariat.BusinessObjects.*;
 
+import java.util.Date;
+
 public interface IDBAccessController {
 
 	static DBAccessController getInstance(AccessLevel accessLevel) {
@@ -33,12 +35,18 @@ public interface IDBAccessController {
 	Shift getActiveShift(Officer officer);
 
 	/**
+	 *
+	 * @param hq
+	 */
+	Shift[] getActiveShifts(Headquarter hq);
+
+	/**
 	 * 
 	 * @param startDate
 	 * @param endDate
 	 * @param hq
 	 */
-	Report[] getReports(int startDate, int endDate, Headquarter hq);
+	Report[] getReports(Date startDate, Date endDate, Headquarter hq);
 
 	/**
 	 * 

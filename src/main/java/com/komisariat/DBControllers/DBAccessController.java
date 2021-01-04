@@ -1,7 +1,6 @@
 package com.komisariat.DBControllers;
 
 import com.komisariat.BusinessObjects.*;
-import jdk.javadoc.internal.doclets.formats.html.markup.Head;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,11 +9,12 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.Date;
 import java.util.List;
 
 public class DBAccessController implements IDBAccessController {
@@ -29,12 +29,18 @@ public class DBAccessController implements IDBAccessController {
 		String login = "";
 		String password = "";
 
-		switch(accessLevel) {
-			case Admin: login = "admin"; password = "admin"; break;
-			case Officer: login = "officer"; password = "officer";
-			case Commissioner: login = "komendant"; password = "commissioner";
+		if(accessLevel == null) { //TODO - DO USUNIECIA (TYLKO DO TESTOW)
+			login = "rroot";
+			password = "blazej123";
+		}
+		else {
+			switch(accessLevel) {
+				case Admin: login = "admin"; password = "admin"; break;
+				case Officer: login = "officer"; password = "officer"; break;
+				case Commissioner: login = "komendant"; password = "commissioner"; break;
 
-			default: //TODO - THROW EXCEPTION
+				default: //TODO - THROW EXCEPTION
+			}
 		}
 		StandardServiceRegistry ssr = new StandardServiceRegistryBuilder()
 				.configure().applySetting("hibernate.connection.username", login)
@@ -58,8 +64,18 @@ public class DBAccessController implements IDBAccessController {
 	 * @param hq
 	 */
 	public Kit[] getAvailableKits(Headquarter hq) {
-		// TODO - implement DBAccessController.getAvailableKits
-		throw new UnsupportedOperationException();
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		String select = "FROM Kit k WHERE k.headquarter.id = :hq AND NOT EXISTS (FROM Shift s WHERE s.officer.headquarter.id = :hq AND s.endDate IS NULL AND s.kit.id = k.id)";
+		Query query = session.createQuery(select).setParameter("hq", hq.getId());
+
+		List<Kit> results = query.getResultList();
+
+		tx.commit();
+		session.close();
+
+		return results.toArray(new Kit[results.size()]);
 	}
 
 	/**
@@ -67,7 +83,18 @@ public class DBAccessController implements IDBAccessController {
 	 * @param hq
 	 */
 	public Vehicle[] getAvailableVehicles(Headquarter hq) {
-		throw new UnsupportedOperationException();
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		String select = "FROM Vehicle v WHERE v.headquarter.id = :hq AND NOT EXISTS (FROM Shift s WHERE s.officer.headquarter.id = :hq AND s.endDate IS NULL AND s.vehicle.id = v.id)";
+		Query query = session.createQuery(select).setParameter("hq", hq.getId());
+
+		List<Vehicle> results = query.getResultList();
+
+		tx.commit();
+		session.close();
+
+		return results.toArray(new Vehicle[results.size()]);
 	}
 
 	/**
@@ -75,8 +102,18 @@ public class DBAccessController implements IDBAccessController {
 	 * @param hq
 	 */
 	public PatrolRegion[] getAvailableRegions(Headquarter hq) {
-		// TODO - implement DBAccessController.getAvailableRegions
-		throw new UnsupportedOperationException();
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		String select = "FROM PatrolRegion p WHERE p.headquarter.id = :hq AND (SELECT count(*) FROM Shift s WHERE s.officer.headquarter.id = :hq AND s.endDate IS NULL AND s.patrolRegion.id = p.id) < p.capacity";
+		Query query = session.createQuery(select).setParameter("hq", hq.getId());
+
+		List<PatrolRegion> results = query.getResultList();
+
+		tx.commit();
+		session.close();
+
+		return results.toArray(new PatrolRegion[results.size()]);
 	}
 
 	/**
@@ -84,8 +121,40 @@ public class DBAccessController implements IDBAccessController {
 	 * @param officer
 	 */
 	public Shift getActiveShift(Officer officer) {
-		// TODO - implement DBAccessController.getActiveShift
-		throw new UnsupportedOperationException();
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		CriteriaBuilder cb = session.getCriteriaBuilder();
+		CriteriaQuery<Shift> cr = cb.createQuery(Shift.class);
+		Root<Shift> root = cr.from(Shift.class);
+
+		cr.select(root).where(cb.equal(root.get("officer").get("badgeNumber"), officer.getBadgeNumber()));
+
+		List<Shift> results = session.createQuery(cr).getResultList();
+
+		tx.commit();
+		session.close();
+
+		return results.isEmpty() ? null : results.get(0);
+	}
+
+	/**
+	 *
+	 * @param hq
+	 */
+	public Shift[] getActiveShifts(Headquarter hq) {
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		String select = "FROM Shift s WHERE s.officer.headquarter.id = :hq AND s.endDate IS NULL";
+		Query query = session.createQuery(select).setParameter("hq", hq.getId());
+
+		List<Shift> results = query.getResultList();
+
+		tx.commit();
+		session.close();
+
+		return results.toArray(new Shift[results.size()]);
 	}
 
 	/**
@@ -94,9 +163,18 @@ public class DBAccessController implements IDBAccessController {
 	 * @param endDate
 	 * @param hq
 	 */
-	public Report[] getReports(int startDate, int endDate, Headquarter hq) {
-		// TODO - implement DBAccessController.getReports
-		throw new UnsupportedOperationException();
+	public Report[] getReports(Date startDate, Date endDate, Headquarter hq) {
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+		String select = "FROM Report r WHERE (SELECT s.officer.headquarter.id FROM Shift s WHERE s.report.id = r.id) = :hq AND r.date BETWEEN :startD AND :endD";
+		Query query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("startD", startDate).setParameter(("endD"), endDate);
+
+		List<Report> results = query.getResultList();
+
+		tx.commit();
+		session.close();
+
+		return results.toArray(new Report[results.size()]);
 	}
 
 	/**
@@ -104,12 +182,21 @@ public class DBAccessController implements IDBAccessController {
 	 * @param hq
 	 */
 	public Officer[] getOfficers(Headquarter hq) {
-		// TODO - implement DBAccessController.getOfficers
-		throw new UnsupportedOperationException();
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+		String select = "FROM Officer o WHERE o.headquarter.id = :hq";
+		Query query = session.createQuery(select).setParameter("hq", hq.getId());
+
+		List<Officer> results = query.getResultList();
+
+		tx.commit();
+		session.close();
+
+		return results.toArray(new Officer[results.size()]);
 	}
 
 	public String[] getRanks() {
-		// TODO - implement DBAccessController.getRanks
+		// TODO - Brak możliwości implementacji (nie ma klasy Rank) - możliwie do usunięcia
 		throw new UnsupportedOperationException();
 	}
 
@@ -128,7 +215,7 @@ public class DBAccessController implements IDBAccessController {
 		tx.commit();
 		session.close();
 
-		return (Headquarter[])results.toArray();
+		return results.toArray(new Headquarter[results.size()]);
 	}
 
 	/**

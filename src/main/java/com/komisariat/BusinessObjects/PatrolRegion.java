@@ -17,6 +17,10 @@ public class PatrolRegion {
 	@OneToMany(mappedBy = "patrolRegion")
 	private Collection<Street> streets;
 
+	@ManyToOne
+	@JoinColumn(name = "Headquarter_ID")
+	private Headquarter headquarter;
+
 	public int getId() {
 		return id;
 	}
@@ -40,4 +44,7 @@ public class PatrolRegion {
 
 	public Collection<Street> getStreets() { return streets; }
 	public void setStreets(Collection<Street> streets) { this.streets = streets; }
+
+	public Headquarter getHeadquarter() { return headquarter; }
+	public void setHeadquarter(Headquarter headquarter) { this.headquarter = headquarter; }
 }
