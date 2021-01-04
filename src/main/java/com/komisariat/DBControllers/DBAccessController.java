@@ -68,15 +68,15 @@ public class DBAccessController implements IDBAccessController {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 
-		String select = "FROM Vehicle v WHERE v.headquarter.id = :hq AND NOT EXISTS (FROM Shift s WHERE s.officer.headquarter.id = :hq AND s.endDate IS NULL AND s.vehicle.id = v.id)";
+		String select = "FROM Kit k WHERE k.headquarter.id = :hq AND NOT EXISTS (FROM Shift s WHERE s.officer.headquarter.id = :hq AND s.endDate IS NULL AND s.kit.id = k.id)";
 		Query query = session.createQuery(select).setParameter("hq", hq.getId());
 
-		List<Vehicle> results = query.getResultList();
+		List<Kit> results = query.getResultList();
 
 		tx.commit();
 		session.close();
 
-		return results.toArray(new Vehicle[results.size()]);
+		return results.toArray(new Kit[results.size()]);
 	}
 
 	/**
