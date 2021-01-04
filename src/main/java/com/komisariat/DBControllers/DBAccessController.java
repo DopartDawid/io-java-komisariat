@@ -10,6 +10,7 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -29,12 +30,18 @@ public class DBAccessController implements IDBAccessController {
 		String login = "";
 		String password = "";
 
-		switch(accessLevel) {
-			case Admin: login = "admin"; password = "admin"; break;
-			case Officer: login = "officer"; password = "officer";
-			case Commissioner: login = "komendant"; password = "commissioner";
+		if(accessLevel == null) {
+			login = "rroot";
+			password = "blazej123";
+		}
+		else {
+			switch(accessLevel) {
+				case Admin: login = "admin"; password = "admin"; break;
+				case Officer: login = "officer"; password = "officer"; break;
+				case Commissioner: login = "komendant"; password = "commissioner"; break;
 
-			default: //TODO - THROW EXCEPTION
+				default: //TODO - THROW EXCEPTION
+			}
 		}
 		StandardServiceRegistry ssr = new StandardServiceRegistryBuilder()
 				.configure().applySetting("hibernate.connection.username", login)
@@ -89,6 +96,25 @@ public class DBAccessController implements IDBAccessController {
 	}
 
 	/**
+	 *
+	 * @param hq
+	 */
+	public Shift[] getActiveShifts(Headquarter hq) {
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		String select = "FROM Shift s WHERE s.officer.headquarter.id = :hq AND s.endDate IS NULL";
+		Query query = session.createQuery(select).setParameter("hq", hq.getId());
+
+		List<Shift> results = query.getResultList();
+
+		tx.commit();
+		session.close();
+
+		return (Shift[])results.toArray(new Shift[results.size()]);
+	}
+
+	/**
 	 * 
 	 * @param startDate
 	 * @param endDate
@@ -128,7 +154,7 @@ public class DBAccessController implements IDBAccessController {
 		tx.commit();
 		session.close();
 
-		return (Headquarter[])results.toArray();
+		return results.toArray(new Headquarter[results.size()]);
 	}
 
 	/**

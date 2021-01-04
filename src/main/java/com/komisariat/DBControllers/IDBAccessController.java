@@ -33,6 +33,12 @@ public interface IDBAccessController {
 	Shift getActiveShift(Officer officer);
 
 	/**
+	 *
+	 * @param hq
+	 */
+	Shift[] getActiveShifts(Headquarter hq);
+
+	/**
 	 * 
 	 * @param startDate
 	 * @param endDate
