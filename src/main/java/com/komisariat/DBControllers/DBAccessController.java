@@ -65,8 +65,18 @@ public class DBAccessController implements IDBAccessController {
 	 * @param hq
 	 */
 	public Kit[] getAvailableKits(Headquarter hq) {
-		// TODO - implement DBAccessController.getAvailableKits
-		throw new UnsupportedOperationException();
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		String select = "FROM Vehicle v WHERE v.headquarter.id = :hq AND NOT EXISTS (FROM Shift s WHERE s.officer.headquarter.id = :hq AND s.endDate IS NULL AND s.vehicle.id = v.id)";
+		Query query = session.createQuery(select).setParameter("hq", hq.getId());
+
+		List<Vehicle> results = query.getResultList();
+
+		tx.commit();
+		session.close();
+
+		return results.toArray(new Vehicle[results.size()]);
 	}
 
 	/**
@@ -74,7 +84,18 @@ public class DBAccessController implements IDBAccessController {
 	 * @param hq
 	 */
 	public Vehicle[] getAvailableVehicles(Headquarter hq) {
-		throw new UnsupportedOperationException();
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		String select = "FROM Vehicle v WHERE v.headquarter.id = :hq AND NOT EXISTS (FROM Shift s WHERE s.officer.headquarter.id = :hq AND s.endDate IS NULL AND s.vehicle.id = v.id)";
+		Query query = session.createQuery(select).setParameter("hq", hq.getId());
+
+		List<Vehicle> results = query.getResultList();
+
+		tx.commit();
+		session.close();
+
+		return results.toArray(new Vehicle[results.size()]);
 	}
 
 	/**
