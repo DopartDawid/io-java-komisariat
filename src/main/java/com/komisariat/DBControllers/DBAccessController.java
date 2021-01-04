@@ -82,8 +82,18 @@ public class DBAccessController implements IDBAccessController {
 	 * @param hq
 	 */
 	public PatrolRegion[] getAvailableRegions(Headquarter hq) {
-		// TODO - implement DBAccessController.getAvailableRegions
-		throw new UnsupportedOperationException();
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		String select = "FROM PatrolRegion p WHERE p.headquarter.id = :hq AND (SELECT count(*) FROM Shift s WHERE s.officer.headquarter.id = :hq AND s.endDate IS NULL AND s.patrolRegion.id = p.id) < p.capacity";
+		Query query = session.createQuery(select).setParameter("hq", hq.getId());
+
+		List<PatrolRegion> results = query.getResultList();
+
+		tx.commit();
+		session.close();
+
+		return results.toArray(new PatrolRegion[results.size()]);
 	}
 
 	/**
