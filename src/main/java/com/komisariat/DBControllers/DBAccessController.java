@@ -29,7 +29,7 @@ public class DBAccessController implements IDBAccessController {
 		String login = "";
 		String password = "";
 
-		if(accessLevel == null) {
+		if(accessLevel == null) { //TODO - DO USUNIECIA (TYLKO DO TESTOW)
 			login = "rroot";
 			password = "blazej123";
 		}
@@ -182,12 +182,21 @@ public class DBAccessController implements IDBAccessController {
 	 * @param hq
 	 */
 	public Officer[] getOfficers(Headquarter hq) {
-		// TODO - implement DBAccessController.getOfficers
-		throw new UnsupportedOperationException();
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+		String select = "FROM Officer o WHERE o.headquarter.id = :hq";
+		Query query = session.createQuery(select).setParameter("hq", hq.getId());
+
+		List<Officer> results = query.getResultList();
+
+		tx.commit();
+		session.close();
+
+		return results.toArray(new Officer[results.size()]);
 	}
 
 	public String[] getRanks() {
-		// TODO - implement DBAccessController.getRanks
+		// TODO - Brak możliwości implementacji (nie ma klasy Rank) - możliwie do usunięcia
 		throw new UnsupportedOperationException();
 	}
 
