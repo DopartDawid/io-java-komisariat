@@ -48,8 +48,8 @@ public class AdminManager {
 	 * @param kit
 	 */
 	public void removeKit(Kit kit) {
-		// TODO - implement AdminManager.removeKit
-		throw new UnsupportedOperationException();
+		kit.setCategory("USUNIETY");
+		accessController.updateKit(kit);
 	}
 
 	/**
@@ -63,15 +63,23 @@ public class AdminManager {
 	}
 
 	/**
-	 * 
+	 * @param badgeNumber
 	 * @param firstName
 	 * @param lastName
 	 * @param hq
 	 * @param rank
 	 */
-	public void addOfficer(String firstName, String lastName, Headquarter hq, String rank) {
-		// TODO - implement AdminManager.addOfficer
-		throw new UnsupportedOperationException();
+	public void addOfficer(int badgeNumber, String firstName, String lastName, Headquarter hq, String rank) {
+		Officer newOfficer = new Officer();
+		newOfficer.setBadgeNumber(badgeNumber);
+		newOfficer.setFirstName(firstName);
+		newOfficer.setLastName(lastName);
+		newOfficer.setHeadquarter(hq);
+		newOfficer.setRank(rank);
+		newOfficer.setAccessLevel(AccessLevel.Officer);
+		newOfficer.setLogin("");
+		newOfficer.setPassHash("");
+		accessController.saveOfficer(newOfficer);
 	}
 
 	public String[] getRanks() {
