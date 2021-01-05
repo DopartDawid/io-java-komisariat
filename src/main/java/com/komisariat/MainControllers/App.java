@@ -8,10 +8,12 @@ import com.komisariat.LogicControllers.OfficerManager;
 public class App {
 
 	private LoginManager loginManager;
+	private AdminManager adminManager;
+	private OfficerManager officerManager;
+	private CommissionerManager commissionerManager;
 
 	public void signIn() {
-		// TODO - implement Facade.signIn
-		throw new UnsupportedOperationException();
+
 	}
 
 	public void signOut() {
