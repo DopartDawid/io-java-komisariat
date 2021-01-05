@@ -116,6 +116,20 @@ public class DBAccessController implements IDBAccessController {
 		return results.toArray(new PatrolRegion[results.size()]);
 	}
 
+	public Shift[] getShifts(Date startDate, Date endDate, Headquarter hq) {
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+		String select = "FROM Shift s WHERE s.officer.headquarter.id = :hq AND s.startDate BETWEEN :startD AND :endD";
+		Query query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("startD", startDate).setParameter(("endD"), endDate);
+
+		List<Shift> results = query.getResultList();
+
+		tx.commit();
+		session.close();
+
+		return results.toArray(new Shift[results.size()]);
+	}
+
 	/**
 	 * 
 	 * @param officer

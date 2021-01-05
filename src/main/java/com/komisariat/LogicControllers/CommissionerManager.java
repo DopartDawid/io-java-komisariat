@@ -2,6 +2,8 @@ package com.komisariat.LogicControllers;
 
 import com.komisariat.BusinessObjects.*;
 
+import java.util.Date;
+
 public class CommissionerManager extends OfficerManager {
 
 	/**
@@ -13,17 +15,15 @@ public class CommissionerManager extends OfficerManager {
 
 	/**
 	 * 
-	 * @param begintDate
+	 * @param beginDate
 	 * @param lastDate
 	 */
-	public Report[] getReports(int begintDate, int lastDate) {
-		// TODO - implement CommissionerManager.getReports
-		throw new UnsupportedOperationException();
+	public Report[] getReports(Date beginDate, Date lastDate) {
+		return dbac.getReports(beginDate, lastDate, loggedOfficer.getHeadquarter());
 	}
 
 	public Officer[] getOfficersInfo() {
-		// TODO - implement CommissionerManager.getOfficersInfo
-		throw new UnsupportedOperationException();
+		return dbac.getOfficers(loggedOfficer.getHeadquarter());
 	}
 
 	/**
@@ -32,8 +32,7 @@ public class CommissionerManager extends OfficerManager {
 	 * @param lastDate
 	 */
 	public Shift[] getOfficersShifts(int beginDate, int lastDate) {
-		// TODO - implement CommissionerManager.getOfficersShifts
-		throw new UnsupportedOperationException();
+		return dbac.get
 	}
 
 	public Shift[] getActiveOfficers() {

@@ -1,9 +1,11 @@
 package com.komisariat.LogicControllers;
 
 import com.komisariat.BusinessObjects.*;
+import com.komisariat.DBControllers.IDBAccessController;
 
 public class OfficerManager {
 
+	protected IDBAccessController dbac;
 	protected Officer loggedOfficer;
 
 	/**
