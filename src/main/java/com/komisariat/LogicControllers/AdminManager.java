@@ -114,8 +114,7 @@ public class AdminManager {
 	}
 
 	public Headquarter[] getHeadquarters() {
-		// TODO - implement AdminManager.getHeadquarters
-		throw new UnsupportedOperationException();
+		return accessController.getHeadquarters();
 	}
 
 }
