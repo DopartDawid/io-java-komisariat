@@ -28,6 +28,8 @@ public interface IDBAccessController {
 	 */
 	PatrolRegion[] getAvailableRegions(Headquarter hq);
 
+	Shift[] getShifts(Date startDate, Date endDate, Headquarter hq);
+
 	/**
 	 * 
 	 * @param officer

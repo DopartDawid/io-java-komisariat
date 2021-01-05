@@ -1,10 +1,13 @@
 package com.komisariat.MainControllers;
 
-import com.komisariat.LogicControllers.*;
+import com.komisariat.LogicControllers.AdminManager;
+import com.komisariat.LogicControllers.CommissionerManager;
+import com.komisariat.LogicControllers.LoginManager;
+import com.komisariat.LogicControllers.OfficerManager;
 
-public class Facade {
+public class App {
 
-	private App app;
+	private LoginManager loginManager;
 
 	public void signIn() {
 		// TODO - implement Facade.signIn
