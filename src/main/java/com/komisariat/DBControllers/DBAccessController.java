@@ -292,7 +292,7 @@ public class DBAccessController implements IDBAccessController {
 
 	private void update(Object object) {
 		Session session = factory.openSession();
-		Transaction tx = session.beginTransaction();
+		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
 			session.update(object);

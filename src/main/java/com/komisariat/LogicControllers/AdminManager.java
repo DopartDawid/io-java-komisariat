@@ -57,9 +57,9 @@ public class AdminManager {
 	 * @param oldKit
 	 * @param newKit
 	 */
-	public Kit editKit(Kit oldKit, Kit newKit) {
-		// TODO - implement AdminManager.editKit
-		throw new UnsupportedOperationException();
+	public void editKit(Kit oldKit, Kit newKit) {
+		newKit.setId(oldKit.getId());
+		accessController.updateKit(newKit);
 	}
 
 	/**
