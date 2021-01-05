@@ -79,6 +79,12 @@ public interface IDBAccessController {
 	boolean saveOfficer(Officer officer);
 
 	/**
+	 *
+	 * @param tool
+	 */
+	boolean saveTool(Tool tool);
+
+	/**
 	 * 
 	 * @param shift
 	 */

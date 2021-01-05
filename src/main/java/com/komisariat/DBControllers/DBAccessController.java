@@ -259,6 +259,15 @@ public class DBAccessController implements IDBAccessController {
 		return true;
 	}
 
+	/**
+	 *
+	 * @param tool
+	 */
+	public boolean saveTool(Tool tool) {
+		save(tool);
+		return true;
+	}
+
 	private Integer save(Object object) {
 		Session session = factory.openSession();
 		Transaction tx = null;

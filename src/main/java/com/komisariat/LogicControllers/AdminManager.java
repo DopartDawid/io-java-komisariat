@@ -23,7 +23,6 @@ public class AdminManager {
 	 */
 	public void addKit(String name, String cat, Headquarter hq, Collection<Tool> tools) {
 		Kit newKit = new Kit();
-
 		newKit.setName(name);
 		newKit.setCategory(cat);
 		newKit.setHeadquarter(hq);
@@ -38,9 +37,13 @@ public class AdminManager {
 	 * @param manufacturer
 	 * @param category
 	 */
-	public Tool addTool(String model, String manufacturer, String category) {
-		// TODO - implement AdminManager.addTool
-		throw new UnsupportedOperationException();
+	public void addTool(String model, String manufacturer, String category) {
+		Tool newTool = new Tool();
+		newTool.setModel(model);
+		newTool.setManufacturer(manufacturer);
+		newTool.setCategory(category);
+
+		accessController.saveTool(newTool);
 	}
 
 	/**
@@ -97,8 +100,8 @@ public class AdminManager {
 	 * @param officer
 	 */
 	public void removeOfficer(Officer officer) {
-		// TODO - implement AdminManager.removeOfficer
-		throw new UnsupportedOperationException();
+		officer.setAccessLevel(AccessLevel.Removed);
+		accessController.updateOfficer(officer);
 	}
 
 	/**
