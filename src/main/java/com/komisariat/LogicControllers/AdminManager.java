@@ -1,8 +1,13 @@
 package com.komisariat.LogicControllers;
 
 import com.komisariat.BusinessObjects.*;
+import com.komisariat.DBControllers.DBAccessController;
+import com.komisariat.DBControllers.IDBAccessController;
+
+import java.util.Collection;
 
 public class AdminManager {
+	private IDBAccessController accessController = DBAccessController.getInstance(AccessLevel.Admin);
 
 	public Kit[] getKits() {
 		// TODO - implement AdminManager.getKits
@@ -16,9 +21,15 @@ public class AdminManager {
 	 * @param hq
 	 * @param tools
 	 */
-	public void addKit(String name, String cat, Headquarter hq, Tool[] tools) {
-		// TODO - implement AdminManager.addKit
-		throw new UnsupportedOperationException();
+	public void addKit(String name, String cat, Headquarter hq, Collection<Tool> tools) {
+		Kit newKit = new Kit();
+
+		newKit.setName(name);
+		newKit.setCategory(cat);
+		newKit.setHeadquarter(hq);
+		newKit.setTools(tools);
+
+		accessController.saveKit(newKit);
 	}
 
 	/**

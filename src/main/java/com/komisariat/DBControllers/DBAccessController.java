@@ -247,7 +247,7 @@ public class DBAccessController implements IDBAccessController {
 
 	private Integer save(Object object) {
 		Session session = factory.openSession();
-		Transaction tx = session.beginTransaction();
+		Transaction tx = null;
 		Integer ID = null;
 		try {
 			tx = session.beginTransaction();
