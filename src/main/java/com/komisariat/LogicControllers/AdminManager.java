@@ -10,8 +10,7 @@ public class AdminManager {
 	private IDBAccessController accessController = DBAccessController.getInstance(AccessLevel.Admin);
 
 	public Kit[] getKits() {
-		// TODO - implement AdminManager.getKits
-		throw new UnsupportedOperationException();
+		return accessController.getAllKits();
 	}
 
 	/**
@@ -86,7 +85,7 @@ public class AdminManager {
 	}
 
 	public String[] getRanks() {
-		// TODO - implement AdminManager.getRanks
+		// TODO - implement AdminManager.getRanks ????
 		throw new UnsupportedOperationException();
 	}
 
@@ -109,9 +108,9 @@ public class AdminManager {
 	 * @param oldOfficer
 	 * @param newOfficer
 	 */
-	public Officer editOfficer(Officer oldOfficer, Officer newOfficer) {
-		// TODO - implement AdminManager.editOfficer
-		throw new UnsupportedOperationException();
+	public void editOfficer(Officer oldOfficer, Officer newOfficer) {
+		newOfficer.setId(oldOfficer.getId());
+		accessController.saveOfficer(newOfficer);
 	}
 
 	public Headquarter[] getHeadquarters() {

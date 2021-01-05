@@ -16,6 +16,8 @@ public interface IDBAccessController {
 	 */
 	Kit[] getAvailableKits(Headquarter hq);
 
+
+	Kit[] getAllKits();
 	/**
 	 * 
 	 * @param hq

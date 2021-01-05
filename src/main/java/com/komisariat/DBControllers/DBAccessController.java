@@ -78,6 +78,24 @@ public class DBAccessController implements IDBAccessController {
 		return results.toArray(new Kit[results.size()]);
 	}
 
+	public Kit[] getAllKits() {
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		CriteriaBuilder cb = session.getCriteriaBuilder();
+		CriteriaQuery<Kit> cr = cb.createQuery(Kit.class);
+		Root<Kit> root = cr.from(Kit.class);
+
+		cr.select(root);
+
+		List<Kit> results = session.createQuery(cr).getResultList();
+
+		tx.commit();
+		session.close();
+
+		return results.toArray(new Kit[results.size()]);
+	}
+
 	/**
 	 * 
 	 * @param hq
