@@ -23,18 +23,30 @@ public class AdminManager {
 	 * @param toolsInfo
 	 */
 	public void addKit(String name, String cat, Integer hqID, Collection<Map<String, String>> toolsInfo) {
+		Kit newKit = createKit(name, cat, hqID, toolsInfo);
+		accessController.saveKit(newKit);
+	}
+
+	private Kit createKit(String name, String cat, Integer hqID, Collection<Map<String, String>> toolsInfo) {
 		Kit newKit = new Kit();
 		newKit.setName(name);
 		newKit.setCategory(cat);
-		newKit.setHeadquarter(this.getHeadquarters()[hqID]); //TODO - WALIDACJA CZY W OGOLE JEST TAKIE HQID (WYRZUCENIE EXCEPTION?)
+
+		for (Headquarter hq: this.getHeadquarters() //TODO - WALIDACJA CZY NA PEWNO ZOSTAL DODANY HQ
+			 ) {
+			if(hq.getId() == hqID) {
+				newKit.setHeadquarter(hq);
+				break;
+			}
+		}
 
 		Collection<Tool> tools = new LinkedList<>();
 		for (Map<String, String> toolInfo: toolsInfo
-			 ) {
-			addTool(toolInfo.get("model"), toolInfo.get("manufacturer"), toolInfo.get("category"));
+		) {
+			tools.add(addTool(toolInfo.get("model"), toolInfo.get("manufacturer"), toolInfo.get("category"), newKit));
 		}
 		newKit.setTools(tools);
-		accessController.saveKit(newKit);
+		return newKit;
 	}
 
 	/**
@@ -43,11 +55,12 @@ public class AdminManager {
 	 * @param manufacturer
 	 * @param category
 	 */
-	public Tool addTool(String model, String manufacturer, String category) {
+	private Tool addTool(String model, String manufacturer, String category, Kit kit) {
 		Tool newTool = new Tool();
 		newTool.setModel(model);
 		newTool.setManufacturer(manufacturer);
 		newTool.setCategory(category);
+		newTool.setKit(kit);
 
 		return newTool;
 	}
@@ -61,14 +74,11 @@ public class AdminManager {
 		accessController.updateKit(kit);
 	}
 
-	/**
-	 * 
-	 * @param oldKit
-	 * @param newKit
-	 */
-	public void editKit(Kit oldKit, Kit newKit) {
-		newKit.setId(oldKit.getId());
-		accessController.updateKit(newKit);
+
+	public void editKit(Integer oldID, String name, String cat, Integer hqID, Collection<Map<String, String>> toolsInfo) {
+		Kit editedKit = createKit(name, cat, hqID, toolsInfo);
+		editedKit.setId(oldID);
+		accessController.updateKit(editedKit);
 	}
 
 	/**
@@ -83,10 +93,9 @@ public class AdminManager {
 		newOfficer.setBadgeNumber(badgeNumber);
 		newOfficer.setFirstName(firstName);
 		newOfficer.setLastName(lastName);
-		newOfficer.setHeadquarter(hq);
+		newOfficer.setHeadquarter(this.getHeadquarters()[hqID]);
 		newOfficer.setRank(rank);
 		newOfficer.setAccessLevel(AccessLevel.Officer);
-		newOfficer.setLogin("");
 		newOfficer.setPassHash("");
 		accessController.saveOfficer(newOfficer);
 	}

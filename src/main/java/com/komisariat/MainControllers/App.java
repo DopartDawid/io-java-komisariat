@@ -96,16 +96,8 @@ public class App {
 	}
 
 	public void addNewKit() {
-		Set<String> keys = new HashSet<>();
-		keys.add("name");
-		keys.add("category");
-		keys.add("hqID");
-		Map<String, String> kitInfo = ui.getKitInfo(keys);
-		keys = new HashSet<>();
-		keys.add("name");
-		keys.add("manufacturer");
-		keys.add("category");
-		Collection<Map<String, String>> toolsInfo = ui.getToolsInfo(keys);
+		Map<String, String> kitInfo = ui.getKitInfo();
+		Collection<Map<String, String>> toolsInfo = ui.getToolsInfo();
 		adminManager.addKit(kitInfo.get("name"), kitInfo.get("category"), Integer.parseInt(kitInfo.get("hqID")), toolsInfo);
 	}
 
@@ -124,11 +116,11 @@ public class App {
 
 	public void editKit() {
 		Map<String, String> editedKitInfo = ui.getEditedKitInfo();
-
 		if(editedKitInfo == null)
 			return; //ANULOWANIE WYBORU
+		Collection<Map<String, String>> tools = ui.getEditedToolsInfo(Integer.parseInt(editedKitInfo.get("id")));
 
-		//TODO - dokonczyc
+		adminManager.editKit(Integer.parseInt(editedKitInfo.get("id")), editedKitInfo.get("name"), editedKitInfo.get("category"), Integer.parseInt(editedKitInfo.get("hqID")), tools);
 	}
 
 	public void addNewOfficer() {
@@ -144,8 +136,7 @@ public class App {
 	}
 
 	public void editOfficer() {
-		// TODO - implement Facade.editOfficer
-		throw new UnsupportedOperationException();
+
 	}
 
 	public void removeOfficer() {
@@ -188,8 +179,38 @@ public class App {
 			temp.put("id", Integer.toString(kit.getId()));
 			temp.put("name", kit.getName());
 			temp.put("category", kit.getCategory());
+			temp.put("hqID", Integer.toString(kit.getHeadquarter().getId()));
 			kitsInfo.add(temp);
 		}
 		return kitsInfo;
+	}
+
+	public Collection<Map<String, String>> getKitTools(int kitID) {
+		Kit[] kits = null;
+
+		if(adminManager != null)
+			kits = adminManager.getKits();
+		else if(officerManager != null)
+			kits = officerManager.getShiftKits();
+		else if(commissionerManager != null)
+			kits = commissionerManager.getShiftKits();
+
+		Collection<Map<String, String>> toolsInfo = new ArrayList<>();
+
+		for (Kit kit: kits
+		) {
+			if(kit.getId() == kitID) {
+				for (Tool tool: kit.getTools()
+					 ) {
+					Map<String, String> temp = new HashMap<>();
+					temp.put("model", tool.getModel());
+					temp.put("manufacturer", tool.getManufacturer());
+					temp.put("category", tool.getCategory());
+					toolsInfo.add(temp);
+				}
+				return toolsInfo;
+			}
+		}
+		return null; //TODO - EXCEPTION A NIE NULL
 	}
 }

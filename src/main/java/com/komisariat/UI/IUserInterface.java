@@ -13,10 +13,11 @@ public interface IUserInterface {
     void showOfficerUI();
     void showCommissionerUI();
     //
-    Map<String, String> getKitInfo(Set<String> keys);
-    Collection<Map<String, String>> getToolsInfo(Set<String> keys);
+    Map<String, String> getKitInfo();
+    Collection<Map<String, String>> getToolsInfo();
     Integer getRemoveKitID();
     Map<String, String> getEditedKitInfo();
+    Collection<Map<String, String>> getEditedToolsInfo(Integer kitID);
     //
     Map<String, String> getNewOfficerInfo(Set<String> keys);
 
