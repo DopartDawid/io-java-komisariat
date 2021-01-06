@@ -96,10 +96,17 @@ public class App {
 	}
 
 	public void addNewKit() {
-		Map<String, String> kitInfo = ui.getKitInfo();
-		Collection<Map<String, String>> toolsInfo = ui.getToolsInfo();
+		Set<String> keys = new HashSet<>();
+		keys.add("name");
+		keys.add("category");
+		keys.add("hqID");
+		Map<String, String> kitInfo = ui.getKitInfo(keys);
+		keys = new HashSet<>();
+		keys.add("name");
+		keys.add("manufacturer");
+		keys.add("category");
+		Collection<Map<String, String>> toolsInfo = ui.getToolsInfo(keys);
 		adminManager.addKit(kitInfo.get("name"), kitInfo.get("category"), Integer.parseInt(kitInfo.get("hqID")), toolsInfo);
-		//TODO - DODAC JAKIES BLEDY CZY SIE UDALO I TAK DALEJ
 	}
 
 	public void removeKit() {
@@ -125,8 +132,15 @@ public class App {
 	}
 
 	public void addNewOfficer() {
-		// TODO - implement Facade.addNewOfficer
-		throw new UnsupportedOperationException();
+		Set<String> keys = new HashSet<>();
+		keys.add("badge number");
+		keys.add("first name");
+		keys.add("last name");
+		keys.add("hqID");
+		keys.add("rank");
+
+		Map<String, String> officerInfo = ui.getNewOfficerInfo(keys);
+		adminManager.addOfficer(Integer.parseInt(officerInfo.get("badge number")), officerInfo.get("first name"), officerInfo.get("last name"), Integer.parseInt(officerInfo.get("hqID")), officerInfo.get("rank"));
 	}
 
 	public void editOfficer() {

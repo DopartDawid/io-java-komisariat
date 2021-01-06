@@ -75,10 +75,10 @@ public class AdminManager {
 	 * @param badgeNumber
 	 * @param firstName
 	 * @param lastName
-	 * @param hq
+	 * @param hqID
 	 * @param rank
 	 */
-	public void addOfficer(int badgeNumber, String firstName, String lastName, Headquarter hq, String rank) {
+	public void addOfficer(int badgeNumber, String firstName, String lastName, Integer hqID, String rank) {
 		Officer newOfficer = new Officer();
 		newOfficer.setBadgeNumber(badgeNumber);
 		newOfficer.setFirstName(firstName);
