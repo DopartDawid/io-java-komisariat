@@ -20,5 +20,7 @@ public interface IUserInterface {
     Collection<Map<String, String>> getEditedToolsInfo(Integer kitID);
     //
     Map<String, String> getNewOfficerInfo();
+    Map<String, String> getEditedOfficerInfo();
+    Integer getRemoveOfficerID();
 
 }

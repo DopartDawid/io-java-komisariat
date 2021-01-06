@@ -1,9 +1,6 @@
 package com.komisariat.MainControllers;
 
-import com.komisariat.BusinessObjects.Headquarter;
-import com.komisariat.BusinessObjects.Kit;
-import com.komisariat.BusinessObjects.Rank;
-import com.komisariat.BusinessObjects.Tool;
+import com.komisariat.BusinessObjects.*;
 import com.komisariat.LogicControllers.AdminManager;
 import com.komisariat.LogicControllers.CommissionerManager;
 import com.komisariat.LogicControllers.LoginManager;
@@ -121,21 +118,37 @@ public class App {
 			return; //ANULOWANIE WYBORU
 		Collection<Map<String, String>> tools = ui.getEditedToolsInfo(Integer.parseInt(editedKitInfo.get("id")));
 
-		adminManager.editKit(Integer.parseInt(editedKitInfo.get("id")), editedKitInfo.get("name"), editedKitInfo.get("category"), Integer.parseInt(editedKitInfo.get("hqID")), tools);
+		adminManager.editKit(Integer.parseInt(editedKitInfo.get("id")),
+				editedKitInfo.get("name"),
+				editedKitInfo.get("category"),
+				Integer.parseInt(editedKitInfo.get("hqID")),
+				tools);
 	}
 
 	public void addNewOfficer() {
 		Map<String, String> officerInfo = ui.getNewOfficerInfo();
-		adminManager.addOfficer(Integer.parseInt(officerInfo.get("badgeNumber")), officerInfo.get("firstName"), officerInfo.get("lastName"), Integer.parseInt(officerInfo.get("hqID")), officerInfo.get("rank"));
+		adminManager.addOfficer(Integer.parseInt(officerInfo.get("badgeNumber")),
+				officerInfo.get("firstName"), officerInfo.get("lastName"),
+				Integer.parseInt(officerInfo.get("hqID")),
+				officerInfo.get("rank"));
 	}
 
 	public void editOfficer() {
+		Map<String, String> editedOfficerInfo = ui.getEditedOfficerInfo();
+		if(editedOfficerInfo == null)
+			return;
 
+		adminManager.editOfficer(Integer.parseInt(editedOfficerInfo.get("id")),
+				Integer.parseInt(editedOfficerInfo.get("badgeNumber")),
+				editedOfficerInfo.get("firstName"),
+				editedOfficerInfo.get("lastName"),
+				Integer.parseInt(editedOfficerInfo.get("hqID")),
+				editedOfficerInfo.get("rank"));
 	}
 
 	public void removeOfficer() {
-		// TODO - implement Facade.removeOfficer
-		throw new UnsupportedOperationException();
+		Integer chosenOfficerID = ui.getRemoveOfficerID();
+		adminManager.removeOfficer(chosenOfficerID);
 	}
 
 
@@ -216,5 +229,30 @@ public class App {
 			ranks.add(rank.getRankTitle());
 		}
 		return ranks;
+	}
+
+	public Collection<Map<String, String>> getOfficers(){
+		Collection<Officer> officers = null;
+
+		if(adminManager != null)
+			officers = adminManager.getOfficers();
+		else if(commissionerManager != null)
+			officers = commissionerManager.getOfficersInfo();
+
+		Collection<Map<String, String>> officersInfo = new LinkedList<>();
+
+		for (Officer officer: officers
+			 ) {
+			Map<String, String> temp = new HashMap<>();
+			temp.put("id", Integer.toString(officer.getId()));
+			temp.put("badgeNumber", Integer.toString(officer.getBadgeNumber()));
+			temp.put("firstName", officer.getFirstName());
+			temp.put("lastName", officer.getLastName());
+			temp.put("hqID", Integer.toString(officer.getHeadquarter().getId()));
+			temp.put("rank", officer.getRank().getRankTitle());
+			officersInfo.add(temp);
+		}
+
+		return officersInfo;
 	}
 }

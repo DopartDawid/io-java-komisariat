@@ -89,6 +89,7 @@ public class AdminManager {
 	 * @param rank
 	 */
 	public void addOfficer(int badgeNumber, String firstName, String lastName, Integer hqID, String rank) {
+		//TODO - PASS HASH
 		Officer newOfficer = createOfficer(badgeNumber, firstName, lastName, hqID, rank);
 		accessController.saveOfficer(newOfficer);
 	}
@@ -107,36 +108,44 @@ public class AdminManager {
 			}
 		}
 
-		newOfficer.setRank(rank);
-		newOfficer.setAccessLevel(AccessLevel.Officer);
+		for (Rank rankObj: this.getRanks() //TODO - WALIDACJA CZY NA PEWNO ZOSTAL DODANY HQ
+		) {
+			if(rankObj.getRankTitle().equals(rank)) {
+				newOfficer.setRank(rankObj);
+				break;
+			}
+		}
 
 		return newOfficer;
 	}
 
 	public Collection<Rank> getRanks() { return accessController.getRanks(); }
 
-	public Officer[] getOfficers() {
-		// TODO - implement AdminManager.getOfficers
-		throw new UnsupportedOperationException();
+	public Collection<Officer> getOfficers() { return accessController.getAllOfficers(); }
+
+	public void removeOfficer(Integer officerID) {
+		for (Officer officer: getOfficers()
+			 ) {
+			if(officer.getId() == officerID) {
+				officer.setAccessLevel(AccessLevel.Removed);
+				accessController.updateOfficer(officer);
+			}
+		}
 	}
 
-	/**
-	 * 
-	 * @param officer
-	 */
-	public void removeOfficer(Officer officer) {
-		officer.setAccessLevel(AccessLevel.Removed);
-		accessController.updateOfficer(officer);
-	}
 
-	/**
-	 * 
-	 * @param oldOfficer
-	 * @param newOfficer
-	 */
-	public void editOfficer(Officer oldOfficer, Officer newOfficer) {
-		newOfficer.setId(oldOfficer.getId());
-		accessController.saveOfficer(newOfficer);
+	public void editOfficer(int oldID, int badgeNumber, String firstName, String lastName, Integer hqID, String rank) {
+		Officer editedOfficer = createOfficer(badgeNumber, firstName, lastName, hqID, rank);
+		for (Officer officer: getOfficers()
+			 ) {
+			if(officer.getId() == oldID) {
+				editedOfficer.setLogin(officer.getLogin());
+				editedOfficer.setPassHash(officer.getPassHash());
+				editedOfficer.setAccessLevel(officer.getAccessLevel());
+			}
+		}
+		editedOfficer.setId(oldID);
+		accessController.updateOfficer(editedOfficer);
 	}
 
 	public Collection<Headquarter> getHeadquarters() {

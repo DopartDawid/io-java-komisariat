@@ -265,8 +265,83 @@ public class TextUI implements IUserInterface {
     }
 
     @Override
-    public Map<String, String> getNewOfficerInfo(Set<String> keys) {
-        return null;
+    public Map<String, String> getNewOfficerInfo() {
+        System.out.println("#########------- DODAWANIE NOWEGO FUNKCJONARIUSZA -------#########");
+        Map<String, String> officerInfo = new HashMap<>();
+        System.out.print("Podaj numer odznaki: ");
+        Integer badgeNumber = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Podaj imie: ");
+        String name = scanner.nextLine();
+        System.out.print("Podaj nazwisko: ");
+        String lastName = scanner.nextLine();
+        System.out.println("\n---- DOCELOWY KOMISARIAT ----");
+        String hqID = showHeadquarterChoice().get("id");
+        System.out.println("\n---- STOPIEN NOWEGO FUNKCJONARIUSZA");
+        String rank = showRankChoice();
+
+        officerInfo.put("badgeNumber", Integer.toString(badgeNumber));
+        officerInfo.put("firstName", name);
+        officerInfo.put("lastName", lastName);
+        officerInfo.put("hqID", hqID);
+        officerInfo.put("rank", rank);
+
+        return officerInfo;
+    }
+
+    @Override
+    public Map<String, String> getEditedOfficerInfo() {
+        System.out.println("#########------- EDYTOWANIE ISTNIEJACEGO FUNKCJONARIUSZA -------#########\n");
+        Map<String, String> temp = showOfficerChoice();
+        if(temp == null) {
+            System.out.println("\n\n ####### ANULOWANO EDYCJE FUNCKJONARIUSZA ####### \n\n");
+            return null;
+        }
+        System.out.print("Numer odznaki (" + temp.get("badgeNumber")+"): ");
+        String badgeNumber = scanner.nextLine();
+        if(!badgeNumber.equals(""))
+            temp.replace("badgeNumber", badgeNumber);
+
+        System.out.print("Imie (" + temp.get("firstName")+"): ");
+        String firstName = scanner.nextLine();
+        if(!firstName.equals(""))
+            temp.replace("firstName", firstName);
+
+        System.out.print("Nazwisko (" + temp.get("lastName")+"): ");
+        String lastName = scanner.nextLine();
+        if(!lastName.equals(""))
+            temp.replace("lastName", firstName);
+
+        System.out.print("----- Stopien (" + temp.get("rank")+") -----");
+        String rank = showRankChoice();
+        if(!rank.equals(""))
+            temp.replace("rank", firstName);
+
+        String address = "";
+        for (Map<String, String> hqInfo: app.getHeadquarters()
+             ) {
+            if(hqInfo.get("id") == temp.get("hqID"))
+                address = hqInfo.get("address");
+        }
+
+        System.out.print("----- Komisariat (" +address+") -----");
+        String hqID = showHeadquarterChoice().get("id");
+        if(!hqID.equals(""))
+            temp.replace("hqID", hqID);
+
+        return temp;
+
+    }
+
+    @Override
+    public Integer getRemoveOfficerID() {
+        System.out.println("#########------- USUWANIE FUNKCJONARIUSZA -------#########\n");
+        Map<String, String> temp = showOfficerChoice();
+        if(temp == null) {
+            System.out.println("\n\n ####### ANULOWANO USUWANIE FUNKCJONARIUSZA ####### \n\n");
+            return -1;
+        }
+        return Integer.parseInt(temp.get("id"));
     }
 
     private Map<String, String> showKitChoice() {
@@ -318,6 +393,60 @@ public class TextUI implements IUserInterface {
                 scanner.nextLine();
             }
             return hqsInfos.get(choice-1);
+        }
+    }
+
+    private String showRankChoice() {
+        while(true) {
+            ArrayList<String> ranks = new ArrayList<>(app.getRanks());
+            System.out.println("\tNUMER\t|\tSTOPIEN\t|");
+            for (String rank: ranks
+            ) {
+                System.out.println("\t" + (ranks.indexOf(rank)+1) + "\t|\t" + rank + "\t|");
+            }
+            System.out.print("Wybierz numer rangi: ");
+            Integer choice = scanner.nextInt();
+            scanner.nextLine();
+            while(!(choice <= ranks.size() && choice > 0)) {
+                System.out.print("Nieprawidłowy numer, podaj ponownie: ");
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            }
+            return ranks.get(choice-1);
+        }
+    }
+
+    private Map<String, String> showOfficerChoice() {
+        while(true) {
+            ArrayList<Map<String, String>> officersInfo = new ArrayList<>(app.getOfficers());
+            LinkedList<Map<String, String>> hqsInfos = new LinkedList<>(app.getHeadquarters());
+            System.out.println("\tNUMER\t|\tNUMER ODZNAKI\t|\tIMIE\t|\tNAZWISKO\t|\tRANGA\t|\tADRES KOMISARIATU\t|");
+            for (Map<String, String> officerInfo: officersInfo
+            ) {
+                String address = "";
+                for (Map<String, String> hqInfo: hqsInfos
+                     ) {
+                    if(hqInfo.get("id").equals(officerInfo.get("hqID")))
+                        address = hqInfo.get("address");
+                }
+                System.out.println("\t" + (officersInfo.indexOf(officerInfo)+1) + "\t|\t" +
+                        officerInfo.get("badgeNumber") + "\t|\t" +
+                        officerInfo.get("firstName") + "\t|\t" +
+                        officerInfo.get("lastName") + "\t|\t" +
+                        officerInfo.get("rank") + "\t|\t" +
+                        address + "\t|");
+            }
+            System.out.print("Wybierz numer funkcjonariusza: ");
+            Integer choice = scanner.nextInt();
+            scanner.nextLine();
+            while(!(choice <= officersInfo.size() && choice > 0)) {
+                System.out.print("Nieprawidłowy numer, podaj ponownie: ");
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            }
+
+            System.out.print("\nPotwierdasz swoj wybor? (y/n): ");
+            if(scanner.nextLine().equals("y")) return officersInfo.get(choice-1);
         }
     }
 }
