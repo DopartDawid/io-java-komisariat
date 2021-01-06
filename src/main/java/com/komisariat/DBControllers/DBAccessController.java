@@ -245,9 +245,22 @@ public class DBAccessController implements IDBAccessController {
 		return results.toArray(new Officer[results.size()]);
 	}
 
-	public String[] getRanks() {
-		// TODO - Brak możliwości implementacji (nie ma klasy Rank) - możliwie do usunięcia
-		throw new UnsupportedOperationException();
+	public Rank[] getRanks() {
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+
+		CriteriaBuilder cb = session.getCriteriaBuilder();
+		CriteriaQuery<Rank> cr = cb.createQuery(Rank.class);
+		Root<Rank> root = cr.from(Rank.class);
+
+		cr.select(root);
+
+		List<Rank> results = session.createQuery(cr).getResultList();
+
+		tx.commit();
+		session.close();
+
+		return results.toArray(new Rank[results.size()]);
 	}
 
 	public Headquarter[] getHeadquarters() {

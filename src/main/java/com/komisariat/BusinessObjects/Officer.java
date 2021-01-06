@@ -17,8 +17,9 @@ public class Officer extends User implements Serializable {
 	@Column(name = "Second_Name")
 	private String lastName;
 
-	@Column(name = "Rank_title")
-	private String rank;
+	@ManyToOne
+	@JoinColumn(name = "Rank_title")
+	private Rank rank;
 
 	@ManyToOne
 	@JoinColumn(name = "Headquarter_ID")
@@ -48,11 +49,11 @@ public class Officer extends User implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public String getRank() {
+	public Rank getRank() {
 		return rank;
 	}
 
-	public void setRank(String rank) {
+	public void setRank(Rank rank) {
 		this.rank = rank;
 	}
 

@@ -60,7 +60,7 @@ public interface IDBAccessController {
 
 	Officer[] getAllOfficers();
 
-	String[] getRanks();
+	Rank[] getRanks();
 
 	Headquarter[] getHeadquarters();
 

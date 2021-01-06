@@ -89,21 +89,31 @@ public class AdminManager {
 	 * @param rank
 	 */
 	public void addOfficer(int badgeNumber, String firstName, String lastName, Integer hqID, String rank) {
+		Officer newOfficer = createOfficer(badgeNumber, firstName, lastName, hqID, rank);
+		accessController.saveOfficer(newOfficer);
+	}
+
+	private Officer createOfficer(int badgeNumber, String firstName, String lastName, Integer hqID, String rank) {
 		Officer newOfficer = new Officer();
 		newOfficer.setBadgeNumber(badgeNumber);
 		newOfficer.setFirstName(firstName);
 		newOfficer.setLastName(lastName);
-		newOfficer.setHeadquarter(this.getHeadquarters()[hqID]);
+
+		for (Headquarter hq: this.getHeadquarters() //TODO - WALIDACJA CZY NA PEWNO ZOSTAL DODANY HQ
+		) {
+			if(hq.getId() == hqID) {
+				newOfficer.setHeadquarter(hq);
+				break;
+			}
+		}
+
 		newOfficer.setRank(rank);
 		newOfficer.setAccessLevel(AccessLevel.Officer);
-		newOfficer.setPassHash("");
-		accessController.saveOfficer(newOfficer);
+
+		return newOfficer;
 	}
 
-	public String[] getRanks() {
-		// TODO - implement AdminManager.getRanks ????
-		throw new UnsupportedOperationException();
-	}
+	public Rank[] getRanks() { return accessController.getRanks(); }
 
 	public Officer[] getOfficers() {
 		// TODO - implement AdminManager.getOfficers

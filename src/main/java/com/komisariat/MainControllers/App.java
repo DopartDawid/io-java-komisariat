@@ -2,6 +2,7 @@ package com.komisariat.MainControllers;
 
 import com.komisariat.BusinessObjects.Headquarter;
 import com.komisariat.BusinessObjects.Kit;
+import com.komisariat.BusinessObjects.Rank;
 import com.komisariat.BusinessObjects.Tool;
 import com.komisariat.LogicControllers.AdminManager;
 import com.komisariat.LogicControllers.CommissionerManager;
@@ -124,15 +125,8 @@ public class App {
 	}
 
 	public void addNewOfficer() {
-		Set<String> keys = new HashSet<>();
-		keys.add("badge number");
-		keys.add("first name");
-		keys.add("last name");
-		keys.add("hqID");
-		keys.add("rank");
-
-		Map<String, String> officerInfo = ui.getNewOfficerInfo(keys);
-		adminManager.addOfficer(Integer.parseInt(officerInfo.get("badge number")), officerInfo.get("first name"), officerInfo.get("last name"), Integer.parseInt(officerInfo.get("hqID")), officerInfo.get("rank"));
+		Map<String, String> officerInfo = ui.getNewOfficerInfo();
+		adminManager.addOfficer(Integer.parseInt(officerInfo.get("badgeNumber")), officerInfo.get("firstName"), officerInfo.get("lastName"), Integer.parseInt(officerInfo.get("hqID")), officerInfo.get("rank"));
 	}
 
 	public void editOfficer() {
@@ -212,5 +206,15 @@ public class App {
 			}
 		}
 		return null; //TODO - EXCEPTION A NIE NULL
+	}
+
+	public Collection<String> getRanks() {
+		Collection<String> ranks = new LinkedList<>();
+
+		for (Rank rank: adminManager.getRanks()
+			 ) {
+			ranks.add(rank.getRankTitle());
+		}
+		return ranks;
 	}
 }
