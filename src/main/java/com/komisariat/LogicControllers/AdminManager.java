@@ -11,7 +11,7 @@ import java.util.Map;
 public class AdminManager {
 	private IDBAccessController accessController = DBAccessController.getInstance(AccessLevel.Admin);
 
-	public Kit[] getKits() {
+	public Collection<Kit> getKits() {
 		return accessController.getAllKits();
 	}
 
@@ -113,7 +113,7 @@ public class AdminManager {
 		return newOfficer;
 	}
 
-	public Rank[] getRanks() { return accessController.getRanks(); }
+	public Collection<Rank> getRanks() { return accessController.getRanks(); }
 
 	public Officer[] getOfficers() {
 		// TODO - implement AdminManager.getOfficers
@@ -139,7 +139,7 @@ public class AdminManager {
 		accessController.saveOfficer(newOfficer);
 	}
 
-	public Headquarter[] getHeadquarters() {
+	public Collection<Headquarter> getHeadquarters() {
 		return accessController.getHeadquarters();
 	}
 

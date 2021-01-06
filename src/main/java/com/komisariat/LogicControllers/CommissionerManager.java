@@ -2,6 +2,7 @@ package com.komisariat.LogicControllers;
 
 import com.komisariat.BusinessObjects.*;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,11 +21,11 @@ public class CommissionerManager extends OfficerManager {
 	 * @param beginDate
 	 * @param lastDate
 	 */
-	public Report[] getReports(Date beginDate, Date lastDate) {
+	public Collection<Report> getReports(Date beginDate, Date lastDate) {
 		return dbac.getReports(beginDate, lastDate, loggedOfficer.getHeadquarter());
 	}
 
-	public Officer[] getOfficersInfo() {
+	public Collection<Officer> getOfficersInfo() {
 		return dbac.getOfficers(loggedOfficer.getHeadquarter());
 	}
 
@@ -33,19 +34,19 @@ public class CommissionerManager extends OfficerManager {
 	 * @param beginDate
 	 * @param lastDate
 	 */
-	public Shift[] getOfficersShifts(Date beginDate, Date lastDate) {
+	public Collection<Shift> getOfficersShifts(Date beginDate, Date lastDate) {
 		return dbac.getShifts(beginDate, lastDate, loggedOfficer.getHeadquarter());
 	}
 
-	public Officer[] getActiveOfficers() {
-		Shift[] sh = dbac.getActiveShifts(loggedOfficer.getHeadquarter());
+	public Collection<Officer> getActiveOfficers() {
+		Collection<Shift> sh = dbac.getActiveShifts(loggedOfficer.getHeadquarter());
 		List<Officer> activeOfficers = new LinkedList<>();
 		for (Shift temp: sh
 			 ) {
 			activeOfficers.add(temp.getOfficer());
 		}
 
-		return activeOfficers.toArray(new Officer[activeOfficers.size()]);
+		return activeOfficers;
 	}
 
 }

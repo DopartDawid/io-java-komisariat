@@ -104,7 +104,7 @@ public class App {
 
 	public void removeKit() {
 		Integer chosenKitID = ui.getRemoveKitID();
-		Kit[] kits = adminManager.getKits();
+		Collection<Kit> kits = adminManager.getKits();
 
 		for (Kit kit: kits
 			 ) {
@@ -142,7 +142,7 @@ public class App {
 	//UTIL FUNCTIONS
 
 	public Collection<Map<String, String>> getHeadquarters() {
-		Headquarter[] hqs = adminManager.getHeadquarters();
+		Collection<Headquarter> hqs = adminManager.getHeadquarters();
 		Collection<Map<String, String>> hqsInfo = new ArrayList<>();
 
 		for (Headquarter hq: hqs
@@ -156,7 +156,7 @@ public class App {
 	}
 
 	public Collection<Map<String, String>> getKits() {
-		Kit[] kits = null;
+		Collection<Kit> kits = null;
 
 		if(adminManager != null)
 			kits = adminManager.getKits();
@@ -180,7 +180,7 @@ public class App {
 	}
 
 	public Collection<Map<String, String>> getKitTools(int kitID) {
-		Kit[] kits = null;
+		Collection<Kit> kits = null;
 
 		if(adminManager != null)
 			kits = adminManager.getKits();

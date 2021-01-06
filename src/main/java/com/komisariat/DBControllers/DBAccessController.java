@@ -14,6 +14,7 @@ import org.hibernate.query.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -60,10 +61,11 @@ public class DBAccessController implements IDBAccessController {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param hq
+	 * @return
 	 */
-	public Kit[] getAvailableKits(Headquarter hq) {
+	public Collection<Kit> getAvailableKits(Headquarter hq) {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 
@@ -75,10 +77,10 @@ public class DBAccessController implements IDBAccessController {
 		tx.commit();
 		session.close();
 
-		return results.toArray(new Kit[results.size()]);
+		return results;
 	}
 
-	public Kit[] getAllKits() {
+	public Collection<Kit> getAllKits() {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 
@@ -93,14 +95,15 @@ public class DBAccessController implements IDBAccessController {
 		tx.commit();
 		session.close();
 
-		return results.toArray(new Kit[results.size()]);
+		return results;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param hq
+	 * @return
 	 */
-	public Vehicle[] getAvailableVehicles(Headquarter hq) {
+	public Collection<Vehicle> getAvailableVehicles(Headquarter hq) {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 
@@ -112,14 +115,15 @@ public class DBAccessController implements IDBAccessController {
 		tx.commit();
 		session.close();
 
-		return results.toArray(new Vehicle[results.size()]);
+		return results;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param hq
+	 * @return
 	 */
-	public PatrolRegion[] getAvailableRegions(Headquarter hq) {
+	public Collection<PatrolRegion> getAvailableRegions(Headquarter hq) {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 
@@ -131,10 +135,10 @@ public class DBAccessController implements IDBAccessController {
 		tx.commit();
 		session.close();
 
-		return results.toArray(new PatrolRegion[results.size()]);
+		return results;
 	}
 
-	public Shift[] getShifts(Date startDate, Date endDate, Headquarter hq) {
+	public Collection<Shift> getShifts(Date startDate, Date endDate, Headquarter hq) {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 		String select = "FROM Shift s WHERE s.officer.headquarter.id = :hq AND s.startDate BETWEEN :startD AND :endD";
@@ -145,7 +149,7 @@ public class DBAccessController implements IDBAccessController {
 		tx.commit();
 		session.close();
 
-		return results.toArray(new Shift[results.size()]);
+		return results;
 	}
 
 	/**
@@ -173,8 +177,9 @@ public class DBAccessController implements IDBAccessController {
 	/**
 	 *
 	 * @param hq
+	 * @return
 	 */
-	public Shift[] getActiveShifts(Headquarter hq) {
+	public Collection<Shift> getActiveShifts(Headquarter hq) {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 
@@ -186,16 +191,16 @@ public class DBAccessController implements IDBAccessController {
 		tx.commit();
 		session.close();
 
-		return results.toArray(new Shift[results.size()]);
+		return results;
 	}
 
 	/**
-	 * 
-	 * @param startDate
+	 *  @param startDate
 	 * @param endDate
 	 * @param hq
+	 * @return
 	 */
-	public Report[] getReports(Date startDate, Date endDate, Headquarter hq) {
+	public Collection<Report> getReports(Date startDate, Date endDate, Headquarter hq) {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 		String select = "FROM Report r WHERE (SELECT s.officer.headquarter.id FROM Shift s WHERE s.report.id = r.id) = :hq AND r.date BETWEEN :startD AND :endD";
@@ -206,14 +211,15 @@ public class DBAccessController implements IDBAccessController {
 		tx.commit();
 		session.close();
 
-		return results.toArray(new Report[results.size()]);
+		return results;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param hq
+	 * @return
 	 */
-	public Officer[] getOfficers(Headquarter hq) {
+	public Collection<Officer> getOfficers(Headquarter hq) {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 		String select = "FROM Officer o WHERE o.headquarter.id = :hq";
@@ -224,10 +230,10 @@ public class DBAccessController implements IDBAccessController {
 		tx.commit();
 		session.close();
 
-		return results.toArray(new Officer[results.size()]);
+		return results;
 	}
 
-	public Officer[] getAllOfficers() {
+	public Collection<Officer> getAllOfficers() {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 
@@ -242,10 +248,10 @@ public class DBAccessController implements IDBAccessController {
 		tx.commit();
 		session.close();
 
-		return results.toArray(new Officer[results.size()]);
+		return results;
 	}
 
-	public Rank[] getRanks() {
+	public Collection<Rank> getRanks() {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 
@@ -260,10 +266,10 @@ public class DBAccessController implements IDBAccessController {
 		tx.commit();
 		session.close();
 
-		return results.toArray(new Rank[results.size()]);
+		return results;
 	}
 
-	public Headquarter[] getHeadquarters() {
+	public Collection<Headquarter> getHeadquarters() {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 
@@ -278,7 +284,7 @@ public class DBAccessController implements IDBAccessController {
 		tx.commit();
 		session.close();
 
-		return results.toArray(new Headquarter[results.size()]);
+		return results;
 	}
 
 	/**

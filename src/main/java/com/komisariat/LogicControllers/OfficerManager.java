@@ -3,6 +3,8 @@ package com.komisariat.LogicControllers;
 import com.komisariat.BusinessObjects.*;
 import com.komisariat.DBControllers.IDBAccessController;
 
+import java.util.Collection;
+
 public class OfficerManager {
 
 	protected IDBAccessController dbac;
@@ -22,17 +24,17 @@ public class OfficerManager {
 		throw new UnsupportedOperationException();
 	}
 
-	public Kit[] getShiftKits() {
+	public Collection<Kit> getShiftKits() {
 		// TODO - implement OfficerManager.getShiftKits
 		throw new UnsupportedOperationException();
 	}
 
-	public Vehicle[] getShiftVehicles() {
+	public Collection<Vehicle> getShiftVehicles() {
 		// TODO - implement OfficerManager.getShiftVehicles
 		throw new UnsupportedOperationException();
 	}
 
-	public PatrolRegion[] getShiftRegions() {
+	public Collection<PatrolRegion> getShiftRegions() {
 		// TODO - implement OfficerManager.getShiftRegions
 		throw new UnsupportedOperationException();
 	}
