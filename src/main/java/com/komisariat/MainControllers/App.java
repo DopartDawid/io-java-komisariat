@@ -1,5 +1,8 @@
 package com.komisariat.MainControllers;
 
+import com.komisariat.BusinessObjects.Headquarter;
+import com.komisariat.BusinessObjects.Kit;
+import com.komisariat.BusinessObjects.Tool;
 import com.komisariat.LogicControllers.AdminManager;
 import com.komisariat.LogicControllers.CommissionerManager;
 import com.komisariat.LogicControllers.LoginManager;
@@ -7,8 +10,7 @@ import com.komisariat.LogicControllers.OfficerManager;
 import com.komisariat.UI.IUserInterface;
 import com.komisariat.UI.TextUI;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class App {
 
@@ -94,18 +96,32 @@ public class App {
 	}
 
 	public void addNewKit() {
-		// TODO - implement Facade.addNewKit
-		throw new UnsupportedOperationException();
+		Map<String, String> kitInfo = ui.getKitInfo();
+		Collection<Map<String, String>> toolsInfo = ui.getToolsInfo();
+		adminManager.addKit(kitInfo.get("name"), kitInfo.get("category"), Integer.parseInt(kitInfo.get("hqID")), toolsInfo);
+		//TODO - DODAC JAKIES BLEDY CZY SIE UDALO I TAK DALEJ
 	}
 
 	public void removeKit() {
-		// TODO - implement Facade.removeKit
-		throw new UnsupportedOperationException();
+		Integer chosenKitID = ui.getRemoveKitID();
+		Kit[] kits = adminManager.getKits();
+
+		for (Kit kit: kits
+			 ) {
+			if (kit.getId() == chosenKitID) {
+				adminManager.removeKit(kit);
+				break;
+			}
+		}
 	}
 
 	public void editKit() {
-		// TODO - implement Facade.editKit
-		throw new UnsupportedOperationException();
+		Map<String, String> editedKitInfo = ui.getEditedKitInfo();
+
+		if(editedKitInfo == null)
+			return; //ANULOWANIE WYBORU
+
+		//TODO - dokonczyc
 	}
 
 	public void addNewOfficer() {
@@ -123,4 +139,43 @@ public class App {
 		throw new UnsupportedOperationException();
 	}
 
+
+	//UTIL FUNCTIONS
+
+	public Collection<Map<String, String>> getHeadquarters() {
+		Headquarter[] hqs = adminManager.getHeadquarters();
+		Collection<Map<String, String>> hqsInfo = new ArrayList<>();
+
+		for (Headquarter hq: hqs
+			 ) {
+			Map<String, String> temp = new HashMap<>();
+			temp.put("id", Integer.toString(hq.getId()));
+			temp.put("address", hq.getStreet() + " " + hq.getNumber());
+			hqsInfo.add(temp);
+		}
+		return hqsInfo;
+	}
+
+	public Collection<Map<String, String>> getKits() {
+		Kit[] kits = null;
+
+		if(adminManager != null)
+			kits = adminManager.getKits();
+		else if(officerManager != null)
+			kits = officerManager.getShiftKits();
+		else if(commissionerManager != null)
+			kits = commissionerManager.getShiftKits();
+
+		Collection<Map<String, String>> kitsInfo = new ArrayList<>();
+
+		for (Kit kit: kits
+		) {
+			Map<String, String> temp = new HashMap<>();
+			temp.put("id", Integer.toString(kit.getId()));
+			temp.put("name", kit.getName());
+			temp.put("category", kit.getCategory());
+			kitsInfo.add(temp);
+		}
+		return kitsInfo;
+	}
 }

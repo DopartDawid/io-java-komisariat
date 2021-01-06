@@ -37,7 +37,7 @@ public class CommissionerManager extends OfficerManager {
 		return dbac.getShifts(beginDate, lastDate, loggedOfficer.getHeadquarter());
 	}
 
-	public Shift[] getActiveOfficers() {
+	public Officer[] getActiveOfficers() {
 		Shift[] sh = dbac.getActiveShifts(loggedOfficer.getHeadquarter());
 		List<Officer> activeOfficers = new LinkedList<>();
 		for (Shift temp: sh
@@ -45,7 +45,7 @@ public class CommissionerManager extends OfficerManager {
 			activeOfficers.add(temp.getOfficer());
 		}
 
-		return activeOfficers.toArray(new Shift[activeOfficers.size()]);
+		return activeOfficers.toArray(new Officer[activeOfficers.size()]);
 	}
 
 }

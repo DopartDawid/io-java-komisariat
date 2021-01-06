@@ -19,14 +19,14 @@ public class AdminManager {
 	 * 
 	 * @param name
 	 * @param cat
-	 * @param hq
-	 * @param tools
+	 * @param hqID
+	 * @param toolsInfo
 	 */
-	public void addKit(String name, String cat, Headquarter hq, Collection<Map<String, String>> toolsInfo) {
+	public void addKit(String name, String cat, Integer hqID, Collection<Map<String, String>> toolsInfo) {
 		Kit newKit = new Kit();
 		newKit.setName(name);
 		newKit.setCategory(cat);
-		newKit.setHeadquarter(hq);
+		newKit.setHeadquarter(this.getHeadquarters()[hqID]); //TODO - WALIDACJA CZY W OGOLE JEST TAKIE HQID (WYRZUCENIE EXCEPTION?)
 
 		Collection<Tool> tools = new LinkedList<>();
 		for (Map<String, String> toolInfo: toolsInfo
