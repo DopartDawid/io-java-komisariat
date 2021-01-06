@@ -5,6 +5,8 @@ import com.komisariat.DBControllers.DBAccessController;
 import com.komisariat.DBControllers.IDBAccessController;
 
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Map;
 
 public class AdminManager {
 	private IDBAccessController accessController = DBAccessController.getInstance(AccessLevel.Admin);
@@ -20,13 +22,18 @@ public class AdminManager {
 	 * @param hq
 	 * @param tools
 	 */
-	public void addKit(String name, String cat, Headquarter hq, Collection<Tool> tools) {
+	public void addKit(String name, String cat, Headquarter hq, Collection<Map<String, String>> toolsInfo) {
 		Kit newKit = new Kit();
 		newKit.setName(name);
 		newKit.setCategory(cat);
 		newKit.setHeadquarter(hq);
-		newKit.setTools(tools);
 
+		Collection<Tool> tools = new LinkedList<>();
+		for (Map<String, String> toolInfo: toolsInfo
+			 ) {
+			addTool(toolInfo.get("model"), toolInfo.get("manufacturer"), toolInfo.get("category"));
+		}
+		newKit.setTools(tools);
 		accessController.saveKit(newKit);
 	}
 
@@ -36,13 +43,13 @@ public class AdminManager {
 	 * @param manufacturer
 	 * @param category
 	 */
-	public void addTool(String model, String manufacturer, String category) {
+	public Tool addTool(String model, String manufacturer, String category) {
 		Tool newTool = new Tool();
 		newTool.setModel(model);
 		newTool.setManufacturer(manufacturer);
 		newTool.setCategory(category);
 
-		accessController.saveTool(newTool);
+		return newTool;
 	}
 
 	/**
