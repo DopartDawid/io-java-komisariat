@@ -20,7 +20,7 @@ public class Shift {
 	@JoinColumn(name = "Region_ID")
 	private PatrolRegion patrolRegion;
 
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "Report_ID")
 	private Report report;
 

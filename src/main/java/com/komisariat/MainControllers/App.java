@@ -268,6 +268,7 @@ public class App {
 			temp.put("title", report.getTitle());
 			temp.put("content", report.getContent());
 			temp.put("date", report.getDate().toString());
+			temp.put("officerName", report.getShift().getOfficer().getFirstName()+ " " +report.getShift().getOfficer().getLastName());
 			reportsInfo.add(temp);
 		}
 

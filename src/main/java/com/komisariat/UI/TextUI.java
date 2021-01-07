@@ -2,6 +2,7 @@ package com.komisariat.UI;
 
 import com.komisariat.MainControllers.App;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class TextUI implements IUserInterface {
@@ -346,7 +347,24 @@ public class TextUI implements IUserInterface {
 
     @Override
     public void showReports() {
+        System.out.println("#########------- RAPORTY ZE SLUZBY -------#########\n");
+        Date firstDate = null;
+        Date secondDate = null;
+        System.out.print("Wprowadz początek okresu (format: DD/MM/RRRR lub ENTER dla wyswietlenia wszystkich): ");
+        String fDate = scanner.nextLine();
+        if(!fDate.isEmpty()) {
+            System.out.print("Wprowadz koniec okresu (format: DD/MM/RRRR): ");
+            String sDate = scanner.nextLine();
+            try{
+                firstDate = new SimpleDateFormat("DD/MM/YYYY").parse(fDate);
+                secondDate = new SimpleDateFormat("DD/MM/YYYY").parse(sDate);
+            }
+            catch (Exception e) {
+                e.printStackTrace(); //TODO - EXCEPTION HANDLING
+            }
+        }
 
+        showReport(firstDate, secondDate);
     }
 
     private Map<String, String> showKitChoice() {
@@ -452,6 +470,40 @@ public class TextUI implements IUserInterface {
 
             System.out.print("\nPotwierdasz swoj wybor? (y/n): ");
             if(scanner.nextLine().equals("y")) return officersInfo.get(choice-1);
+        }
+    }
+
+    private void showReport(Date fDate, Date sDate) {
+        while(true) {
+            ArrayList<Map<String, String>> reportInfos = new ArrayList<>(app.getReports(fDate, sDate));
+            System.out.println("\tNUMER\t|\tDATA DODANIA\t|\tTYTUL\t|\tAUTOR\t|");
+            for (Map<String, String> reportInfo: reportInfos
+            ) {
+                System.out.println("\t" + (reportInfos.indexOf(reportInfo)+1) + "\t|\t" +
+                        reportInfo.get("date") + "\t|\t" +
+                        reportInfo.get("title") + "\t|\t" +
+                        reportInfo.get("officerName") + "\t|");
+            }
+            System.out.print("Wybierz numer raportu, aby wyswietlić treść: ");
+            Integer choice = scanner.nextInt();
+            scanner.nextLine();
+            while(!(choice <= reportInfos.size() && choice > 0)) {
+                System.out.print("Nieprawidłowy numer, podaj ponownie: ");
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            }
+
+            Map<String, String> chosenReport = reportInfos.get(choice-1);
+
+            System.out.println("\n=========== RAPORT ===========");
+            System.out.println("Autor: " + chosenReport.get("officerName"));
+            System.out.println("Data dodania: " + chosenReport.get("date"));
+            System.out.println("Tytuł: " + chosenReport.get("title"));
+            System.out.println("------------------------");
+            System.out.println(chosenReport.get("content"));
+
+            System.out.print("\nWyswietlic inny raport? (y/n): ");
+            if(scanner.nextLine().equals("n")) return;
         }
     }
 }

@@ -40,4 +40,15 @@ public class Report {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
+	@OneToOne(mappedBy = "report", optional = false, fetch = FetchType.EAGER)
+	private Shift shift;
+
+	public Shift getShift() {
+		return shift;
+	}
+
+	public void setShift(Shift shift) {
+		this.shift = shift;
+	}
 }
