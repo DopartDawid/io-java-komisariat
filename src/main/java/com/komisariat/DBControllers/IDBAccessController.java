@@ -101,6 +101,12 @@ public interface IDBAccessController {
 	boolean updateShiftInfo(Shift shift);
 
 	/**
+	 *
+	 * @param vehicle
+	 */
+	boolean updateVehicleInfo(Vehicle vehicle);
+
+	/**
 	 * 
 	 * @param kit
 	 */

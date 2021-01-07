@@ -47,9 +47,16 @@ public class OfficerManager {
 	 * @param vehicle
 	 * @param region
 	 */
-	public Shift createShift(Kit kit, Vehicle vehicle, PatrolRegion region) {
-		// TODO - implement OfficerManager.createShift
-		throw new UnsupportedOperationException();
+	public void createShift(Kit kit, Vehicle vehicle, PatrolRegion region) {
+		Shift newShift = new Shift();
+		Date timestamp = new Date();
+		newShift.setStartDate(timestamp);
+		newShift.setOfficer(loggedOfficer);
+		newShift.setKit(kit);
+		newShift.setVehicle(vehicle);
+		newShift.setPatrolRegion(region);
+
+		dbac.saveShift(newShift);
 	}
 
 	/**
@@ -58,8 +65,29 @@ public class OfficerManager {
 	 * @param endMileage
 	 */
 	public boolean finishActiveShift(Report report, int endMileage) {
-		// TODO - implement OfficerManager.finishActiveShift
-		throw new UnsupportedOperationException();
+		Collection<Shift> sh = dbac.getActiveShifts(loggedOfficer.getHeadquarter());
+		Shift updatedShift = null;
+		Vehicle updatedVehicle = null;
+		boolean changesMade = false;
+
+		for (Shift temp: sh){
+			if(loggedOfficer == temp.getOfficer()) {
+				updatedShift = temp;
+				updatedVehicle = updatedShift.getVehicle();
+				changesMade = true;
+			}
+		}
+
+		if(changesMade){
+		Date timestamp = new Date();
+		updatedShift.setEndDate(timestamp);
+		updatedShift.setReport(report);
+		updatedVehicle.setMileage(endMileage);
+		dbac.updateShiftInfo(updatedShift);
+		dbac.updateVehicleInfo(updatedVehicle);
+		}
+
+		return changesMade;
 	}
 
 	/**

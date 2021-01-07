@@ -360,6 +360,15 @@ public class DBAccessController implements IDBAccessController {
 	}
 
 	/**
+	 *
+	 * @param vehicle
+	 */
+	public boolean updateVehicleInfo(Vehicle vehicle) {
+		update(vehicle);
+		return true;
+	}
+
+	/**
 	 * 
 	 * @param officer
 	 */
