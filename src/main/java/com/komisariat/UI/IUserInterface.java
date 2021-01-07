@@ -25,5 +25,7 @@ public interface IUserInterface {
     //
     void showReports();
     void showActiveOfficers();
+    void showTimesheet();
+    void showOfficersInfo();
 
 }

@@ -1,5 +1,8 @@
 package com.komisariat.BusinessObjects;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -15,6 +18,7 @@ public class PatrolRegion {
 	private int dangerLevel;
 
 	@OneToMany(mappedBy = "patrolRegion")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private Collection<Street> streets;
 
 	@ManyToOne

@@ -293,7 +293,26 @@ public class TextUI implements IUserInterface {
     @Override
     public Map<String, String> getEditedOfficerInfo() {
         System.out.println("#########------- EDYTOWANIE ISTNIEJACEGO FUNKCJONARIUSZA -------#########\n");
-        Map<String, String> temp = showOfficerChoice();
+        Map<String, String> temp = null;
+        ArrayList<Map<String, String>> officersInfo = new ArrayList<>(app.getOfficers());
+        while(true) {
+            showOfficers(officersInfo);
+            System.out.print("Wybierz numer funkcjonariusza: ");
+            Integer choice = scanner.nextInt();
+            scanner.nextLine();
+            while(!(choice <= officersInfo.size() && choice > 0)) {
+                System.out.print("Nieprawidłowy numer, podaj ponownie: ");
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            }
+
+            System.out.print("\nPotwierdasz swoj wybor? (y/n): ");
+            if(scanner.nextLine().equals("y")) {
+                temp = officersInfo.get(choice-1);
+                break;
+            }
+        }
+
         if(temp == null) {
             System.out.println("\n\n ####### ANULOWANO EDYCJE FUNCKJONARIUSZA ####### \n\n");
             return null;
@@ -337,7 +356,25 @@ public class TextUI implements IUserInterface {
     @Override
     public Integer getRemoveOfficerID() {
         System.out.println("#########------- USUWANIE FUNKCJONARIUSZA -------#########\n");
-        Map<String, String> temp = showOfficerChoice();
+        Map<String, String> temp = null;
+        ArrayList<Map<String, String>> officersInfo = new ArrayList<>(app.getOfficers());
+        while(true) {
+            showOfficers(officersInfo);
+            System.out.print("Wybierz numer funkcjonariusza: ");
+            Integer choice = scanner.nextInt();
+            scanner.nextLine();
+            while(!(choice <= officersInfo.size() && choice > 0)) {
+                System.out.print("Nieprawidłowy numer, podaj ponownie: ");
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            }
+
+            System.out.print("\nPotwierdasz swoj wybor? (y/n): ");
+            if(scanner.nextLine().equals("y")) {
+                temp = officersInfo.get(choice-1);
+                break;
+            }
+        }
         if(temp == null) {
             System.out.println("\n\n ####### ANULOWANO USUWANIE FUNKCJONARIUSZA ####### \n\n");
             return -1;
@@ -371,6 +408,55 @@ public class TextUI implements IUserInterface {
     public void showActiveOfficers() {
         System.out.println("#########------- FUNKCJONARIUSZE NA SLUZBIE -------#########\n");
         printActiveOfficers();
+    }
+
+    @Override
+    public void showTimesheet() {
+        System.out.println("#########------- EWIDENCJA CZASU PRACY -------#########\n");
+        Date firstDate = null;
+        Date secondDate = null;
+        System.out.print("Wprowadz początek okresu (format: DD/MM/RRRR lub ENTER dla wyswietlenia wszystkich): ");
+        String fDate = scanner.nextLine();
+        if(!fDate.isEmpty()) {
+            System.out.print("Wprowadz koniec okresu (format: DD/MM/RRRR): ");
+            String sDate = scanner.nextLine();
+            try{
+                firstDate = new SimpleDateFormat("DD/MM/YYYY").parse(fDate);
+                secondDate = new SimpleDateFormat("DD/MM/YYYY").parse(sDate);
+            }
+            catch (Exception e) {
+                e.printStackTrace(); //TODO - EXCEPTION HANDLING
+            }
+        }
+        showShiftInfos(firstDate, secondDate);
+
+    }
+
+    @Override
+    public void showOfficersInfo() {
+        System.out.println("#########------- INFORMACJE O FUNKCJONARIUSZACH -------#########\n");
+        showOfficers(new ArrayList<>(app.getOfficers()));
+
+        System.out.print("\nNacisnij ENTER, aby wyjsc z widoku ewidencji czasu pracy...");
+        scanner.nextLine();
+    }
+
+    private void showShiftInfos(Date fDate, Date sDate) {
+        ArrayList<Map<String, String>> shiftInfos = new ArrayList<>(app.getShiftsInfo(fDate, sDate));
+        System.out.println("\tNUMER\t|\tPOCZATEK\t|\tKONIEC\t|\tFUNKCJONARIUSZ\t|\tPATROLOWANY REGION\t|\tUZYWANY EKWIPUNEK\t|\tPOJAZD\t|");
+        for (Map<String, String> shiftInfo: shiftInfos
+        ) {
+            System.out.println("\t" + (shiftInfos.indexOf(shiftInfo)+1) + "\t|\t" +
+                    shiftInfo.get("begDate") + "\t|\t" +
+                    shiftInfo.get("endDate") + "\t|\t" +
+                    shiftInfo.get("officerInfo") + "\t|\t" +
+                    shiftInfo.get("regionInfo") + "\t|\t" +
+                    shiftInfo.get("kitInfo") + "\t|\t" +
+                    shiftInfo.get("vehicleInfo") + "\t|");
+        }
+
+        System.out.print("\nNacisnij ENTER, aby wyjsc z widoku ewidencji czasu pracy...");
+        scanner.nextLine();
     }
 
     private Map<String, String> showKitChoice() {
@@ -445,58 +531,35 @@ public class TextUI implements IUserInterface {
         }
     }
 
-    private Map<String, String> showOfficerChoice() {
-        while(true) {
-            ArrayList<Map<String, String>> officersInfo = new ArrayList<>(app.getOfficers());
-            LinkedList<Map<String, String>> hqsInfos = new LinkedList<>(app.getHeadquarters());
-            System.out.println("\tNUMER\t|\tNUMER ODZNAKI\t|\tIMIE\t|\tNAZWISKO\t|\tRANGA\t|\tADRES KOMISARIATU\t|");
-            for (Map<String, String> officerInfo: officersInfo
-            ) {
-                String address = "";
-                for (Map<String, String> hqInfo: hqsInfos
-                     ) {
-                    if(hqInfo.get("id").equals(officerInfo.get("hqID")))
-                        address = hqInfo.get("address");
-                }
-                System.out.println("\t" + (officersInfo.indexOf(officerInfo)+1) + "\t|\t" +
-                        officerInfo.get("badgeNumber") + "\t|\t" +
-                        officerInfo.get("firstName") + "\t|\t" +
-                        officerInfo.get("lastName") + "\t|\t" +
-                        officerInfo.get("rank") + "\t|\t" +
-                        address + "\t|");
-            }
-            System.out.print("Wybierz numer funkcjonariusza: ");
-            Integer choice = scanner.nextInt();
-            scanner.nextLine();
-            while(!(choice <= officersInfo.size() && choice > 0)) {
-                System.out.print("Nieprawidłowy numer, podaj ponownie: ");
-                choice = scanner.nextInt();
-                scanner.nextLine();
-            }
+    private void showOfficers(ArrayList<Map<String, String>> officersInfo) {
+        System.out.println("\tNUMER\t|\tNUMER ODZNAKI\t|\tIMIE\t|\tNAZWISKO\t|\tRANGA\t|\tADRES KOMISARIATU\t|");
+        for (Map<String, String> officerInfo: officersInfo
+        ) {
 
-            System.out.print("\nPotwierdasz swoj wybor? (y/n): ");
-            if(scanner.nextLine().equals("y")) return officersInfo.get(choice-1);
+            System.out.println("\t" + (officersInfo.indexOf(officerInfo)+1) + "\t|\t" +
+                    officerInfo.get("badgeNumber") + "\t|\t" +
+                    officerInfo.get("firstName") + "\t|\t" +
+                    officerInfo.get("lastName") + "\t|\t" +
+                    officerInfo.get("rank") + "\t|\t" +
+                    officerInfo.get("hqAddress") + "\t|");
         }
     }
 
     private void printActiveOfficers() {
-        while(true) {
-            ArrayList<Map<String, String>> officersInfo = new ArrayList<>(app.getOfficers());
-            LinkedList<Map<String, String>> hqsInfos = new LinkedList<>(app.getHeadquarters());
-            System.out.println("\tNUMER\t|\tNUMER ODZNAKI\t|\tIMIE\t|\tNAZWISKO\t|\tRANGA\t|\tPATROLOWANY REGION\t|");
-            for (Map<String, String> officerInfo: officersInfo
-            ) {
-                System.out.println("\t" + (officersInfo.indexOf(officerInfo)+1) + "\t|\t" +
-                        officerInfo.get("badgeNumber") + "\t|\t" +
-                        officerInfo.get("firstName") + "\t|\t" +
-                        officerInfo.get("lastName") + "\t|\t" +
-                        officerInfo.get("rank") + "\t|\t" +
-                        officerInfo.get("regionInfo") + "\t|");
-            }
-
-            System.out.print("\nNacisnij ENTER, aby wyjsc z widoku funkcjonariuszy...");
-            scanner.nextLine();
+        ArrayList<Map<String, String>> officersInfo = new ArrayList<>(app.getActiveOfficers());
+        System.out.println("\tNUMER\t|\tNUMER ODZNAKI\t|\tIMIE\t|\tNAZWISKO\t|\tRANGA\t|\tPATROLOWANY REGION\t|");
+        for (Map<String, String> officerInfo: officersInfo
+        ) {
+            System.out.println("\t" + (officersInfo.indexOf(officerInfo)+1) + "\t|\t" +
+                    officerInfo.get("badgeNumber") + "\t|\t" +
+                    officerInfo.get("firstName") + "\t|\t" +
+                    officerInfo.get("lastName") + "\t|\t" +
+                    officerInfo.get("rank") + "\t|\t" +
+                    officerInfo.get("regionInfo") + "\t|");
         }
+
+        System.out.print("\nNacisnij ENTER, aby wyjsc z widoku funkcjonariuszy...");
+        scanner.nextLine();
     }
 
     private void showReport(Date fDate, Date sDate) {

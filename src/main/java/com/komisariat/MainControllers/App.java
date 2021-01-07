@@ -80,13 +80,11 @@ public class App {
 	}
 
 	public void viewOfficerInfos() {
-		// TODO - implement Facade.viewOfficerInfos
-		throw new UnsupportedOperationException();
+		ui.showOfficersInfo();
 	}
 
 	public void viewTimeSheet() {
-		// TODO - implement Facade.viewTimeSheet
-		throw new UnsupportedOperationException();
+		ui.showTimesheet();
 	}
 
 	public void viewActiveOfficers() {
@@ -249,6 +247,7 @@ public class App {
 			temp.put("firstName", officer.getFirstName());
 			temp.put("lastName", officer.getLastName());
 			temp.put("hqID", Integer.toString(officer.getHeadquarter().getId()));
+			temp.put("hqAddress", officer.getHeadquarter().getStreet() + " " + officer.getHeadquarter().getNumber());
 			temp.put("rank", officer.getRank().getRankTitle());
 			officersInfo.add(temp);
 		}
@@ -294,7 +293,6 @@ public class App {
 		for (Report report: reports
 			 ) {
 			Map<String, String> temp = new HashMap<>();
-			temp.put("id", Integer.toString(report.getId()));
 			temp.put("title", report.getTitle());
 			temp.put("content", report.getContent());
 			temp.put("date", report.getDate().toString());
@@ -303,5 +301,30 @@ public class App {
 		}
 
 		return reportsInfo;
+	}
+
+	public Collection<Map<String, String>> getShiftsInfo(Date begDate, Date endDate) {
+		Collection<Shift> shifts = commissionerManager.getOfficersShifts(begDate, endDate);
+
+		Collection<Map<String, String>> shiftsInfo = new LinkedList<>();
+
+		for (Shift shift: shifts
+		) {
+			Map<String, String> temp = new HashMap<>();
+			temp.put("begDate", shift.getStartDate().toString());
+			temp.put("endDate", shift.getEndDate() == null ? "W TRAKCIE" : shift.getEndDate().toString());
+			String streets = "";
+			for (Street street: shift.getPatrolRegion().getStreets()
+			) {
+				streets += ("[" + street.getStreetName() + " (" + street.getFirstNumber() + "-" + street.getLastNumber() + ")]");
+			}
+			temp.put("regionInfo", streets);
+			temp.put("kitInfo", shift.getKit().getName());
+			temp.put("vehicleInfo", shift.getVehicle().getManufacturer() + " " + shift.getVehicle().getModel());
+			temp.put("officerInfo", shift.getOfficer().getFirstName()+ " " +shift.getOfficer().getLastName());
+			shiftsInfo.add(temp);
+		}
+
+		return shiftsInfo;
 	}
 }
