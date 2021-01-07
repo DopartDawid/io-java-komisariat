@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class OfficerManager {
 
-	protected IDBAccessController dbac = DBAccessController.getInstance(AccessLevel.Officer);
+	protected IDBAccessController dbac;
 	protected Officer loggedOfficer;
 
 	/**
@@ -17,8 +17,8 @@ public class OfficerManager {
 	 * @param user
 	 */
 	public OfficerManager(User user) {
-		// TODO - implement OfficerManager.OfficerManager
-		throw new UnsupportedOperationException();
+		dbac = DBAccessController.getInstance(user.getAccessLevel());
+		loggedOfficer = (Officer) user;
 	}
 
 	protected Headquarter getOfficerHQ() {
