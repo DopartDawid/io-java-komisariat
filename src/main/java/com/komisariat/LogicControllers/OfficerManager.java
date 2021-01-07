@@ -20,23 +20,23 @@ public class OfficerManager {
 	}
 
 	protected Headquarter getOfficerHQ() {
-		// TODO - implement OfficerManager.getOfficerHQ
-		throw new UnsupportedOperationException();
+		Collection<Headquarter> hqs = dbac.getHeadquarters();
+		for (Headquarter hq: hqs) {
+			if(hq.getId() == loggedOfficer.getHeadquarter().getId()){return hq;}
+		}
+		return null;
 	}
 
 	public Collection<Kit> getShiftKits() {
-		// TODO - implement OfficerManager.getShiftKits
-		throw new UnsupportedOperationException();
+		return dbac.getAvailableKits(getOfficerHQ());
 	}
 
 	public Collection<Vehicle> getShiftVehicles() {
-		// TODO - implement OfficerManager.getShiftVehicles
-		throw new UnsupportedOperationException();
+		return dbac.getAvailableVehicles(getOfficerHQ());
 	}
 
 	public Collection<PatrolRegion> getShiftRegions() {
-		// TODO - implement OfficerManager.getShiftRegions
-		throw new UnsupportedOperationException();
+		return dbac.getAvailableRegions(getOfficerHQ());
 	}
 
 	/**
