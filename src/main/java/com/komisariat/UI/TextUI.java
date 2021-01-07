@@ -367,6 +367,12 @@ public class TextUI implements IUserInterface {
         showReport(firstDate, secondDate);
     }
 
+    @Override
+    public void showActiveOfficers() {
+        System.out.println("#########------- FUNKCJONARIUSZE NA SLUZBIE -------#########\n");
+        printActiveOfficers();
+    }
+
     private Map<String, String> showKitChoice() {
         while(true) {
             ArrayList<Map<String, String>> kitInfos = new ArrayList<>(app.getKits());
@@ -470,6 +476,26 @@ public class TextUI implements IUserInterface {
 
             System.out.print("\nPotwierdasz swoj wybor? (y/n): ");
             if(scanner.nextLine().equals("y")) return officersInfo.get(choice-1);
+        }
+    }
+
+    private void printActiveOfficers() {
+        while(true) {
+            ArrayList<Map<String, String>> officersInfo = new ArrayList<>(app.getOfficers());
+            LinkedList<Map<String, String>> hqsInfos = new LinkedList<>(app.getHeadquarters());
+            System.out.println("\tNUMER\t|\tNUMER ODZNAKI\t|\tIMIE\t|\tNAZWISKO\t|\tRANGA\t|\tPATROLOWANY REGION\t|");
+            for (Map<String, String> officerInfo: officersInfo
+            ) {
+                System.out.println("\t" + (officersInfo.indexOf(officerInfo)+1) + "\t|\t" +
+                        officerInfo.get("badgeNumber") + "\t|\t" +
+                        officerInfo.get("firstName") + "\t|\t" +
+                        officerInfo.get("lastName") + "\t|\t" +
+                        officerInfo.get("rank") + "\t|\t" +
+                        officerInfo.get("regionInfo") + "\t|");
+            }
+
+            System.out.print("\nNacisnij ENTER, aby wyjsc z widoku funkcjonariuszy...");
+            scanner.nextLine();
         }
     }
 

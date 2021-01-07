@@ -24,5 +24,6 @@ public interface IUserInterface {
     Integer getRemoveOfficerID();
     //
     void showReports();
+    void showActiveOfficers();
 
 }

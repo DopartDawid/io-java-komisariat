@@ -9,6 +9,7 @@ import com.komisariat.UI.IUserInterface;
 import com.komisariat.UI.TextUI;
 import com.sun.xml.bind.v2.runtime.reflect.Lister;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class App {
@@ -89,8 +90,7 @@ public class App {
 	}
 
 	public void viewActiveOfficers() {
-		// TODO - implement Facade.viewActiveOfficers
-		throw new UnsupportedOperationException();
+		ui.showActiveOfficers();
 	}
 
 	public void addNewKit() {
@@ -250,6 +250,36 @@ public class App {
 			temp.put("lastName", officer.getLastName());
 			temp.put("hqID", Integer.toString(officer.getHeadquarter().getId()));
 			temp.put("rank", officer.getRank().getRankTitle());
+			officersInfo.add(temp);
+		}
+
+		return officersInfo;
+	}
+
+	public Collection<Map<String, String>> getActiveOfficers(){
+		Collection<Officer> officers = commissionerManager.getActiveOfficers();
+		Collection<Map<String, String>> officersInfo = new LinkedList<>();
+		Collection<Shift> shifts = commissionerManager.getOfficersShifts(null, null);
+		for (Officer officer: officers
+		) {
+			Map<String, String> temp = new HashMap<>();
+			temp.put("id", Integer.toString(officer.getId()));
+			temp.put("badgeNumber", Integer.toString(officer.getBadgeNumber()));
+			temp.put("firstName", officer.getFirstName());
+			temp.put("lastName", officer.getLastName());
+			temp.put("hqID", Integer.toString(officer.getHeadquarter().getId()));
+			temp.put("rank", officer.getRank().getRankTitle());
+			for (Shift shift: shifts
+				 ) {
+				if(shift.getOfficer().getId() == officer.getId() && shift.getEndDate() == null) {
+					String streets = "";
+					for (Street street: shift.getPatrolRegion().getStreets()
+						 ) {
+						streets += ("[" + street.getStreetName() + " (" + street.getFirstNumber() + "-" + street.getLastNumber() + ")]");
+					}
+					temp.put("regionInfo", streets);
+				}
+			}
 			officersInfo.add(temp);
 		}
 
