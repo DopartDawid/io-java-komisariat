@@ -93,7 +93,7 @@ public interface IDBAccessController {
 	 * @param tool
 	 */
 	boolean saveTool(Tool tool);
-
+	boolean saveReport(Report report);
 	/**
 	 * 
 	 * @param shift

@@ -323,6 +323,15 @@ public class DBAccessController implements IDBAccessController {
 		return true;
 	}
 
+	/**
+	 *
+	 * @param report
+	 */
+	public boolean saveReport(Report report) {
+		save(report);
+		return true;
+	}
+
 	private Integer save(Object object) {
 		Session session = factory.openSession();
 		Transaction tx = null;

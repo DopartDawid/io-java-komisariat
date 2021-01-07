@@ -1,13 +1,15 @@
 package com.komisariat.LogicControllers;
 
 import com.komisariat.BusinessObjects.*;
+import com.komisariat.DBControllers.DBAccessController;
 import com.komisariat.DBControllers.IDBAccessController;
 
 import java.util.Collection;
+import java.util.Date;
 
 public class OfficerManager {
 
-	protected IDBAccessController dbac;
+	protected IDBAccessController dbac = DBAccessController.getInstance(AccessLevel.Officer);
 	protected Officer loggedOfficer;
 
 	/**
@@ -65,9 +67,14 @@ public class OfficerManager {
 	 * @param title
 	 * @param content
 	 */
-	public Report createReport(String title, String content) {
-		// TODO - implement OfficerManager.createReport
-		throw new UnsupportedOperationException();
+	public void createReport(String title, String content) {
+		Report report = new Report();
+		report.setTitle(title);
+		report.setContent(content);
+		Date timestamp = new Date();
+		report.setDate(timestamp);		// TODO need to be checked
+
+		dbac.saveReport(report);
 	}
 
 }
