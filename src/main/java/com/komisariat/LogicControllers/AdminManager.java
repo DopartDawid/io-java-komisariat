@@ -4,6 +4,9 @@ import com.komisariat.BusinessObjects.*;
 import com.komisariat.DBControllers.DBAccessController;
 import com.komisariat.DBControllers.IDBAccessController;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Map;
@@ -91,6 +94,10 @@ public class AdminManager {
 	public void addOfficer(int badgeNumber, String firstName, String lastName, Integer hqID, String rank) {
 		//TODO - PASS HASH
 		Officer newOfficer = createOfficer(badgeNumber, firstName, lastName, hqID, rank);
+		newOfficer.setPassHash(hashPass(Integer.toString(badgeNumber)));
+		newOfficer.setAccessLevel(AccessLevel.Officer);
+		newOfficer.setLogin(""); 						   // just until trigger is not removed
+		//newOfficer.setLogin(firstName + "_" + lastName); //TODO change/remove trigger in DB
 		accessController.saveOfficer(newOfficer);
 	}
 
@@ -152,4 +159,19 @@ public class AdminManager {
 		return accessController.getHeadquarters();
 	}
 
+	public String hashPass(String password){
+		String passHash;
+		try{
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			byte[] messageDigest = md.digest(password.getBytes());
+			BigInteger representation = new BigInteger(1, messageDigest);
+			passHash = representation.toString(16);
+			while(passHash.length() < 32){
+				passHash = "0"+ passHash;
+			}
+		}catch (NoSuchAlgorithmException e){
+			throw new RuntimeException(e);
+		}
+		return passHash;
+	}
 }

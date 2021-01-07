@@ -4,6 +4,11 @@ import com.komisariat.BusinessObjects.*;
 import com.komisariat.DBControllers.DBLoginAccessController;
 import com.komisariat.DBControllers.IDBLoginAccessController;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class LoginManager {
 
 	public OfficerManager om;
@@ -26,7 +31,7 @@ public class LoginManager {
 	 * @param password
 	 */
 	public void signInNewUser(String login, String password) {
-		loggedUser = dblac.getUserFromCredentials(login, password);
+		loggedUser = dblac.getUserFromCredentials(login, hashPass(password));
 
 		if(loggedUser != null) {
 			switch(loggedUser.getAccessLevel()) {
@@ -42,4 +47,19 @@ public class LoginManager {
 		throw new UnsupportedOperationException();
 	}
 
+	public String hashPass(String password){
+		String passHash;
+		try{
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			byte[] messageDigest = md.digest(password.getBytes());
+			BigInteger no = new BigInteger(1, messageDigest);
+			passHash = no.toString(16);
+			while(passHash.length() < 32){
+				passHash = "0"+ passHash;
+			}
+		}catch (NoSuchAlgorithmException e){
+			throw new RuntimeException(e);
+		}
+		return passHash;
+	}
 }
