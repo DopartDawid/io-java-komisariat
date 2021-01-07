@@ -14,6 +14,8 @@ import org.hibernate.query.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -143,6 +145,20 @@ public class DBAccessController implements IDBAccessController {
 		Transaction tx = session.beginTransaction();
 		String select = "FROM Shift s WHERE s.officer.headquarter.id = :hq AND s.startDate BETWEEN :startD AND :endD";
 		Query query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("startD", startDate).setParameter(("endD"), endDate);
+		if(startDate == null && endDate == null) {
+			select = "FROM Shift s WHERE s.officer.headquarter.id = :hq";
+			query = session.createQuery(select).setParameter("hq", hq.getId());
+		}
+		else if(startDate != null) {
+			query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("startD", new Date()).setParameter(("endD"), new Date());
+		}
+		else if(endDate != null) {
+			try {
+				query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("startD", new SimpleDateFormat("DD/MM/YYYY").parse("01/01/1900")).setParameter(("endD"), endDate);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
 
 		List<Shift> results = query.getResultList();
 
@@ -205,7 +221,20 @@ public class DBAccessController implements IDBAccessController {
 		Transaction tx = session.beginTransaction();
 		String select = "FROM Report r WHERE (SELECT s.officer.headquarter.id FROM Shift s WHERE s.report.id = r.id) = :hq AND r.date BETWEEN :startD AND :endD";
 		Query query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("startD", startDate).setParameter(("endD"), endDate);
-
+		if(startDate == null && endDate == null) {
+			select = "FROM Report r WHERE (SELECT s.officer.headquarter.id FROM Shift s WHERE s.report.id = r.id) = :hq";
+			query = session.createQuery(select).setParameter("hq", hq.getId());
+		}
+		else if(startDate != null) {
+			query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("startD", new Date()).setParameter(("endD"), new Date());
+		}
+		else if(endDate != null) {
+			try {
+				query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("startD", new SimpleDateFormat("DD/MM/YYYY").parse("01/01/1900")).setParameter(("endD"), endDate);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
 		List<Report> results = query.getResultList();
 
 		tx.commit();
