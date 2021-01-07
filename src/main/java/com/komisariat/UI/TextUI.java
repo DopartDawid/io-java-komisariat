@@ -441,6 +441,41 @@ public class TextUI implements IUserInterface {
         scanner.nextLine();
     }
 
+    @Override
+    public Map<String, String> getNewShiftInfo() {
+        System.out.println("#########------- ROZPOCZYNANIE NOWEJ SLUZBY -------#########\n");
+        System.out.println("#### ---- TERENU PATROLOWEGO ---- ####");
+        String regionID = this.showPatrolRegions().get("id");
+        String kitID = this.showKitChoice().get("id");
+        String vehicleID = this.showVehicles().get("vin");
+
+        Map<String, String> temp = new HashMap<>();
+        temp.put("regionID", regionID);
+        temp.put("kitID", kitID);
+        temp.put("vehicleID", vehicleID);
+
+        return temp;
+    }
+
+    @Override
+    public Map<String, String> getEndShiftInfo() {
+        System.out.println("#########------- KONCZENIE SLUZBY -------#########\n");
+        System.out.print("Wprowadz licznik koncowy wykorzystywanego pojazdu: ");
+        String endMileage = scanner.nextLine();
+        System.out.println("\n---- TWORZENIE RAPORTU ----");
+        System.out.print("Podaj tytul raportu: ");
+        String title = scanner.nextLine();
+        System.out.print("Wprowadz treść: ");
+        String content = scanner.nextLine();
+
+        Map<String, String> temp = new HashMap<>();
+        temp.put("endMileage", endMileage);
+        temp.put("title", title);
+        temp.put("content", content);
+
+        return temp;
+    }
+
     private void showShiftInfos(Date fDate, Date sDate) {
         ArrayList<Map<String, String>> shiftInfos = new ArrayList<>(app.getShiftsInfo(fDate, sDate));
         System.out.println("\tNUMER\t|\tPOCZATEK\t|\tKONIEC\t|\tFUNKCJONARIUSZ\t|\tPATROLOWANY REGION\t|\tUZYWANY EKWIPUNEK\t|\tPOJAZD\t|");
@@ -593,6 +628,58 @@ public class TextUI implements IUserInterface {
 
             System.out.print("\nWyswietlic inny raport? (y/n): ");
             if(scanner.nextLine().equals("n")) return;
+        }
+    }
+
+    private Map<String, String> showPatrolRegions() {
+        ArrayList<Map<String, String>> regionsInfo = new ArrayList<>(app.getRegions());
+        while(true) {
+            System.out.println("\tNUMER\t|\tPOZIOM NIEBEZPIECZENSTWA\t|\tULICE W REGIONIE\t|");
+            for (Map<String, String> regionInfo: regionsInfo
+            ) {
+                System.out.println("\t" + (regionsInfo.indexOf(regionInfo)+1) + "\t|\t" +
+                        regionInfo.get("danger") + "\t|\t" +
+                        regionInfo.get("streets") + "\t|");
+            }
+            System.out.print("Wybierz numer regionu: ");
+            Integer choice = scanner.nextInt();
+            scanner.nextLine();
+            while(!(choice <= regionsInfo.size() && choice > 0)) {
+                System.out.print("Nieprawidłowy numer, podaj ponownie: ");
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            }
+
+            System.out.print("\nPotwierdasz swoj wybor? (y/n): ");
+            if(scanner.nextLine().equals("y")) {
+                return regionsInfo.get(choice-1);
+            }
+        }
+    }
+
+    private Map<String, String> showVehicles() {
+        ArrayList<Map<String, String>> vehiclesInfo = new ArrayList<>(app.getVehicles());
+        while(true) {
+            System.out.println("\tNUMER\t|\tMARKA\t|\tMODEL\t|");
+            for (Map<String, String> vehicleInfo: vehiclesInfo
+            ) {
+                System.out.println("\t" + (vehiclesInfo.indexOf(vehicleInfo)+1) + "\t|\t" +
+                        vehicleInfo.get("manufacturer") + "\t|\t" +
+                        vehicleInfo.get("model") + "\t|");
+            }
+            System.out.print("Wybierz numer pojazdu: ");
+            Integer choice = scanner.nextInt();
+            scanner.nextLine();
+            while(!(choice <= vehiclesInfo.size() && choice > 0)) {
+                System.out.print("Nieprawidłowy numer, podaj ponownie: ");
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            }
+
+            System.out.print("\nPotwierdasz swoj wybor? (y/n): ");
+            if(scanner.nextLine().equals("y")) {
+                return vehiclesInfo.get(choice-1);
+            }
         }
     }
 }

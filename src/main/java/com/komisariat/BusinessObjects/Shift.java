@@ -20,7 +20,7 @@ public class Shift {
 	@JoinColumn(name = "Region_ID")
 	private PatrolRegion patrolRegion;
 
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "Report_ID")
 	private Report report;
 

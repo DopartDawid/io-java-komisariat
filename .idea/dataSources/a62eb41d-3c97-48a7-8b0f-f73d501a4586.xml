@@ -763,32 +763,36 @@
     </collation>
     <user id="240" parent="1" name="admin">
       <Host>%</Host>
-      <ObjectGrants>SELECT,INSERT,UPDATE,DELETE|police_stations.Kits
-SELECT,INSERT,UPDATE,DELETE|police_stations.Tools
-SELECT,INSERT,UPDATE,DELETE|police_stations.Users
-SELECT,INSERT,UPDATE,DELETE|police_stations.Police_officers
+      <ObjectGrants>SELECT,INSERT,UPDATE,DELETE|police_stations.Tools
 SELECT,UPDATE|police_stations.Police_hqs
 SELECT,INSERT,UPDATE,DELETE|police_stations.Vehicles
+SELECT,INSERT,UPDATE,DELETE|police_stations.Users
+SELECT|police_stations.Ranks
+SELECT,INSERT,UPDATE,DELETE|police_stations.Police_officers
+SELECT,INSERT,UPDATE,DELETE|police_stations.Kits
 </ObjectGrants>
     </user>
     <user id="241" parent="1" name="commissioner">
       <Host>%</Host>
       <ObjectGrants>SELECT,INSERT,UPDATE|police_stations.Shifts
 SELECT|police_stations.Streets
-SELECT|police_stations.Police_officers
 SELECT|police_stations.Police_hqs
 SELECT|police_stations.Patrol_Regions
-SELECT|police_stations.Tools
-SELECT,INSERT|police_stations.Reports
-SELECT|police_stations.Vehicles
-SELECT|police_stations.Users
-SELECT|police_stations.Ranks
 SELECT|police_stations.Kits
+SELECT|police_stations.Users
+SELECT,INSERT|police_stations.Reports
+SELECT|police_stations.Tools
+SELECT|police_stations.Vehicles
+SELECT|police_stations.Ranks
+SELECT|police_stations.Police_officers
 </ObjectGrants>
     </user>
     <user id="242" parent="1" name="log_user">
       <Host>%</Host>
-      <ObjectGrants>SELECT|police_stations.Users
+      <ObjectGrants>SELECT|police_stations.Ranks
+SELECT|police_stations.Police_officers
+SELECT|police_stations.Users
+SELECT|police_stations.Police_hqs
 </ObjectGrants>
     </user>
     <user id="243" parent="1" name="officer">
@@ -797,12 +801,13 @@ SELECT|police_stations.Kits
 SELECT|police_stations.Users
 SELECT|police_stations.Police_officers
 SELECT|police_stations.Kits
-INSERT|police_stations.Reports
-SELECT|police_stations.Patrol_Regions
 SELECT,INSERT,UPDATE|police_stations.Shifts
-SELECT|police_stations.Tools
+SELECT|police_stations.Ranks
 SELECT|police_stations.Streets
-SELECT|police_stations.Vehicles
+SELECT,UPDATE|police_stations.Vehicles
+SELECT,INSERT|police_stations.Reports
+SELECT|police_stations.Patrol_Regions
+SELECT|police_stations.Tools
 </ObjectGrants>
     </user>
     <user id="244" parent="1" name="root">
@@ -1076,7 +1081,6 @@ SELECT|police_stations.Vehicles
     <column id="307" parent="252" name="Report_ID">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
     </column>
     <column id="308" parent="252" name="Kit_ID">
       <Position>6</Position>

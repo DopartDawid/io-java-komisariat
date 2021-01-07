@@ -7,6 +7,7 @@ import java.util.Date;
 @Table(name = "Reports")
 public class Report {
 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private int id;
 	private String title;

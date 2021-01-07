@@ -62,7 +62,7 @@ public class OfficerManager {
 			}
 		}
 		for(Vehicle vehicle: getShiftVehicles()){
-			if(vehicle.getVIN() == VIN){
+			if(vehicle.getVIN().equals(VIN)){
 				newShift.setVehicle(vehicle);
 			}
 		}
@@ -93,9 +93,11 @@ public class OfficerManager {
 		Vehicle updatedVehicle = updatedShift.getVehicle();
 		Date timestamp = new Date();
 		updatedShift.setEndDate(timestamp);
-		updatedShift.setReport(createReport(title, content));
+		Report report = createReport(title, content);
+		report.setShift(updatedShift);
 		updatedVehicle.setMileage(endMileage);
 		dbac.updateVehicleInfo(updatedVehicle);
+		updatedShift.setReport(report);
 		dbac.updateShiftInfo(updatedShift);
 
 		return true;
@@ -113,7 +115,6 @@ public class OfficerManager {
 		Date timestamp = new Date();
 		report.setDate(timestamp);		// TODO need to be checked
 
-		dbac.saveReport(report);
 		return report;
 	}
 

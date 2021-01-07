@@ -27,5 +27,7 @@ public interface IUserInterface {
     void showActiveOfficers();
     void showTimesheet();
     void showOfficersInfo();
-
+    //
+    Map<String, String> getNewShiftInfo();
+    Map<String, String> getEndShiftInfo();
 }

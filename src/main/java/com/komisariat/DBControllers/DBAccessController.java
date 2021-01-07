@@ -39,7 +39,7 @@ public class DBAccessController implements IDBAccessController {
 		else {
 			switch(accessLevel) {
 				case Admin: login = "admin"; password = "admin"; break;
-				case Officer: login = "officer"; password = "officer"; break;
+				case Officer: login = "officer"; password = "funkcjonariusz"; break;
 				case Commissioner: login = "commissioner"; password = "komendant"; break;
 
 				default: //TODO - THROW EXCEPTION
@@ -356,9 +356,8 @@ public class DBAccessController implements IDBAccessController {
 	 *
 	 * @param report
 	 */
-	public boolean saveReport(Report report) {
-		save(report);
-		return true;
+	public Integer saveReport(Report report) {
+		return save(report);
 	}
 
 	private Integer save(Object object) {

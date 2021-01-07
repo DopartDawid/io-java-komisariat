@@ -61,18 +61,35 @@ public class App {
 	}
 
 	public void signOut() {
-		// TODO - implement Facade.signOut
-		throw new UnsupportedOperationException();
+		return;
 	}
 
 	public void startShift() {
-		// TODO - implement Facade.startShift
-		throw new UnsupportedOperationException();
+		Map<String, String> shiftInfo = ui.getNewShiftInfo();
+		OfficerManager om = null;
+		if(officerManager != null) {
+			om = officerManager;
+		}
+		else
+			om = commissionerManager;
+
+		om.createShift(Integer.parseInt(shiftInfo.get("kitID")),
+				shiftInfo.get("vehicleID"),
+				Integer.parseInt(shiftInfo.get("regionID")));
 	}
 
 	public void finishShift() {
-		// TODO - implement Facade.finishShift
-		throw new UnsupportedOperationException();
+		Map<String, String> shiftInfo = ui.getEndShiftInfo();
+		OfficerManager om = null;
+		if(officerManager != null) {
+			om = officerManager;
+		}
+		else
+			om = commissionerManager;
+
+		om.finishActiveShift(shiftInfo.get("title"),
+				shiftInfo.get("content"),
+				Integer.parseInt(shiftInfo.get("endMileage")));
 	}
 
 	public void viewReports() {
@@ -326,5 +343,52 @@ public class App {
 		}
 
 		return shiftsInfo;
+	}
+
+	public Collection<Map<String, String>> getVehicles() {
+		Collection<Vehicle> vehicles = null;
+
+		if(officerManager != null)
+			vehicles = officerManager.getShiftVehicles();
+		else
+			vehicles = commissionerManager.getShiftVehicles();
+
+		Collection<Map<String, String>> vehiclesInfo = new ArrayList<>();
+
+		for (Vehicle vehicle: vehicles
+		) {
+			Map<String, String> temp = new HashMap<>();
+			temp.put("vin", vehicle.getVIN());
+			temp.put("manufacturer", vehicle.getManufacturer());
+			temp.put("model", vehicle.getModel());
+			vehiclesInfo.add(temp);
+		}
+		return vehiclesInfo;
+	}
+
+	public Collection<Map<String, String>> getRegions() {
+		Collection<PatrolRegion> patrolRegions = null;
+
+		if(officerManager != null)
+			patrolRegions = officerManager.getShiftRegions();
+		else
+			patrolRegions = commissionerManager.getShiftRegions();
+
+		Collection<Map<String, String>> regionsInfo = new ArrayList<>();
+
+		for (PatrolRegion patrolRegion: patrolRegions
+		) {
+			Map<String, String> temp = new HashMap<>();
+			temp.put("id", Integer.toString(patrolRegion.getId()));
+			temp.put("danger", Integer.toString(patrolRegion.getDangerLevel()));
+			String streets = "";
+			for (Street street: patrolRegion.getStreets()
+			) {
+				streets += ("[" + street.getStreetName() + " (" + street.getFirstNumber() + "-" + street.getLastNumber() + ")]");
+			}
+			temp.put("streets", streets);
+			regionsInfo.add(temp);
+		}
+		return regionsInfo;
 	}
 }
