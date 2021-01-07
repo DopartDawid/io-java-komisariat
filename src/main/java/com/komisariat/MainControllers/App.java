@@ -61,7 +61,9 @@ public class App {
 	}
 
 	public void signOut() {
-		return;
+		loginManager.am = null;
+		loginManager.om= null;
+		loginManager.cm = null;
 	}
 
 	public void startShift() {
