@@ -43,51 +43,62 @@ public class OfficerManager {
 
 	/**
 	 * 
-	 * @param kit
-	 * @param vehicle
-	 * @param region
+	 * @param kitID
+	 * @param VIN
+	 * @param regionID
 	 */
-	public void createShift(Kit kit, Vehicle vehicle, PatrolRegion region) {
+	public void createShift(Integer kitID, String VIN, Integer regionID) {
+		if(dbac.getActiveShift(loggedOfficer) != null){
+			return; //TODO Exception or sth
+		}
+
 		Shift newShift = new Shift();
 		Date timestamp = new Date();
 		newShift.setStartDate(timestamp);
 		newShift.setOfficer(loggedOfficer);
-		newShift.setKit(kit);
-		newShift.setVehicle(vehicle);
-		newShift.setPatrolRegion(region);
+		for(Kit kit: getShiftKits()){
+			if(kit.getId() == kitID){
+				newShift.setKit(kit);
+			}
+		}
+		for(Vehicle vehicle: getShiftVehicles()){
+			if(vehicle.getVIN() == VIN){
+				newShift.setVehicle(vehicle);
+			}
+		}
+		for(PatrolRegion region: getShiftRegions()){
+			if(region.getId() == regionID){
+				newShift.setPatrolRegion(region);
+			}
+		}
 
+		if(newShift.getKit() == null || newShift.getVehicle() == null || newShift.getPatrolRegion() == null){
+			return; //TODO Exception or sth
+		}
 		dbac.saveShift(newShift);
 	}
 
 	/**
 	 * 
-	 * @param report
+	 * @param title
+	 * @param content
 	 * @param endMileage
 	 */
-	public boolean finishActiveShift(Report report, int endMileage) {
-		Collection<Shift> sh = dbac.getActiveShifts(loggedOfficer.getHeadquarter());
-		Shift updatedShift = null;
-		Vehicle updatedVehicle = null;
-		boolean changesMade = false;
-
-		for (Shift temp: sh){
-			if(loggedOfficer == temp.getOfficer()) {
-				updatedShift = temp;
-				updatedVehicle = updatedShift.getVehicle();
-				changesMade = true;
-			}
+	public boolean finishActiveShift(String title, String content, int endMileage) {
+		Shift updatedShift = dbac.getActiveShift(loggedOfficer);
+		if( updatedShift == null){
+			return false;
 		}
 
-		if(changesMade){
+		Vehicle updatedVehicle = updatedShift.getVehicle();
 		Date timestamp = new Date();
 		updatedShift.setEndDate(timestamp);
-		updatedShift.setReport(report);
+		updatedShift.setReport(createReport(title, content));
 		updatedVehicle.setMileage(endMileage);
-		dbac.updateShiftInfo(updatedShift);
 		dbac.updateVehicleInfo(updatedVehicle);
-		}
+		dbac.updateShiftInfo(updatedShift);
 
-		return changesMade;
+		return true;
 	}
 
 	/**
@@ -95,7 +106,7 @@ public class OfficerManager {
 	 * @param title
 	 * @param content
 	 */
-	public void createReport(String title, String content) {
+	public Report createReport(String title, String content) {
 		Report report = new Report();
 		report.setTitle(title);
 		report.setContent(content);
@@ -103,6 +114,7 @@ public class OfficerManager {
 		report.setDate(timestamp);		// TODO need to be checked
 
 		dbac.saveReport(report);
+		return report;
 	}
 
 }
