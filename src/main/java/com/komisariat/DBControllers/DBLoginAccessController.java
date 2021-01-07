@@ -77,7 +77,7 @@ public class DBLoginAccessController implements IDBLoginAccessController {
         CriteriaQuery<Officer> cr = cb.createQuery(Officer.class);
         Root<Officer> root = cr.from(Officer.class);
 
-        cr.select(root).where(cb.equal(root.get("User_ID"), user.getId()));
+        cr.select(root).where(cb.equal(root.get("id"), user.getId()));
 
         List<Officer> results = session.createQuery(cr).getResultList();
 

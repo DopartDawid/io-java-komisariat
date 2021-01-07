@@ -22,5 +22,7 @@ public interface IUserInterface {
     Map<String, String> getNewOfficerInfo();
     Map<String, String> getEditedOfficerInfo();
     Integer getRemoveOfficerID();
+    //
+    void showReports();
 
 }

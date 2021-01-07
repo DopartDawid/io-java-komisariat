@@ -344,6 +344,11 @@ public class TextUI implements IUserInterface {
         return Integer.parseInt(temp.get("id"));
     }
 
+    @Override
+    public void showReports() {
+
+    }
+
     private Map<String, String> showKitChoice() {
         while(true) {
             ArrayList<Map<String, String>> kitInfos = new ArrayList<>(app.getKits());

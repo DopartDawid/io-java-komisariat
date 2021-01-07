@@ -7,6 +7,7 @@ import com.komisariat.LogicControllers.LoginManager;
 import com.komisariat.LogicControllers.OfficerManager;
 import com.komisariat.UI.IUserInterface;
 import com.komisariat.UI.TextUI;
+import com.sun.xml.bind.v2.runtime.reflect.Lister;
 
 import java.util.*;
 
@@ -74,8 +75,7 @@ public class App {
 	}
 
 	public void viewReports() {
-		// TODO - implement Facade.viewReports
-		throw new UnsupportedOperationException();
+		ui.showReports();
 	}
 
 	public void viewOfficerInfos() {
@@ -254,5 +254,23 @@ public class App {
 		}
 
 		return officersInfo;
+	}
+
+	public Collection<Map<String, String>> getReports(Date begDate, Date endDate) {
+		Collection<Report> reports = commissionerManager.getReports(begDate, endDate);
+
+		Collection<Map<String, String>> reportsInfo = new LinkedList<>();
+
+		for (Report report: reports
+			 ) {
+			Map<String, String> temp = new HashMap<>();
+			temp.put("id", Integer.toString(report.getId()));
+			temp.put("title", report.getTitle());
+			temp.put("content", report.getContent());
+			temp.put("date", report.getDate().toString());
+			reportsInfo.add(temp);
+		}
+
+		return reportsInfo;
 	}
 }

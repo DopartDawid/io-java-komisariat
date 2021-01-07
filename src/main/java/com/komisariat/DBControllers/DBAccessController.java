@@ -38,7 +38,7 @@ public class DBAccessController implements IDBAccessController {
 			switch(accessLevel) {
 				case Admin: login = "admin"; password = "admin"; break;
 				case Officer: login = "officer"; password = "officer"; break;
-				case Commissioner: login = "komendant"; password = "commissioner"; break;
+				case Commissioner: login = "commissioner"; password = "komendant"; break;
 
 				default: //TODO - THROW EXCEPTION
 			}
