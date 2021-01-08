@@ -4,79 +4,66 @@ import com.komisariat.LogicControllers.*;
 
 public class Facade {
 
-	private AdminManager adminManager;
-	private OfficerManager officerManager;
-	private CommissionerManager commissionerManager;
-	private LoginManager loginManager;
+	private App app;
 
-	public void signIn() {
-		// TODO - implement Facade.signIn
-		throw new UnsupportedOperationException();
+	public Facade() {
+		app = new App();
+	}
+
+	public void signIn() throws Exception {
+		app.signIn();
 	}
 
 	public void signOut() {
-		// TODO - implement Facade.signOut
-		throw new UnsupportedOperationException();
+		app.signOut();
 	}
 
 	public void startShift() {
-		// TODO - implement Facade.startShift
-		throw new UnsupportedOperationException();
+		app.startShift();
 	}
 
 	public void finishShift() {
-		// TODO - implement Facade.finishShift
-		throw new UnsupportedOperationException();
+		app.finishShift();
 	}
 
 	public void viewReports() {
-		// TODO - implement Facade.viewReports
-		throw new UnsupportedOperationException();
+		app.viewReports();
 	}
 
 	public void viewOfficerInfos() {
-		// TODO - implement Facade.viewOfficerInfos
-		throw new UnsupportedOperationException();
+		app.viewOfficerInfos();
 	}
 
 	public void viewTimeSheet() {
-		// TODO - implement Facade.viewTimeSheet
-		throw new UnsupportedOperationException();
+		app.viewTimeSheet();
 	}
 
 	public void viewActiveOfficers() {
-		// TODO - implement Facade.viewActiveOfficers
-		throw new UnsupportedOperationException();
+		app.viewActiveOfficers();
 	}
 
 	public void addNewKit() {
-		// TODO - implement Facade.addNewKit
-		throw new UnsupportedOperationException();
+		app.addNewKit();
 	}
 
 	public void removeKit() {
-		// TODO - implement Facade.removeKit
-		throw new UnsupportedOperationException();
+		app.removeKit();
 	}
 
 	public void editKit() {
-		// TODO - implement Facade.editKit
-		throw new UnsupportedOperationException();
+		app.editKit();
 	}
 
 	public void addNewOfficer() {
-		// TODO - implement Facade.addNewOfficer
-		throw new UnsupportedOperationException();
+		app.addNewOfficer();
 	}
 
 	public void editOfficer() {
-		// TODO - implement Facade.editOfficer
-		throw new UnsupportedOperationException();
+		app.editOfficer();
 	}
 
 	public void removeOfficer() {
-		// TODO - implement Facade.removeOfficer
-		throw new UnsupportedOperationException();
+		app.removeOfficer();
 	}
 
 }

@@ -14,5 +14,5 @@ public interface IDBLoginAccessController {
 	 * @param passHash
 	 */
 	User getUserFromCredentials(String login, String passHash);
-
+	Officer getOfficerFromUser(User user);
 }

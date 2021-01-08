@@ -1,5 +1,6 @@
 package com.komisariat.DBControllers;
 
+import com.komisariat.BusinessObjects.Officer;
 import com.komisariat.BusinessObjects.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -68,4 +69,23 @@ public class DBLoginAccessController implements IDBLoginAccessController {
 		return results.get(0);
 	}
 
+	public Officer getOfficerFromUser(User user) {
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Officer> cr = cb.createQuery(Officer.class);
+        Root<Officer> root = cr.from(Officer.class);
+
+        cr.select(root).where(cb.equal(root.get("id"), user.getId()));
+
+        List<Officer> results = session.createQuery(cr).getResultList();
+
+        tx.commit();
+        session.close();
+        if(results.size() != 1)
+            return null; //TODO - Change to exception ???
+
+        return results.get(0);
+    }
 }

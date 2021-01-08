@@ -2,6 +2,9 @@ package com.komisariat.DBControllers;
 
 import com.komisariat.BusinessObjects.*;
 
+import java.util.Collection;
+import java.util.Date;
+
 public interface IDBAccessController {
 
 	static DBAccessController getInstance(AccessLevel accessLevel) {
@@ -9,22 +12,29 @@ public interface IDBAccessController {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param hq
+	 * @return
 	 */
-	Kit[] getAvailableKits(Headquarter hq);
+	Collection<Kit> getAvailableKits(Headquarter hq);
+
+
+	Collection<Kit> getAllKits();
+	/**
+	 *
+	 * @param hq
+	 * @return
+	 */
+	Collection<Vehicle> getAvailableVehicles(Headquarter hq);
 
 	/**
-	 * 
+	 *
 	 * @param hq
+	 * @return
 	 */
-	Vehicle[] getAvailableVehicles(Headquarter hq);
+	Collection<PatrolRegion> getAvailableRegions(Headquarter hq);
 
-	/**
-	 * 
-	 * @param hq
-	 */
-	PatrolRegion[] getAvailableRegions(Headquarter hq);
+	Collection<Shift> getShifts(Date startDate, Date endDate, Headquarter hq);
 
 	/**
 	 * 
@@ -33,22 +43,32 @@ public interface IDBAccessController {
 	Shift getActiveShift(Officer officer);
 
 	/**
-	 * 
-	 * @param startDate
-	 * @param endDate
+	 *
 	 * @param hq
+	 * @return
 	 */
-	Report[] getReports(int startDate, int endDate, Headquarter hq);
+	Collection<Shift> getActiveShifts(Headquarter hq);
 
 	/**
-	 * 
+	 *  @param startDate
+	 * @param endDate
 	 * @param hq
+	 * @return
 	 */
-	Officer[] getOfficers(Headquarter hq);
+	Collection<Report> getReports(Date startDate, Date endDate, Headquarter hq);
 
-	String[] getRanks();
+	/**
+	 *
+	 * @param hq
+	 * @return
+	 */
+	Collection<Officer> getOfficers(Headquarter hq);
 
-	Headquarter[] getHeadquarters();
+	Collection<Officer> getAllOfficers();
+
+	Collection<Rank> getRanks();
+
+	Collection<Headquarter> getHeadquarters();
 
 	/**
 	 * 
@@ -69,10 +89,22 @@ public interface IDBAccessController {
 	boolean saveOfficer(Officer officer);
 
 	/**
+	 *
+	 * @param tool
+	 */
+	boolean saveTool(Tool tool);
+	Integer saveReport(Report report);
+	/**
 	 * 
 	 * @param shift
 	 */
 	boolean updateShiftInfo(Shift shift);
+
+	/**
+	 *
+	 * @param vehicle
+	 */
+	boolean updateVehicleInfo(Vehicle vehicle);
 
 	/**
 	 * 
