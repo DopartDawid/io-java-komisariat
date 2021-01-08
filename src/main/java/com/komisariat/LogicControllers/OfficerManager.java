@@ -98,9 +98,7 @@ public class OfficerManager {
 		updatedVehicle.setMileage(endMileage);
 		dbac.updateVehicleInfo(updatedVehicle);
 		updatedShift.setReport(report);
-		dbac.updateShiftInfo(updatedShift);
-
-		return true;
+		return dbac.updateShiftInfo(updatedShift);
 	}
 
 	/**

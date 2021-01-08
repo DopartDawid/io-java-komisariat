@@ -159,7 +159,7 @@ public class AdminManager {
 		return accessController.getHeadquarters();
 	}
 
-	public String hashPass(String password){
+	private String hashPass(String password){
 		String passHash;
 		try{
 			MessageDigest md = MessageDigest.getInstance("MD5");

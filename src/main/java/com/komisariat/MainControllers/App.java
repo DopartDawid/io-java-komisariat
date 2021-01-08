@@ -53,6 +53,7 @@ public class App {
 			return;
 		}
 		else if(commissionerManager != null) {
+			officerManager = commissionerManager;
 			ui.showCommissionerUI();
 			return;
 		}
@@ -81,17 +82,18 @@ public class App {
 	}
 
 	public void finishShift() {
-		Map<String, String> shiftInfo = ui.getEndShiftInfo();
 		OfficerManager om = null;
 		if(officerManager != null) {
 			om = officerManager;
 		}
 		else
-			om = commissionerManager;
-
-		om.finishActiveShift(shiftInfo.get("title"),
-				shiftInfo.get("content"),
-				Integer.parseInt(shiftInfo.get("endMileage")));
+			return;
+		Map<String, String> shiftInfo = ui.getEndShiftInfo();
+		if(shiftInfo == null)
+			return;
+		boolean isFinished = om.finishActiveShift(shiftInfo.get("title"),
+								shiftInfo.get("content"),
+								Integer.parseInt(shiftInfo.get("endMileage")));
 	}
 
 	public void viewReports() {

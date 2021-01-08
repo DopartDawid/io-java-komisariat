@@ -47,7 +47,7 @@ public class LoginManager {
 		throw new UnsupportedOperationException();
 	}
 
-	public String hashPass(String password){
+	private String hashPass(String password){
 		String passHash;
 		try{
 			MessageDigest md = MessageDigest.getInstance("MD5");
@@ -62,4 +62,8 @@ public class LoginManager {
 		}
 		return passHash;
 	}
+
+	public AdminManager getAdminManager() { return am;}
+	public OfficerManager getOfficerManager() { return om;}
+	public CommissionerManager getCommissionerManager() { return cm;}
 }
