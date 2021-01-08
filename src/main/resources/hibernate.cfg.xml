@@ -37,6 +37,7 @@
         <mapping class="com.komisariat.BusinessObjects.Vehicle"></mapping>
         <mapping class="com.komisariat.BusinessObjects.Report"></mapping>
         <mapping class="com.komisariat.BusinessObjects.Shift"></mapping>
+        <mapping class="com.komisariat.BusinessObjects.Rank"></mapping>
 
 
 

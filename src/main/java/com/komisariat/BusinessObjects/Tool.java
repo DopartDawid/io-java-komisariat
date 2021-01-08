@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table(name = "Tools")
 public class Tool {
 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private int id;
 	private String model;

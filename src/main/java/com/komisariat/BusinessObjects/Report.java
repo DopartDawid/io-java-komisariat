@@ -7,6 +7,7 @@ import java.util.Date;
 @Table(name = "Reports")
 public class Report {
 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private int id;
 	private String title;
@@ -39,5 +40,16 @@ public class Report {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	@OneToOne(mappedBy = "report", optional = false, fetch = FetchType.EAGER)
+	private Shift shift;
+
+	public Shift getShift() {
+		return shift;
+	}
+
+	public void setShift(Shift shift) {
+		this.shift = shift;
 	}
 }

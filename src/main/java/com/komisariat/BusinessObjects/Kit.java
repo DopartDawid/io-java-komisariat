@@ -1,5 +1,7 @@
 package com.komisariat.BusinessObjects;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -7,6 +9,7 @@ import java.util.Collection;
 @Table(name = "Kits")
 public class Kit {
 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private int id;
 	private String name;
@@ -16,7 +19,8 @@ public class Kit {
 	@JoinColumn(name = "Headquarter_ID")
 	private Headquarter headquarter;
 
-	@OneToMany(mappedBy = "kit")
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+	@OneToMany(mappedBy = "kit", fetch = FetchType.EAGER)
 	private Collection<Tool> tools;
 
 	public int getId() {
