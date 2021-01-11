@@ -43,7 +43,7 @@ public class AdminUIController {
         officerTable.getColumns().get(3).setCellValueFactory(new MapValueFactory("hqAddress"));
         officerTable.getColumns().get(4).setCellValueFactory(new MapValueFactory("rank"));
 
-        officerTable.setItems(generateDataInMap(ui.getOfficerInfo()));
+        refreshTables();
 
         editOfficerButton.setDisable(true);
         deleteOfficerButton.setDisable(true);
@@ -79,5 +79,9 @@ public class AdminUIController {
         }
 
         return data;
+    }
+
+    public void refreshTables() {
+        officerTable.setItems(generateDataInMap(ui.getOfficerInfo()));
     }
 }

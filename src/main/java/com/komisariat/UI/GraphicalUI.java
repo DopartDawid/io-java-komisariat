@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import com.komisariat.MainControllers.App;
+import com.komisariat.UI.controllers.AdminOfficerInfoController;
 import com.komisariat.UI.controllers.LoginController;
 import com.komisariat.UI.controllers.SceneManager;
 import javafx.application.Application;
@@ -42,6 +43,10 @@ public class GraphicalUI extends Application implements IUserInterface {
 
     public static GraphicalUI getInstance() {
         return instance;
+    }
+
+    public App getApp() {
+        return app;
     }
 
     @FXML
@@ -121,7 +126,7 @@ public class GraphicalUI extends Application implements IUserInterface {
 
     @Override
     public Map<String, String> getNewOfficerInfo() {
-        return null;
+        return AdminOfficerInfoController.getInstance().getNewOfficerInfo();
     }
 
     @Override
