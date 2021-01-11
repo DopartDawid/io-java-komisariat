@@ -1,10 +1,7 @@
 package com.komisariat.UI;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 import com.komisariat.MainControllers.App;
 import com.komisariat.UI.controllers.LoginController;
@@ -13,6 +10,9 @@ import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -92,6 +92,11 @@ public class GraphicalUI extends Application implements IUserInterface {
     @Override
     public void showCommissionerUI() {
         System.out.println("komisarz zalogowany");
+        try {
+            SceneManager.switchFXML(primaryStage, "commissionerMain");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -166,6 +171,18 @@ public class GraphicalUI extends Application implements IUserInterface {
 
     public Collection<Map<String, String>> getOfficerInfo() {
         return app.getOfficers();
+    }
+
+    public Collection<Map<String, String>> getActiveOfficerInfo() {
+        return app.getActiveOfficers();
+    }
+
+    public Collection<Map<String, String>> getReports(Date begDate, Date endDate) {
+        return app.getReports(begDate, endDate);
+    }
+
+    public Collection<Map<String, String>> getShifts(Date begDate, Date endDate) {
+        return app.getShiftsInfo(begDate, endDate);
     }
 
     public void startShift(){
