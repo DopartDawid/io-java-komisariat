@@ -18,9 +18,7 @@ public class SceneManager {
         return new Scene(root);
     }
 
-    public static void switchFXML(ActionEvent event, String fxml) throws IOException {
-        Node node = (Node) event.getSource();
-        Stage stage = (Stage) node.getScene().getWindow();
+    public static void switchFXML(Stage stage, String fxml) throws IOException {
         stage.setScene(parseFXML(fxml));
         stage.show();
     }
