@@ -1,9 +1,13 @@
 package com.komisariat.UI;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Scanner;
 
 import com.komisariat.MainControllers.App;
+import com.komisariat.UI.controllers.AdminOfficerInfoController;
 import com.komisariat.UI.controllers.LoginController;
 import com.komisariat.UI.controllers.SceneManager;
 import javafx.application.Application;
@@ -42,6 +46,10 @@ public class GraphicalUI extends Application implements IUserInterface {
 
     public static GraphicalUI getInstance() {
         return instance;
+    }
+
+    public App getApp() {
+        return app;
     }
 
     @FXML
@@ -87,13 +95,18 @@ public class GraphicalUI extends Application implements IUserInterface {
     @Override
     public void showOfficerUI() {
         System.out.println("officer zalogowany");
+        try {
+            SceneManager.switchFXML(primaryStage, "officerMain");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void showCommissionerUI() {
         System.out.println("komisarz zalogowany");
         try {
-            SceneManager.switchFXML(primaryStage, "commissionerMain");
+            SceneManager.switchFXML(primaryStage, "commisionerMain");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -126,7 +139,7 @@ public class GraphicalUI extends Application implements IUserInterface {
 
     @Override
     public Map<String, String> getNewOfficerInfo() {
-        return null;
+        return AdminOfficerInfoController.getInstance().getNewOfficerInfo();
     }
 
     @Override
