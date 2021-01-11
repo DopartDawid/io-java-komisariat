@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="470.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.komisariat.UI.controllers.OfficerUIController">
+   <children>
+      <Label layoutX="323.0" layoutY="14.0" text="Funkcjonariusz" />
+      <Button fx:id="startShiftButton" layoutX="70.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#handleStartShiftButtonClick" text="Rozpocznij służbę" />
+      <Button fx:id="finishShiftButton" layoutX="70.0" layoutY="160.0" mnemonicParsing="false" onMouseClicked="#handleFinishShiftButtonClick" prefHeight="26.0" prefWidth="111.0" text="Zakończ służbę" />
+      <Button fx:id="signOutButton" layoutX="70.0" layoutY="210.0" mnemonicParsing="false" onMouseClicked="#handleSignOutButtonClick" prefHeight="26.0" prefWidth="111.0" text="Wyloguj" />
+   </children>
+</AnchorPane>

@@ -92,6 +92,11 @@ public class GraphicalUI extends Application implements IUserInterface {
     @Override
     public void showCommissionerUI() {
         System.out.println("komisarz zalogowany");
+        try {
+            SceneManager.switchFXML(primaryStage, "officerMain");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
