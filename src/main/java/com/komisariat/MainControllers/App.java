@@ -5,15 +5,14 @@ import com.komisariat.LogicControllers.AdminManager;
 import com.komisariat.LogicControllers.CommissionerManager;
 import com.komisariat.LogicControllers.LoginManager;
 import com.komisariat.LogicControllers.OfficerManager;
+import com.komisariat.UI.GraphicalUI;
 import com.komisariat.UI.IUserInterface;
 import com.komisariat.UI.TextUI;
-import javafx.application.Application;
-import javafx.stage.Stage;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class App extends Application {
+public class App {
 
 	private LoginManager loginManager;
 	private AdminManager adminManager;
@@ -21,22 +20,12 @@ public class App extends Application {
 	private CommissionerManager commissionerManager;
 	private IUserInterface ui;
 
-	public static void main(String[] args) {
-		Application.launch(args);
-	}
-
 	public App() {
 		loginManager = new LoginManager();
 		adminManager = null;
 		officerManager = null;
 		commissionerManager = null;
-		ui = new TextUI(this);
-	}
-
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		primaryStage.setTitle("My First JavaFX App");
-		primaryStage.show();
+		ui = GraphicalUI.getInstance();
 	}
 
 	public void start() {

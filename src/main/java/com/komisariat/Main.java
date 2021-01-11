@@ -1,11 +1,11 @@
 package com.komisariat;
 
-import com.komisariat.MainControllers.App;
+import com.komisariat.UI.GraphicalUI;
 
 
 public class Main {
 
     public static void main(String[] args) {
-        App.main(args);
+        GraphicalUI.main(args);
     }
 }
