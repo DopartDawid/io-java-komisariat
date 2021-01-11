@@ -7,12 +7,13 @@ import com.komisariat.LogicControllers.LoginManager;
 import com.komisariat.LogicControllers.OfficerManager;
 import com.komisariat.UI.IUserInterface;
 import com.komisariat.UI.TextUI;
-import com.sun.xml.bind.v2.runtime.reflect.Lister;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class App {
+public class App extends Application {
 
 	private LoginManager loginManager;
 	private AdminManager adminManager;
@@ -20,12 +21,22 @@ public class App {
 	private CommissionerManager commissionerManager;
 	private IUserInterface ui;
 
+	public static void main(String[] args) {
+		Application.launch(args);
+	}
+
 	public App() {
 		loginManager = new LoginManager();
 		adminManager = null;
 		officerManager = null;
 		commissionerManager = null;
 		ui = new TextUI(this);
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		primaryStage.setTitle("My First JavaFX App");
+		primaryStage.show();
 	}
 
 	public void start() {
