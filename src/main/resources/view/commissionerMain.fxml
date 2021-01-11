@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="343.0" prefWidth="667.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.komisariat.UI.controllers.CommissionerUIController">
+   <children>
+      <Label layoutX="218.0" layoutY="42.0" prefHeight="41.0" prefWidth="231.0" text="Panel komendanta" textFill="#8d8383">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+      <Label layoutX="27.0" layoutY="164.0" text="Wybierz działanie:" />
+      <Button layoutX="19.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleShiftStartButtonClick" text="Rozpocznij służbę" />
+      <Button layoutX="19.0" layoutY="258.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" onAction="#handleShiftEndButtonClick" text="Zakończ służbę" />
+      <Label layoutX="175.0" layoutY="164.0" text="Zarządzanie posterunkiem:" />
+      <Button layoutX="175.0" layoutY="211.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="231.0" onAction="#handleShowReportsButtonClick" text="Wyswietl dostepne raporty" />
+      <Button layoutX="175.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleShowOfficersButtonClick" text="Wyswietl informacje o funkcjonariuszach" />
+      <Button layoutX="424.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleTimeOfWorkButtonClick" prefHeight="25.0" prefWidth="205.0" text="Wyswietl ewidencje czasu pracy" />
+      <Button layoutX="424.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleShowActiveOfficersButtonClick" text="Wyswietl aktywnych funkcjonariuszy" />
+      <Line endX="11.0" endY="209.0" layoutX="142.0" layoutY="110.0" startX="11.0" startY="17.0" />
+      <Line endX="474.0" endY="0.5" layoutX="175.0" layoutY="127.0" startX="-163.5" startY="0.5" />
+      <Line endX="-119.0" endY="212.0" layoutX="130.0" layoutY="105.0" startX="-119.0" startY="23.0" />
+      <Line endX="537.0" layoutX="111.0" layoutY="319.0" startX="-100.0" />
+      <Line endX="198.5" endY="239.5" layoutX="450.0" layoutY="79.0" startX="199.5" startY="49.0" />
+   </children>
+</AnchorPane>
