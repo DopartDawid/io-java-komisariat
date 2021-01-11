@@ -1,5 +1,6 @@
 package com.komisariat.UI;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -18,6 +19,7 @@ import javafx.stage.Stage;
 public class GraphicalUI extends Application implements IUserInterface {
 
     private App app;
+    private Stage primaryStage;
     private static GraphicalUI instance;
 
     public GraphicalUI() {
@@ -31,6 +33,7 @@ public class GraphicalUI extends Application implements IUserInterface {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        this.primaryStage = primaryStage;
         Scene scene = SceneManager.parseFXML("main");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
@@ -74,6 +77,11 @@ public class GraphicalUI extends Application implements IUserInterface {
     @Override
     public void showAdminUI() {
         System.out.println("admin zalogowanyy");
+        try {
+            SceneManager.switchFXML(primaryStage, "adminMain");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

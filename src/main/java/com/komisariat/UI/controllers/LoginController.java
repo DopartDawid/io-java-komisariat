@@ -1,8 +1,11 @@
 package com.komisariat.UI.controllers;
 
 import com.komisariat.UI.GraphicalUI;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+
+import javax.swing.*;
 
 public class LoginController {
 
@@ -24,7 +27,7 @@ public class LoginController {
     }
 
     @FXML
-    private void handleButtonClick() {
+    private void handleButtonClick(ActionEvent event) {
         ui.startUI();
     }
 }
