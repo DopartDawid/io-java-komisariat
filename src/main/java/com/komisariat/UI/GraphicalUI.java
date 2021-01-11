@@ -159,4 +159,12 @@ public class GraphicalUI extends Application implements IUserInterface {
     public Collection<Map<String, String>> getOfficerInfo() {
         return app.getOfficers();
     }
+
+    public void startShift(){
+        app.startShift();
+    }
+
+    public void finishShift(){
+        app.finishShift();
+    }
 }
