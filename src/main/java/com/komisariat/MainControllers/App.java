@@ -167,6 +167,7 @@ public class App {
 
 	public void removeOfficer() {
 		Integer chosenOfficerID = ui.getRemoveOfficerID();
+		System.out.println(chosenOfficerID);
 		adminManager.removeOfficer(chosenOfficerID);
 	}
 

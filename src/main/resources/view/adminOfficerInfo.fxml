@@ -22,7 +22,7 @@
             <ChoiceBox fx:id="hq" layoutX="190.0" layoutY="131.0" prefHeight="26.0" prefWidth="253.0" />
             <ChoiceBox fx:id="rank" layoutX="190.0" layoutY="174.0" prefHeight="26.0" prefWidth="253.0" />
             <Button fx:id="addButton" onAction="#addButtonHandler" layoutX="339.0" layoutY="240.0" mnemonicParsing="false" text="Dodaj" />
-            <Button fx:id="cancelButton" layoutX="414.0" layoutY="240.0" mnemonicParsing="false" text="Anuluj" />
+            <Button fx:id="cancelButton" onAction="#cancelButtonHandler" layoutX="414.0" layoutY="240.0" mnemonicParsing="false" text="Anuluj" />
          </children>
     </AnchorPane>
   </children>

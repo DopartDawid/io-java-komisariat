@@ -23,11 +23,13 @@ public class AdminOfficerInfoController {
     public Button addButton;
     public Button cancelButton;
 
+    public String officerID;
     private GraphicalUI ui = GraphicalUI.getInstance();
     private static AdminOfficerInfoController instance;
 
     public AdminOfficerInfoController() {
         instance = this;
+        officerID = "";
     }
 
     public static AdminOfficerInfoController getInstance() {
@@ -63,6 +65,16 @@ public class AdminOfficerInfoController {
         cancelButtonHandler(event);
     }
 
+    public void editButtonHandler(ActionEvent event) {
+        if(firstName.getText().equals("") || lastName.getText().equals("") || badgeNumber.getText().equals("")
+                || hq.getValue() == null || rank.getValue() == null) {
+            ui.showErrorMessage("Wszystkie pola powinny być wypełnione!");
+            return;
+        }
+        ui.getApp().editOfficer();
+        cancelButtonHandler(event);
+    }
+
     public void cancelButtonHandler(ActionEvent event) {
         ((Node)(event.getSource())).getScene().getWindow().hide();
         AdminUIController.getInstance().refreshTables();
@@ -70,6 +82,7 @@ public class AdminOfficerInfoController {
 
     public Map<String, String> getNewOfficerInfo() {
         Map<String, String> info = new HashMap<>();
+        info.put("id", this.officerID);
         info.put("badgeNumber", this.badgeNumber.getText());
         info.put("firstName", this.firstName.getText());
         info.put("lastName", this.lastName.getText());

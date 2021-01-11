@@ -251,8 +251,8 @@ public class DBAccessController implements IDBAccessController {
 	public Collection<Officer> getOfficers(Headquarter hq) {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
-		String select = "FROM Officer o WHERE o.headquarter.id = :hq";
-		Query query = session.createQuery(select).setParameter("hq", hq.getId());
+		String select = "FROM Officer o WHERE o.headquarter.id = :hq AND o.accessLevel != :removed";
+		Query query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("removed", AccessLevel.Removed);
 
 		List<Officer> results = query.getResultList();
 
@@ -266,13 +266,10 @@ public class DBAccessController implements IDBAccessController {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 
-		CriteriaBuilder cb = session.getCriteriaBuilder();
-		CriteriaQuery<Officer> cr = cb.createQuery(Officer.class);
-		Root<Officer> root = cr.from(Officer.class);
+		String select = "FROM Officer o WHERE o.accessLevel != :removed";
+		Query query = session.createQuery(select).setParameter("removed", AccessLevel.Removed);
 
-		cr.select(root);
-
-		List<Officer> results = session.createQuery(cr).getResultList();
+		List<Officer> results = query.getResultList();
 
 		tx.commit();
 		session.close();
