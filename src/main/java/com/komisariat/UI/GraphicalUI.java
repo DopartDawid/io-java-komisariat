@@ -15,6 +15,9 @@ import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -182,6 +185,18 @@ public class GraphicalUI extends Application implements IUserInterface {
 
     public Collection<Map<String, String>> getOfficerInfo() {
         return app.getOfficers();
+    }
+
+    public Collection<Map<String, String>> getActiveOfficerInfo() {
+        return app.getActiveOfficers();
+    }
+
+    public Collection<Map<String, String>> getReports(Date begDate, Date endDate) {
+        return app.getReports(begDate, endDate);
+    }
+
+    public Collection<Map<String, String>> getShifts(Date begDate, Date endDate) {
+        return app.getShiftsInfo(begDate, endDate);
     }
 
     public void startShift(){
