@@ -11,6 +11,7 @@ import com.komisariat.UI.controllers.SceneManager;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 
@@ -62,7 +63,12 @@ public class GraphicalUI extends Application implements IUserInterface {
 
     @Override
     public void showErrorMessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error message");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
 
+        alert.showAndWait();
     }
 
     @Override
