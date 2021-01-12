@@ -4,10 +4,14 @@ import com.komisariat.UI.GraphicalUI;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -24,11 +28,11 @@ public class CommissionerUIController {
     private GraphicalUI ui = GraphicalUI.getInstance();
 
     public void handleShiftStartButtonClick(ActionEvent actionEvent) {
-        ui.startShift();
+        ui.startShift(actionEvent);
     }
 
     public void handleShiftEndButtonClick(ActionEvent actionEvent) {
-        ui.finishShift();
+        ui.finishShift(actionEvent);
     }
 
     public void handleShowReportsButtonClick(ActionEvent actionEvent) {

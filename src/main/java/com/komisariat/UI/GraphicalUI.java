@@ -6,7 +6,9 @@ import java.util.*;
 import com.komisariat.MainControllers.App;
 import com.komisariat.UI.controllers.*;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
@@ -193,11 +195,21 @@ public class GraphicalUI extends Application implements IUserInterface {
         return app.getShiftsInfo(begDate, endDate);
     }
 
-    public void startShift(){
-        app.startShift();
+    public void startShift(ActionEvent event){
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("Rozpocznij słuzbe");
+            stage.setScene(SceneManager.parseFXML("officerStartShiftInfo"));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Node)(event.getSource())).getScene().getWindow());
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
     }
 
-    public void finishShift(){
+    public void finishShift(ActionEvent event){
         app.finishShift();
     }
 }

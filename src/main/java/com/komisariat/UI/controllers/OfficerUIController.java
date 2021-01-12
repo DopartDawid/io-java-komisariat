@@ -25,22 +25,12 @@ public class OfficerUIController {
 
     @FXML
     private void handleStartShiftButtonClick(ActionEvent event){
-        try {
-            Stage stage = new Stage();
-            stage.setTitle("Rozpocznij słuzbe");
-            stage.setScene(SceneManager.parseFXML("officerStartShiftInfo"));
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(((Node)(event.getSource())).getScene().getWindow());
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
+        ui.startShift(event);
     }
 
     @FXML
     private void handleFinishShiftButtonClick(ActionEvent event){
-
+        ui.finishShift(event);
     }
 
     @FXML
