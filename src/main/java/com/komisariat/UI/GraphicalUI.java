@@ -176,7 +176,7 @@ public class GraphicalUI extends Application implements IUserInterface {
 
     @Override
     public Map<String, String> getEndShiftInfo() {
-        return null;
+        return OfficerEndShiftController.getInstance().getEndShiftInfo();
     }
 
     public Collection<Map<String, String>> getOfficerInfo() {
@@ -198,7 +198,7 @@ public class GraphicalUI extends Application implements IUserInterface {
     public void startShift(ActionEvent event){
         try {
             Stage stage = new Stage();
-            stage.setTitle("Rozpocznij słuzbe");
+            stage.setTitle("Rozpocznij sluzbe");
             stage.setScene(SceneManager.parseFXML("officerStartShiftInfo"));
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Node)(event.getSource())).getScene().getWindow());
@@ -210,6 +210,16 @@ public class GraphicalUI extends Application implements IUserInterface {
     }
 
     public void finishShift(ActionEvent event){
-        app.finishShift();
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("Zakoncz sluzbe");
+            stage.setScene(SceneManager.parseFXML("officerEndShiftInfo"));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Node)(event.getSource())).getScene().getWindow());
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
     }
 }
