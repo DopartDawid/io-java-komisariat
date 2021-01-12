@@ -207,6 +207,7 @@ public class App {
 			temp.put("name", kit.getName());
 			temp.put("category", kit.getCategory());
 			temp.put("hqID", Integer.toString(kit.getHeadquarter().getId()));
+			temp.put("hqAddress", kit.getHeadquarter().getStreet() + " " + kit.getHeadquarter().getNumber());
 			kitsInfo.add(temp);
 		}
 		return kitsInfo;

@@ -1,10 +1,7 @@
 package com.komisariat.UI;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 import com.komisariat.MainControllers.App;
 import com.komisariat.UI.controllers.AdminOfficerInfoController;
@@ -107,7 +104,7 @@ public class GraphicalUI extends Application implements IUserInterface {
     public void showCommissionerUI() {
         System.out.println("komisarz zalogowany");
         try {
-            SceneManager.switchFXML(primaryStage, "commisionerMain");
+            SceneManager.switchFXML(primaryStage, "commissionerMain");
         } catch (IOException e) {
             e.printStackTrace();
         }

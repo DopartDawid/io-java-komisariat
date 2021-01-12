@@ -47,6 +47,10 @@ public class AdminUIController {
         officerTable.getColumns().get(3).setCellValueFactory(new MapValueFactory("hqAddress"));
         officerTable.getColumns().get(4).setCellValueFactory(new MapValueFactory("rank"));
 
+        kitTable.getColumns().get(0).setCellValueFactory(new MapValueFactory("name"));
+        kitTable.getColumns().get(1).setCellValueFactory(new MapValueFactory("category"));
+        kitTable.getColumns().get(2).setCellValueFactory(new MapValueFactory("hqAddress"));
+
         refreshTables();
 
         editOfficerButton.setDisable(true);
@@ -58,6 +62,10 @@ public class AdminUIController {
 
         editKitButton.setDisable(true);
         deleteKitButton.setDisable(true);
+        kitTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            editKitButton.setDisable(false);
+            deleteKitButton.setDisable(false);
+        });
     }
 
     public static AdminUIController getInstance() {
@@ -119,6 +127,20 @@ public class AdminUIController {
         this.refreshTables();
     }
 
+    @FXML
+    public void addNewKitHandler(ActionEvent event) {
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("Dodaj nowy zestaw ekwipunku");
+            stage.setScene(SceneManager.parseFXML("adminKitInfo"));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Node)(event.getSource())).getScene().getWindow());
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private ObservableList<Map<String, String>> generateDataInMap(Collection<Map<String, String>> maps) {
         ObservableList<Map<String, String>> data = FXCollections.observableArrayList();
         data.addAll(maps);
@@ -128,6 +150,7 @@ public class AdminUIController {
 
     public void refreshTables() {
         officerTable.setItems(generateDataInMap(ui.getOfficerInfo()));
+        kitTable.setItems(generateDataInMap(ui.getApp().getKits()));
     }
 
     public Map<String, String> getSelectedOfficer() {

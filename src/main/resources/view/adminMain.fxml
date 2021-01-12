@@ -32,9 +32,9 @@
                      <content>
                         <TableView fx:id="kitTable" prefHeight="200.0" prefWidth="200.0">
                            <columns>
-                              <TableColumn prefWidth="263.0" text="PRODUCENT" />
-                              <TableColumn minWidth="5.0" prefWidth="232.0" text="MODEL" />
-                              <TableColumn minWidth="0.0" prefWidth="197.0" text="KATEGORIA" />
+                              <TableColumn prefWidth="263.0" text="NAZWA" />
+                              <TableColumn minWidth="5.0" prefWidth="232.0" text="KATEGORIA" />
+                              <TableColumn minWidth="0.0" prefWidth="197.0" text="PRZYP. KOM." />
                            </columns>
                         </TableView>
                      </content>
@@ -45,7 +45,7 @@
             <Line endX="-82.0" endY="125.0" layoutX="277.0" layoutY="281.0" startX="-82.0" startY="-63.0" />
             <Button fx:id="editOfficerButton" onAction="#editOfficerHandler" layoutX="11.0" layoutY="299.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Edytuj funkcjonariusza" />
             <Button fx:id="deleteOfficerButton" onAction="#deleteOfficerHandler" layoutX="11.0" layoutY="351.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Usuń funkcjonariusza" />
-            <Button fx:id="addKitButton" layoutX="213.0" layoutY="246.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="Dodaj ekwipunek" />
+            <Button fx:id="addKitButton" onAction="#addNewKitHandler" layoutX="213.0" layoutY="246.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="Dodaj ekwipunek" />
             <Button fx:id="editKitButton" layoutX="213.0" layoutY="299.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="Edytuj ekwipunek" />
             <Button fx:id="deleteKitButton" layoutX="213.0" layoutY="351.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="Usuń ekwipunek" />
       </children>
