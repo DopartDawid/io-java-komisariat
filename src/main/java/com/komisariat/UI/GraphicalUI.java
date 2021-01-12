@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.util.*;
 
 import com.komisariat.MainControllers.App;
-import com.komisariat.UI.controllers.AdminOfficerInfoController;
-import com.komisariat.UI.controllers.AdminUIController;
-import com.komisariat.UI.controllers.LoginController;
-import com.komisariat.UI.controllers.SceneManager;
+import com.komisariat.UI.controllers.*;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -172,7 +169,7 @@ public class GraphicalUI extends Application implements IUserInterface {
 
     @Override
     public Map<String, String> getNewShiftInfo() {
-        return null;
+        return OfficerStartShiftInfoController.getInstance().getNewShiftInfo();
     }
 
     @Override
