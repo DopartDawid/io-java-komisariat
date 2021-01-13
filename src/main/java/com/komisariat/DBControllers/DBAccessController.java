@@ -71,8 +71,8 @@ public class DBAccessController implements IDBAccessController {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 
-		String select = "FROM Kit k WHERE k.headquarter.id = :hq AND NOT EXISTS (FROM Shift s WHERE s.officer.headquarter.id = :hq AND s.endDate IS NULL AND s.kit.id = k.id)";
-		Query query = session.createQuery(select).setParameter("hq", hq.getId());
+		String select = "FROM Kit k WHERE k.category != :removed AND k.headquarter.id = :hq AND NOT EXISTS (FROM Shift s WHERE s.officer.headquarter.id = :hq AND s.endDate IS NULL AND s.kit.id = k.id)";
+		Query query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("removed", "USUNIETY");
 
 		List<Kit> results = query.getResultList();
 
@@ -86,13 +86,10 @@ public class DBAccessController implements IDBAccessController {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 
-		CriteriaBuilder cb = session.getCriteriaBuilder();
-		CriteriaQuery<Kit> cr = cb.createQuery(Kit.class);
-		Root<Kit> root = cr.from(Kit.class);
+		String select = "FROM Kit k WHERE k.category != :removed";
+		Query query = session.createQuery(select).setParameter("removed", "USUNIETY");
 
-		cr.select(root);
-
-		List<Kit> results = session.createQuery(cr).getResultList();
+		List<Kit> results = query.getResultList();
 
 		tx.commit();
 		session.close();
