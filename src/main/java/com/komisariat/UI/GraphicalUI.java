@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.util.*;
 
 import com.komisariat.MainControllers.App;
-import com.komisariat.UI.controllers.AdminOfficerInfoController;
-import com.komisariat.UI.controllers.AdminUIController;
-import com.komisariat.UI.controllers.LoginController;
-import com.komisariat.UI.controllers.SceneManager;
+import com.komisariat.UI.controllers.*;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
@@ -172,12 +171,12 @@ public class GraphicalUI extends Application implements IUserInterface {
 
     @Override
     public Map<String, String> getNewShiftInfo() {
-        return null;
+        return OfficerStartShiftInfoController.getInstance().getNewShiftInfo();
     }
 
     @Override
     public Map<String, String> getEndShiftInfo() {
-        return null;
+        return OfficerEndShiftController.getInstance().getEndShiftInfo();
     }
 
     public Collection<Map<String, String>> getOfficerInfo() {
@@ -196,11 +195,31 @@ public class GraphicalUI extends Application implements IUserInterface {
         return app.getShiftsInfo(begDate, endDate);
     }
 
-    public void startShift(){
-        app.startShift();
+    public void startShift(ActionEvent event){
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("Rozpocznij sluzbe");
+            stage.setScene(SceneManager.parseFXML("officerStartShiftInfo"));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Node)(event.getSource())).getScene().getWindow());
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
     }
 
-    public void finishShift(){
-        app.finishShift();
+    public void finishShift(ActionEvent event){
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("Zakoncz sluzbe");
+            stage.setScene(SceneManager.parseFXML("officerEndShiftInfo"));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Node)(event.getSource())).getScene().getWindow());
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
     }
 }

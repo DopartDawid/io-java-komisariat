@@ -173,6 +173,12 @@ public class DBAccessController implements IDBAccessController {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 
+		String select = "FROM Shift s WHERE s.officer.headquarter.id = :hq AND s.endDate IS NULL AND s.officer.badgeNumber = :badge";
+		Query query = session.createQuery(select).setParameter("hq", officer.getHeadquarter().getId()).setParameter("badge", officer.getBadgeNumber());
+
+		List<Shift> results = query.getResultList();
+
+/*
 		CriteriaBuilder cb = session.getCriteriaBuilder();
 		CriteriaQuery<Shift> cr = cb.createQuery(Shift.class);
 		Root<Shift> root = cr.from(Shift.class);
@@ -181,6 +187,8 @@ public class DBAccessController implements IDBAccessController {
 
 		List<Shift> results = session.createQuery(cr).getResultList();
 
+
+ */
 		tx.commit();
 		session.close();
 

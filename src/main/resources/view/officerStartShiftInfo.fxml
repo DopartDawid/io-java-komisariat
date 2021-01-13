@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="466.0" prefWidth="535.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.komisariat.UI.controllers.OfficerStartShiftInfoController">
+   <children>
+      <AnchorPane prefHeight="490.0" prefWidth="643.0">
+         <children>
+            <TabPane layoutX="38.0" layoutY="31.0" prefHeight="262.0" prefWidth="474.0">
+               <tabs>
+                  <Tab text="Ekwipunek">
+                     <content>
+                        <TableView fx:id="kitTable" prefHeight="232.0" prefWidth="420.0">
+                          <columns>
+                            <TableColumn prefWidth="76.79998779296875" text="Nazwa" />
+                            <TableColumn prefWidth="64.4000244140625" text="Kategoria" />
+						    <TableColumn prefWidth="100.80001831054688" text="Komisariat" />
+                          </columns>
+                        </TableView>
+                     </content>
+                  </Tab>
+		  <Tab text="Pojazdy">
+                     <content>
+                        <TableView fx:id="vehicleTable" prefHeight="200.0" prefWidth="200.0">
+                          <columns>
+                            <TableColumn prefWidth="136.39999389648438" text="Marka" />
+                            <TableColumn prefWidth="166.00003051757812" text="Model" />
+                            <TableColumn prefWidth="171.0" text="VIN" />
+                          </columns>
+                        </TableView>
+                     </content>
+                  </Tab>
+		  <Tab text="Regiony">
+                     <content>
+                        <TableView fx:id="regionTable" prefHeight="200.0" prefWidth="200.0">
+                          <columns>
+                            <TableColumn prefWidth="68.20001220703125" text="ID regionu" />
+                            <TableColumn prefWidth="52.4000244140625" text="Danger" />
+                              <TableColumn prefWidth="354.79998779296875" text="Ulice" />
+                          </columns>
+                        </TableView>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+            <Button fx:id="okButton" layoutX="52.0" layoutY="328.0" mnemonicParsing="false" onAction="#okButtonHandler" text="Zatwierdź" />
+            <Button fx:id="cancelButton" layoutX="57.0" layoutY="366.0" mnemonicParsing="false" onAction="#cancelButtonHandler" prefHeight="26.0" prefWidth="57.0" text="Anuluj" />
+            <Button fx:id="toolInfoButton" layoutX="34.0" layoutY="405.0" mnemonicParsing="false" onAction="#toolInfoButtonHandler" text="Wyswietl kit info" />
+            <TabPane layoutX="162.0" layoutY="306.0" prefHeight="146.0" prefWidth="350.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Tools">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="toolTable" prefHeight="115.0" prefWidth="358.0">
+                                <columns>
+                                  <TableColumn prefWidth="102.60002136230469" text="Marka" />
+                                  <TableColumn prefWidth="119.0" text="Model" />
+                                    <TableColumn prefWidth="140.79998779296875" text="Kategoria" />
+                                </columns>
+                              </TableView>
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </children></AnchorPane>
+   </children>
+</VBox>
