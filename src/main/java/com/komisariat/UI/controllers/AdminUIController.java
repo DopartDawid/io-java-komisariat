@@ -31,6 +31,7 @@ public class AdminUIController {
     public Button addKitButton;
     public Button editKitButton;
     public Button deleteKitButton;
+    public Button signOutButton;
 
     private GraphicalUI ui = GraphicalUI.getInstance();
     private static AdminUIController instance;
@@ -139,6 +140,12 @@ public class AdminUIController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void signOutHandler(ActionEvent event){
+        ui.getApp().signOut();
+        ui.signOut();
     }
 
     private ObservableList<Map<String, String>> generateDataInMap(Collection<Map<String, String>> maps) {

@@ -35,7 +35,8 @@ public class OfficerUIController {
 
     @FXML
     private void handleSignOutButtonClick(ActionEvent event){
-
+        ui.getApp().signOut();
+        ui.signOut();
     }
 
 

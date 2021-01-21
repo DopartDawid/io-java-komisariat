@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
 <VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.komisariat.UI.controllers.AdminUIController">
   <children>
@@ -41,13 +36,14 @@
                   </Tab>
               </tabs>
             </TabPane>
-            <Button fx:id="addOfficerButton" onAction="#addNewOfficerHandler" layoutX="12.0" layoutY="246.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Dodaj funkcjonariusza" />
+            <Button fx:id="addOfficerButton" layoutX="12.0" layoutY="246.0" mnemonicParsing="false" onAction="#addNewOfficerHandler" prefHeight="26.0" prefWidth="171.0" text="Dodaj funkcjonariusza" />
             <Line endX="-82.0" endY="125.0" layoutX="277.0" layoutY="281.0" startX="-82.0" startY="-63.0" />
-            <Button fx:id="editOfficerButton" onAction="#editOfficerHandler" layoutX="11.0" layoutY="299.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Edytuj funkcjonariusza" />
-            <Button fx:id="deleteOfficerButton" onAction="#deleteOfficerHandler" layoutX="11.0" layoutY="351.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="171.0" text="Usuń funkcjonariusza" />
-            <Button fx:id="addKitButton" onAction="#addNewKitHandler" layoutX="213.0" layoutY="246.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="Dodaj ekwipunek" />
+            <Button fx:id="editOfficerButton" layoutX="11.0" layoutY="299.0" mnemonicParsing="false" onAction="#editOfficerHandler" prefHeight="26.0" prefWidth="171.0" text="Edytuj funkcjonariusza" />
+            <Button fx:id="deleteOfficerButton" layoutX="11.0" layoutY="351.0" mnemonicParsing="false" onAction="#deleteOfficerHandler" prefHeight="26.0" prefWidth="171.0" text="Usuń funkcjonariusza" />
+            <Button fx:id="addKitButton" layoutX="213.0" layoutY="246.0" mnemonicParsing="false" onAction="#addNewKitHandler" prefHeight="26.0" prefWidth="139.0" text="Dodaj ekwipunek" />
             <Button fx:id="editKitButton" layoutX="213.0" layoutY="299.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="Edytuj ekwipunek" />
             <Button fx:id="deleteKitButton" layoutX="213.0" layoutY="351.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="Usuń ekwipunek" />
+            <Button fx:id="signOutButton" layoutX="148.0" layoutY="434.0" mnemonicParsing="false" onAction="#signOutHandler" prefHeight="26.0" prefWidth="95.0" text="Wyloguj" />
       </children>
     </AnchorPane>
   </children>

@@ -11,6 +11,7 @@ import javafx.scene.control.cell.MapValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -128,5 +129,10 @@ public class CommissionerUIController {
         }
 
         return data;
+    }
+
+    public void signOutButtonHandle(ActionEvent event){
+        ui.getApp().signOut();
+        ui.signOut();
     }
 }

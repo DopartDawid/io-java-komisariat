@@ -179,6 +179,15 @@ public class GraphicalUI extends Application implements IUserInterface {
         return OfficerEndShiftController.getInstance().getEndShiftInfo();
     }
 
+    public void signOut(){
+        System.out.println("Wylogowano");
+        try {
+            SceneManager.switchFXML(primaryStage, "main");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Collection<Map<String, String>> getOfficerInfo() {
         return app.getOfficers();
     }
