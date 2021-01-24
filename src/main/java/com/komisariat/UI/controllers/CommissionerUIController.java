@@ -39,7 +39,7 @@ public class CommissionerUIController {
     public void handleShowReportsButtonClick(ActionEvent actionEvent) {
         Date firstDate = null;
         Date secondDate = null;
-        TextInputDialog td = new TextInputDialog("");
+        /*TextInputDialog td = new TextInputDialog("");
         td.setHeaderText("Wprowadz poczatek okresu (format: DD/MM/RRRR lub ENTER dla wyswietlenia wszystkich):");
         Optional<String> result1 = td.showAndWait();
 
@@ -57,7 +57,10 @@ public class CommissionerUIController {
                     e.printStackTrace(); //TODO - EXCEPTION HANDLING
                 }
             }
-        }
+        }*/
+
+        firstDate = java.sql.Date.valueOf(DatePopup.display());
+        secondDate = java.sql.Date.valueOf(DatePopup.display());
         availableReports.getColumns().get(0).setCellValueFactory(new MapValueFactory("date"));
         availableReports.getColumns().get(1).setCellValueFactory(new MapValueFactory("title"));
         availableReports.getColumns().get(2).setCellValueFactory(new MapValueFactory("officerName"));
@@ -80,7 +83,7 @@ public class CommissionerUIController {
     public void handleTimeOfWorkButtonClick(ActionEvent actionEvent) {
         Date firstDate = null;
         Date secondDate = null;
-        TextInputDialog td = new TextInputDialog("");
+        /*TextInputDialog td = new TextInputDialog("");
         td.setHeaderText("Wprowadz poczatek okresu (format: DD/MM/RRRR lub ENTER dla wyswietlenia wszystkich):");
         Optional<String> result1 = td.showAndWait();
 
@@ -98,7 +101,9 @@ public class CommissionerUIController {
                     e.printStackTrace(); //TODO - EXCEPTION HANDLING
                 }
             }
-        }
+        }*/
+        firstDate = java.sql.Date.valueOf(DatePopup.display());
+        secondDate = java.sql.Date.valueOf(DatePopup.display());
         workSheetTable.getColumns().get(1).setCellValueFactory(new MapValueFactory("begDate"));
         workSheetTable.getColumns().get(2).setCellValueFactory(new MapValueFactory("endDate"));
         workSheetTable.getColumns().get(3).setCellValueFactory(new MapValueFactory("officerInfo"));
