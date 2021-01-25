@@ -24,7 +24,7 @@ public class DatePopup {
         popupwindow.setTitle("Choose a date");
 
 
-        Button button1= new Button("Close this pop up window");
+        Button button1= new Button("Wybierz datę");
 
 
         button1.setOnAction(e -> popupwindow.close());

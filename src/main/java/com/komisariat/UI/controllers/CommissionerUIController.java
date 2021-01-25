@@ -61,13 +61,12 @@ public class CommissionerUIController {
 
         firstDate = java.sql.Date.valueOf(DatePopup.display());
         secondDate = java.sql.Date.valueOf(DatePopup.display());
+        System.out.println(firstDate + " " + secondDate);
         availableReports.getColumns().get(0).setCellValueFactory(new MapValueFactory("date"));
         availableReports.getColumns().get(1).setCellValueFactory(new MapValueFactory("title"));
         availableReports.getColumns().get(2).setCellValueFactory(new MapValueFactory("officerName"));
 
         availableReports.setItems(generateDataInMap(ui.getReports(firstDate, secondDate)));
-
-        // TODO - NAPISAC COS ZE JAK SIE KLIKNIE W TABELI TO WYSWIETLI SIE RAPORT
     }
 
     public void handleShowOfficersButtonClick(ActionEvent actionEvent) {

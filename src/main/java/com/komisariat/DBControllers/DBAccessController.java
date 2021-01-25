@@ -146,10 +146,10 @@ public class DBAccessController implements IDBAccessController {
 			select = "FROM Shift s WHERE s.officer.headquarter.id = :hq";
 			query = session.createQuery(select).setParameter("hq", hq.getId());
 		}
-		else if(startDate != null) {
+		else if(startDate != null && endDate == null) {
 			query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("startD", new Date()).setParameter(("endD"), new Date());
 		}
-		else if(endDate != null) {
+		else if(startDate == null && endDate != null) {
 			try {
 				query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("startD", new SimpleDateFormat("DD/MM/YYYY").parse("01/01/1900")).setParameter(("endD"), endDate);
 			} catch (ParseException e) {
@@ -178,17 +178,6 @@ public class DBAccessController implements IDBAccessController {
 
 		List<Shift> results = query.getResultList();
 
-/*
-		CriteriaBuilder cb = session.getCriteriaBuilder();
-		CriteriaQuery<Shift> cr = cb.createQuery(Shift.class);
-		Root<Shift> root = cr.from(Shift.class);
-
-		cr.select(root).where(cb.equal(root.get("officer").get("badgeNumber"), officer.getBadgeNumber()));
-
-		List<Shift> results = session.createQuery(cr).getResultList();
-
-
- */
 		tx.commit();
 		session.close();
 
@@ -230,10 +219,10 @@ public class DBAccessController implements IDBAccessController {
 			select = "FROM Report r WHERE (SELECT s.officer.headquarter.id FROM Shift s WHERE s.report.id = r.id) = :hq";
 			query = session.createQuery(select).setParameter("hq", hq.getId());
 		}
-		else if(startDate != null) {
+		else if(startDate != null && endDate == null) {
 			query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("startD", new Date()).setParameter(("endD"), new Date());
 		}
-		else if(endDate != null) {
+		else if(startDate == null && endDate != null) {
 			try {
 				query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("startD", new SimpleDateFormat("DD/MM/YYYY").parse("01/01/1900")).setParameter(("endD"), endDate);
 			} catch (ParseException e) {
