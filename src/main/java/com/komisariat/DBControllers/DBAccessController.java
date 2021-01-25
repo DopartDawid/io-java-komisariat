@@ -71,8 +71,8 @@ public class DBAccessController implements IDBAccessController {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 
-		String select = "FROM Kit k WHERE k.headquarter.id = :hq AND NOT EXISTS (FROM Shift s WHERE s.officer.headquarter.id = :hq AND s.endDate IS NULL AND s.kit.id = k.id)";
-		Query query = session.createQuery(select).setParameter("hq", hq.getId());
+		String select = "FROM Kit k WHERE k.category != :removed AND k.headquarter.id = :hq AND NOT EXISTS (FROM Shift s WHERE s.officer.headquarter.id = :hq AND s.endDate IS NULL AND s.kit.id = k.id)";
+		Query query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("removed", "USUNIETY");
 
 		List<Kit> results = query.getResultList();
 
@@ -86,13 +86,10 @@ public class DBAccessController implements IDBAccessController {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 
-		CriteriaBuilder cb = session.getCriteriaBuilder();
-		CriteriaQuery<Kit> cr = cb.createQuery(Kit.class);
-		Root<Kit> root = cr.from(Kit.class);
+		String select = "FROM Kit k WHERE k.category != :removed";
+		Query query = session.createQuery(select).setParameter("removed", "USUNIETY");
 
-		cr.select(root);
-
-		List<Kit> results = session.createQuery(cr).getResultList();
+		List<Kit> results = query.getResultList();
 
 		tx.commit();
 		session.close();
@@ -149,10 +146,10 @@ public class DBAccessController implements IDBAccessController {
 			select = "FROM Shift s WHERE s.officer.headquarter.id = :hq";
 			query = session.createQuery(select).setParameter("hq", hq.getId());
 		}
-		else if(startDate != null) {
+		else if(startDate != null && endDate == null) {
 			query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("startD", new Date()).setParameter(("endD"), new Date());
 		}
-		else if(endDate != null) {
+		else if(startDate == null && endDate != null) {
 			try {
 				query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("startD", new SimpleDateFormat("DD/MM/YYYY").parse("01/01/1900")).setParameter(("endD"), endDate);
 			} catch (ParseException e) {
@@ -176,13 +173,10 @@ public class DBAccessController implements IDBAccessController {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 
-		CriteriaBuilder cb = session.getCriteriaBuilder();
-		CriteriaQuery<Shift> cr = cb.createQuery(Shift.class);
-		Root<Shift> root = cr.from(Shift.class);
+		String select = "FROM Shift s WHERE s.officer.headquarter.id = :hq AND s.endDate IS NULL AND s.officer.badgeNumber = :badge";
+		Query query = session.createQuery(select).setParameter("hq", officer.getHeadquarter().getId()).setParameter("badge", officer.getBadgeNumber());
 
-		cr.select(root).where(cb.equal(root.get("officer").get("badgeNumber"), officer.getBadgeNumber()));
-
-		List<Shift> results = session.createQuery(cr).getResultList();
+		List<Shift> results = query.getResultList();
 
 		tx.commit();
 		session.close();
@@ -225,10 +219,10 @@ public class DBAccessController implements IDBAccessController {
 			select = "FROM Report r WHERE (SELECT s.officer.headquarter.id FROM Shift s WHERE s.report.id = r.id) = :hq";
 			query = session.createQuery(select).setParameter("hq", hq.getId());
 		}
-		else if(startDate != null) {
+		else if(startDate != null && endDate == null) {
 			query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("startD", new Date()).setParameter(("endD"), new Date());
 		}
-		else if(endDate != null) {
+		else if(startDate == null && endDate != null) {
 			try {
 				query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("startD", new SimpleDateFormat("DD/MM/YYYY").parse("01/01/1900")).setParameter(("endD"), endDate);
 			} catch (ParseException e) {
@@ -251,8 +245,8 @@ public class DBAccessController implements IDBAccessController {
 	public Collection<Officer> getOfficers(Headquarter hq) {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
-		String select = "FROM Officer o WHERE o.headquarter.id = :hq";
-		Query query = session.createQuery(select).setParameter("hq", hq.getId());
+		String select = "FROM Officer o WHERE o.headquarter.id = :hq AND o.accessLevel != :removed";
+		Query query = session.createQuery(select).setParameter("hq", hq.getId()).setParameter("removed", AccessLevel.Removed);
 
 		List<Officer> results = query.getResultList();
 
@@ -266,13 +260,10 @@ public class DBAccessController implements IDBAccessController {
 		Session session = factory.openSession();
 		Transaction tx = session.beginTransaction();
 
-		CriteriaBuilder cb = session.getCriteriaBuilder();
-		CriteriaQuery<Officer> cr = cb.createQuery(Officer.class);
-		Root<Officer> root = cr.from(Officer.class);
+		String select = "FROM Officer o WHERE o.accessLevel != :removed";
+		Query query = session.createQuery(select).setParameter("removed", AccessLevel.Removed);
 
-		cr.select(root);
-
-		List<Officer> results = session.createQuery(cr).getResultList();
+		List<Officer> results = query.getResultList();
 
 		tx.commit();
 		session.close();

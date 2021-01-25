@@ -5,9 +5,9 @@ import com.komisariat.LogicControllers.AdminManager;
 import com.komisariat.LogicControllers.CommissionerManager;
 import com.komisariat.LogicControllers.LoginManager;
 import com.komisariat.LogicControllers.OfficerManager;
+import com.komisariat.UI.GraphicalUI;
 import com.komisariat.UI.IUserInterface;
 import com.komisariat.UI.TextUI;
-import com.sun.xml.bind.v2.runtime.reflect.Lister;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -25,7 +25,7 @@ public class App {
 		adminManager = null;
 		officerManager = null;
 		commissionerManager = null;
-		ui = new TextUI(this);
+		ui = GraphicalUI.getInstance();
 	}
 
 	public void start() {
@@ -167,6 +167,7 @@ public class App {
 
 	public void removeOfficer() {
 		Integer chosenOfficerID = ui.getRemoveOfficerID();
+		System.out.println(chosenOfficerID);
 		adminManager.removeOfficer(chosenOfficerID);
 	}
 
@@ -206,6 +207,7 @@ public class App {
 			temp.put("name", kit.getName());
 			temp.put("category", kit.getCategory());
 			temp.put("hqID", Integer.toString(kit.getHeadquarter().getId()));
+			temp.put("hqAddress", kit.getHeadquarter().getStreet() + " " + kit.getHeadquarter().getNumber());
 			kitsInfo.add(temp);
 		}
 		return kitsInfo;

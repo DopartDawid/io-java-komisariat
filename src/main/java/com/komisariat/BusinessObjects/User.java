@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int id;
 

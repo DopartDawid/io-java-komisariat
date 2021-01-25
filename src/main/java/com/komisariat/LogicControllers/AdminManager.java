@@ -96,8 +96,7 @@ public class AdminManager {
 		Officer newOfficer = createOfficer(badgeNumber, firstName, lastName, hqID, rank);
 		newOfficer.setPassHash(hashPass(Integer.toString(badgeNumber)));
 		newOfficer.setAccessLevel(AccessLevel.Officer);
-		newOfficer.setLogin(""); 						   // just until trigger is not removed
-		//newOfficer.setLogin(firstName + "_" + lastName); //TODO change/remove trigger in DB
+		newOfficer.setLogin(firstName + "_" + lastName);
 		accessController.saveOfficer(newOfficer);
 	}
 

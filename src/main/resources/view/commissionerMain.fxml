@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="566.0" prefWidth="1203.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.komisariat.UI.controllers.CommissionerUIController">
+   <children>
+      <Label layoutX="15.0" layoutY="48.0" prefHeight="41.0" prefWidth="231.0" text="Panel komendanta" textFill="#8d8383">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+      <Label layoutX="83.0" layoutY="164.0" text="Wybierz działanie:" />
+      <Button layoutX="76.0" layoutY="210.0" mnemonicParsing="false" onAction="#handleShiftStartButtonClick" text="Rozpocznij służbę" />
+      <Button layoutX="75.0" layoutY="243.0" mnemonicParsing="false" onAction="#handleShiftEndButtonClick" prefHeight="25.0" prefWidth="111.0" text="Zakończ służbę" />
+      <Label layoutX="60.0" layoutY="328.0" text="Zarządzanie posterunkiem:" />
+      <Button layoutX="28.0" layoutY="358.0" mnemonicParsing="false" onAction="#handleShowReportsButtonClick" prefHeight="25.0" prefWidth="231.0" text="Wyswietl dostepne raporty" />
+      <Button layoutX="28.0" layoutY="394.0" mnemonicParsing="false" onAction="#handleShowOfficersButtonClick" text="Wyswietl informacje o funkcjonariuszach" />
+      <Button layoutX="28.0" layoutY="427.0" mnemonicParsing="false" onAction="#handleTimeOfWorkButtonClick" prefHeight="25.0" prefWidth="231.0" text="Wyswietl ewidencje czasu pracy" />
+      <Button layoutX="28.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleShowActiveOfficersButtonClick" prefHeight="25.0" prefWidth="231.0" text="Wyswietl aktywnych funkcjonariuszy" />
+      <Line endX="133.0" endY="206.79290771484375" layoutX="142.0" layoutY="110.0" startX="133.0" startY="18.0" />
+      <Line endX="100.0" endY="0.5" layoutX="175.0" layoutY="127.0" startX="-163.5" startY="0.5" />
+      <Line endX="-119.0" endY="212.0" layoutX="130.0" layoutY="105.0" startX="-119.0" startY="23.0" />
+      <Line endX="163.5" endY="-1.70709228515625" layoutX="111.0" layoutY="319.0" startX="-99.5" startY="-1.5" />
+      <Line endX="133.0" endY="238.29290771484375" layoutX="142.0" layoutY="79.0" startX="133.0" startY="442.0" />
+      <Line endX="-331.0" endY="225.5" layoutX="343.0" layoutY="296.0" startX="-69.0" startY="225.5" />
+      <Line endX="-119.0" endY="46.5" layoutX="130.0" layoutY="270.0" startX="-119.0" startY="251.0" />
+       <TabPane layoutX="289.0" layoutY="57.0" prefHeight="470.0" prefWidth="853.0" tabClosingPolicy="UNAVAILABLE">
+           <tabs>
+               <Tab text="Dostepne raporty">
+                   <content>
+                       <TableView fx:id="availableReports" prefHeight="200.0" prefWidth="200.0">
+                           <columns>
+                               <TableColumn minWidth="8.0" prefWidth="155.0" text="DATA DODANIA" />
+                               <TableColumn minWidth="0.0" prefWidth="176.0" text="TYTUŁ" />
+                               <TableColumn prefWidth="213.0" text="AUTOR" />
+                           </columns>
+                       </TableView>
+                   </content>
+               </Tab>
+               <Tab text="Informacje o funkcjonariuszach">
+                   <content>
+                       <TableView fx:id="officerInfoTable" prefHeight="200.0" prefWidth="200.0">
+                           <columns>
+                               <TableColumn prefWidth="137.0" text="NUMER ODZNAKI" />
+                               <TableColumn minWidth="8.0" prefWidth="106.0" text="IMIĘ" />
+                               <TableColumn minWidth="0.0" prefWidth="144.0" text="NAZWISKO" />
+                               <TableColumn prefWidth="166.0" text="KOMISARIAT" />
+                               <TableColumn minWidth="0.0" prefWidth="139.0" text="STOPIEŃ" />
+                           </columns>
+                       </TableView>
+                   </content>
+               </Tab>
+               <Tab text="Aktywni funkcjonariusze">
+                   <content>
+                       <TableView fx:id="activeOfficerTable" prefHeight="200.0" prefWidth="200.0">
+                           <columns>
+                               <TableColumn prefWidth="137.0" text="NUMER ODZNAKI" />
+                               <TableColumn minWidth="8.0" prefWidth="106.0" text="IMIĘ" />
+                               <TableColumn minWidth="0.0" prefWidth="144.0" text="NAZWISKO" />
+                               <TableColumn prefWidth="166.0" text="KOMISARIAT" />
+                               <TableColumn minWidth="0.0" prefWidth="139.0" text="STOPIEŃ" />
+                           </columns>
+                       </TableView>
+                   </content>
+               </Tab>
+
+               <Tab text="Ewidencja czasu pracy">
+                   <content>
+                       <TableView fx:id="workSheetTable" prefHeight="441.0" prefWidth="769.0">
+                           <columns>
+                               <TableColumn prefWidth="68.0" text="NUMER" />
+                               <TableColumn minWidth="5.0" prefWidth="127.0" text="POCZATEK" />
+                               <TableColumn minWidth="0.0" prefWidth="94.0" text="KONIEC" />
+                               <TableColumn minWidth="0.0" prefWidth="118.0" text="FUNKCJONARIUSZ" />
+                               <TableColumn minWidth="0.0" prefWidth="171.0" text="PATROLOWANY REGION" />
+                               <TableColumn minWidth="0.0" prefWidth="173.0" text="UZYWANY EKWIPUNEK" />
+                               <TableColumn minWidth="0.0" prefWidth="92.0" text="POJAZD" />
+                           </columns>
+                       </TableView>
+                   </content>
+               </Tab>
+           </tabs>
+       </TabPane>
+      <Button layoutX="76.0" layoutY="279.0" mnemonicParsing="false" onAction="#signOutButtonHandle" prefHeight="26.0" prefWidth="111.0" text="Wyloguj" />
+   </children>
+</AnchorPane>
